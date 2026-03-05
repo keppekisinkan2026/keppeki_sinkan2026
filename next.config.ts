@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
-const repoName = "keppeki_sinkan2026";
 const isGithubActions = process.env.GITHUB_ACTIONS === "true";
+const repositorySlug = process.env.GITHUB_REPOSITORY ?? "";
+const repositoryNameFromSlug = repositorySlug.split("/")[1];
+const repositoryName = repositoryNameFromSlug || "keppeki_sinkan2026";
+const isOrgSiteRepository = repositoryName.endsWith(".github.io");
+const githubPagesBasePath = isOrgSiteRepository ? "" : `/${repositoryName}`;
+const githubPagesAssetPrefix = githubPagesBasePath ? `${githubPagesBasePath}/` : "";
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -9,10 +14,10 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: isGithubActions ? `/${repoName}` : "",
-  assetPrefix: isGithubActions ? `/${repoName}/` : "",
+  basePath: isGithubActions ? githubPagesBasePath : "",
+  assetPrefix: isGithubActions ? githubPagesAssetPrefix : "",
   env: {
-    NEXT_PUBLIC_BASE_PATH: isGithubActions ? `/${repoName}` : "",
+    NEXT_PUBLIC_BASE_PATH: isGithubActions ? githubPagesBasePath : "",
   },
 };
 
