@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, RefObject } from "react";
 import { WireframeTextureLayer } from "./WireframeTextureLayer";
 
 type WireframeShellProps = {
@@ -6,6 +6,7 @@ type WireframeShellProps = {
   screenClassName?: string;
   frameClassName?: string;
   innerClassName?: string;
+  rootRef?: RefObject<HTMLElement | null>;
 };
 
 function joinClassNames(...classNames: Array<string | undefined>) {
@@ -17,9 +18,10 @@ export function WireframeShell({
   screenClassName,
   frameClassName,
   innerClassName,
+  rootRef,
 }: WireframeShellProps) {
   return (
-    <main className={joinClassNames("wf-screen", screenClassName)}>
+    <main ref={rootRef} className={joinClassNames("wf-screen", screenClassName)}>
       <WireframeTextureLayer />
       <div className={joinClassNames("wf-frame", frameClassName)}>
         <div className={joinClassNames("wf-frame-inner", innerClassName)}>{children}</div>

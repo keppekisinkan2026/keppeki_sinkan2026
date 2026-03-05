@@ -1,5 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { socialLinks } from "@/components/maintenance/socialLinkData";
 import { CrayonPanelTexture } from "@/components/wireframe/CrayonPanelTexture";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
@@ -15,14 +21,63 @@ const titleNavigationLinks = [
 
 const aboutSectionRows = [0, 1, 2, 3];
 
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+
 export default function TitleWireframePage() {
+  const rootRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const header = rootRef.current?.querySelector<HTMLElement>(".js-draw-header");
+      const sections = gsap.utils.toArray<HTMLElement>(".js-draw-section");
+
+      if (!header) {
+        return;
+      }
+
+      const hiddenState = {
+        clipPath: "inset(0% 100% 0% 0%)",
+        opacity: 0.45,
+        x: -18,
+      };
+
+      gsap.set(header, hiddenState);
+      gsap.set(sections, hiddenState);
+
+      gsap.to(header, {
+        clipPath: "inset(0% 0% 0% 0%)",
+        opacity: 1,
+        x: 0,
+        duration: 1.15,
+        ease: "power3.out",
+      });
+
+      sections.forEach((section) => {
+        gsap.to(section, {
+          clipPath: "inset(0% 0% 0% 0%)",
+          opacity: 1,
+          x: 0,
+          duration: 1.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+            once: true,
+          },
+        });
+      });
+    },
+    { scope: rootRef },
+  );
+
   return (
     <WireframeShell
+      rootRef={rootRef}
       screenClassName="wf-screen--title"
       frameClassName="wf-frame--title"
       innerClassName="wf-frame-inner--title"
     >
-      <header className="wf-crayon-panel wf-title-header">
+      <header className="wf-crayon-panel wf-title-header js-draw-header">
         <CrayonPanelTexture />
         <div className="wf-title-logo-wrap">
           <Image
@@ -50,7 +105,10 @@ export default function TitleWireframePage() {
         </nav>
       </header>
 
-      <section id="sns" className="wf-crayon-panel wf-title-section wf-title-sns-section">
+      <section
+        id="sns"
+        className="wf-crayon-panel wf-title-section wf-title-sns-section js-draw-section"
+      >
         <CrayonPanelTexture />
         <h2 className="wf-maki-title wf-title-section-title">SNS</h2>
         <ul className="wf-title-sns-list">
@@ -80,7 +138,7 @@ export default function TitleWireframePage() {
 
       <a
         href="https://keppeki.github.io/"
-        className="wf-crayon-panel wf-title-hp-button wf-maki-title"
+        className="wf-crayon-panel wf-title-hp-button wf-maki-title js-draw-section"
         target="_blank"
         rel="noreferrer noopener"
       >
@@ -88,7 +146,10 @@ export default function TitleWireframePage() {
         新歓公演のHPはこちら
       </a>
 
-      <section id="about" className="wf-crayon-panel wf-title-section wf-title-about-section">
+      <section
+        id="about"
+        className="wf-crayon-panel wf-title-section wf-title-about-section js-draw-section"
+      >
         <CrayonPanelTexture />
         <h2 className="wf-maki-title wf-title-section-title">劇団ケッペキとは</h2>
         <div className="wf-title-about-list">
@@ -109,7 +170,7 @@ export default function TitleWireframePage() {
         </div>
       </section>
 
-      <section className="wf-crayon-panel wf-title-section wf-title-join-section">
+      <section className="wf-crayon-panel wf-title-section wf-title-join-section js-draw-section">
         <CrayonPanelTexture />
         <h2 className="wf-maki-title wf-title-section-title">入団希望の方へ</h2>
         <div className="wf-title-join-lines" aria-hidden>

@@ -6,6 +6,53 @@ function randomBetween(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
+function drawCrayonTexture(p: import("p5").default) {
+  if (!p || typeof p.clear !== "function") {
+    return;
+  }
+
+  p.clear();
+  p.noFill();
+
+  for (let pass = 0; pass < 3; pass += 1) {
+    for (let y = -20; y <= p.height + 20; y += 10) {
+      p.stroke(
+        p.random(150, 180),
+        p.random(190, 220),
+        p.random(82, 112),
+        p.random(24, 44),
+      );
+      p.strokeWeight(p.random(7, 13));
+      p.beginShape();
+      for (let x = -20; x <= p.width + 20; x += 26) {
+        p.vertex(x, y + pass * 2 + p.random(-4, 4));
+      }
+      p.endShape();
+    }
+  }
+
+  for (let i = 0; i < Math.max(14, Math.floor(p.width / 7)); i += 1) {
+    const x = p.random(0, p.width);
+    const y1 = p.random(-10, p.height * 0.72);
+    const y2 = y1 + p.random(p.height * 0.12, p.height * 0.48);
+    p.stroke(228, 244, 208, p.random(10, 28));
+    p.strokeWeight(p.random(2, 5));
+    p.line(x, y1, x + p.random(-3, 3), y2);
+  }
+
+  p.noStroke();
+  const grainCount = Math.max(120, Math.floor((p.width * p.height) / 300));
+  for (let i = 0; i < grainCount; i += 1) {
+    const isLight = Math.random() > 0.5;
+    if (isLight) {
+      p.fill(239, 250, 232, p.random(9, 20));
+    } else {
+      p.fill(118, 154, 68, p.random(8, 20));
+    }
+    p.circle(p.random(0, p.width), p.random(0, p.height), p.random(0.8, 2.2));
+  }
+}
+
 export function CrayonPanelTexture() {
   const rootRef = useRef<HTMLSpanElement>(null);
   const crayonRootRef = useRef<HTMLSpanElement>(null);
@@ -14,11 +61,11 @@ export function CrayonPanelTexture() {
   useEffect(() => {
     let disposed = false;
     let p5Instance: import("p5").default | null = null;
+    let p5SketchRef: import("p5").default | null = null;
+    let p5Ready = false;
     let removeResizeListener: (() => void) | null = null;
     let resizeObserver: ResizeObserver | null = null;
-    let drawCrayonTexture: (() => void) | null = null;
     let rafId: number | null = null;
-    let drawPencilTexture: (() => void) | null = null;
 
     const initializeTexture = async () => {
       const root = rootRef.current;
@@ -27,24 +74,6 @@ export function CrayonPanelTexture() {
       if (!root || !crayonRoot || !pencilCanvas) {
         return;
       }
-
-      const safeRedraw = () => {
-        if (rafId !== null) {
-          cancelAnimationFrame(rafId);
-        }
-        rafId = window.requestAnimationFrame(() => {
-          if (disposed) {
-            return;
-          }
-          const width = Math.max(1, root.clientWidth);
-          const height = Math.max(1, root.clientHeight);
-          if (p5Instance) {
-            p5Instance.resizeCanvas(width, height);
-            drawCrayonTexture?.();
-          }
-          drawPencilTexture?.();
-        });
-      };
 
       try {
         const [{ default: P5 }, { default: rough }] = await Promise.all([
@@ -56,7 +85,7 @@ export function CrayonPanelTexture() {
           return;
         }
 
-        drawPencilTexture = () => {
+        const drawPencilTexture = () => {
           const width = Math.max(1, root.clientWidth);
           const height = Math.max(1, root.clientHeight);
           const dpr = window.devicePixelRatio || 1;
@@ -75,125 +104,82 @@ export function CrayonPanelTexture() {
           context.clearRect(0, 0, width, height);
 
           const roughCanvas = rough.canvas(pencilCanvas);
+          const topY = 5;
+          const bottomY = height - 5;
+          const topSegments: Array<[number, number]> = [
+            [0.03, 0.46],
+            [0.54, 0.97],
+          ];
+          const bottomSegments: Array<[number, number]> = [
+            [0.03, 0.44],
+            [0.55, 0.97],
+          ];
 
-          const topY = randomBetween(4, 7);
-          const bottomY = height - randomBetween(4, 7);
-
-          roughCanvas.linearPath(
-            [
-              [randomBetween(4, 10), topY + randomBetween(-1.2, 1.2)],
-              [width * 0.2, topY + randomBetween(-1.8, 1.8)],
-              [width * 0.45, topY + randomBetween(-1.8, 1.8)],
-              [width * 0.72, topY + randomBetween(-1.6, 1.6)],
-              [width - randomBetween(4, 10), topY + randomBetween(-1.2, 1.2)],
-            ],
-            {
-              stroke: "rgba(35, 43, 35, 0.5)",
-              strokeWidth: randomBetween(1.1, 1.8),
-              roughness: randomBetween(1.9, 2.8),
-              bowing: randomBetween(1.8, 3),
-            },
-          );
-
-          roughCanvas.linearPath(
-            [
-              [randomBetween(4, 10), bottomY + randomBetween(-1.3, 1.3)],
-              [width * 0.26, bottomY + randomBetween(-1.8, 1.8)],
-              [width * 0.56, bottomY + randomBetween(-1.8, 1.8)],
-              [width * 0.8, bottomY + randomBetween(-1.7, 1.7)],
-              [width - randomBetween(4, 10), bottomY + randomBetween(-1.3, 1.3)],
-            ],
-            {
-              stroke: "rgba(35, 43, 35, 0.52)",
-              strokeWidth: randomBetween(1.1, 1.7),
-              roughness: randomBetween(1.8, 2.6),
-              bowing: randomBetween(1.7, 2.8),
-            },
-          );
-
-          const leftX = randomBetween(2, 4);
-          const rightX = width - randomBetween(2, 4);
-
-          roughCanvas.line(leftX, height * 0.08, leftX, height * 0.36, {
-            stroke: "rgba(35, 43, 35, 0.44)",
-            strokeWidth: randomBetween(0.8, 1.4),
-            roughness: randomBetween(1.7, 2.4),
-            bowing: randomBetween(1.1, 2.2),
+          topSegments.forEach(([start, end]) => {
+            roughCanvas.linearPath(
+              [
+                [width * start, topY + randomBetween(-0.45, 0.45)],
+                [width * (start + end) * 0.5, topY + randomBetween(-0.5, 0.5)],
+                [width * end, topY + randomBetween(-0.45, 0.45)],
+              ],
+              {
+                stroke: "rgba(35, 43, 35, 0.5)",
+                strokeWidth: randomBetween(1.25, 1.42),
+                roughness: randomBetween(0.8, 1.15),
+                bowing: randomBetween(0.5, 0.9),
+              },
+            );
           });
 
-          roughCanvas.line(leftX, height * 0.58, leftX, height * 0.9, {
-            stroke: "rgba(35, 43, 35, 0.42)",
-            strokeWidth: randomBetween(0.8, 1.4),
-            roughness: randomBetween(1.7, 2.4),
-            bowing: randomBetween(1.1, 2.2),
+          bottomSegments.forEach(([start, end]) => {
+            roughCanvas.linearPath(
+              [
+                [width * start, bottomY + randomBetween(-0.45, 0.45)],
+                [width * (start + end) * 0.5, bottomY + randomBetween(-0.5, 0.5)],
+                [width * end, bottomY + randomBetween(-0.45, 0.45)],
+              ],
+              {
+                stroke: "rgba(35, 43, 35, 0.52)",
+                strokeWidth: randomBetween(1.25, 1.42),
+                roughness: randomBetween(0.8, 1.15),
+                bowing: randomBetween(0.5, 0.9),
+              },
+            );
           });
+        };
 
-          roughCanvas.line(rightX, height * 0.12, rightX, height * 0.32, {
-            stroke: "rgba(35, 43, 35, 0.44)",
-            strokeWidth: randomBetween(0.8, 1.4),
-            roughness: randomBetween(1.7, 2.4),
-            bowing: randomBetween(1.1, 2.2),
-          });
+        const redrawTexture = () => {
+          if (disposed) {
+            return;
+          }
+          const width = Math.max(1, root.clientWidth);
+          const height = Math.max(1, root.clientHeight);
+          if (p5Instance && p5Ready && p5SketchRef) {
+            p5Instance.resizeCanvas(width, height);
+            drawCrayonTexture(p5SketchRef);
+          }
+          drawPencilTexture();
+        };
 
-          roughCanvas.line(rightX, height * 0.54, rightX, height * 0.88, {
-            stroke: "rgba(35, 43, 35, 0.44)",
-            strokeWidth: randomBetween(0.8, 1.4),
-            roughness: randomBetween(1.7, 2.4),
-            bowing: randomBetween(1.1, 2.2),
+        const safeRedraw = () => {
+          if (rafId !== null) {
+            cancelAnimationFrame(rafId);
+          }
+          rafId = window.requestAnimationFrame(() => {
+            redrawTexture();
           });
         };
 
         const sketch = (p: import("p5").default) => {
-          drawCrayonTexture = () => {
-            p.clear();
-            p.noFill();
-
-            for (let pass = 0; pass < 3; pass += 1) {
-              for (let y = -20; y <= p.height + 20; y += 10) {
-                p.stroke(
-                  p.random(150, 180),
-                  p.random(190, 220),
-                  p.random(82, 112),
-                  p.random(24, 44),
-                );
-                p.strokeWeight(p.random(7, 13));
-                p.beginShape();
-                for (let x = -20; x <= p.width + 20; x += 26) {
-                  p.vertex(x, y + pass * 2 + p.random(-4, 4));
-                }
-                p.endShape();
-              }
-            }
-
-            for (let i = 0; i < Math.max(14, Math.floor(p.width / 7)); i += 1) {
-              const x = p.random(0, p.width);
-              const y1 = p.random(-10, p.height * 0.72);
-              const y2 = y1 + p.random(p.height * 0.12, p.height * 0.48);
-              p.stroke(228, 244, 208, p.random(10, 28));
-              p.strokeWeight(p.random(2, 5));
-              p.line(x, y1, x + p.random(-3, 3), y2);
-            }
-
-            p.noStroke();
-            const grainCount = Math.max(120, Math.floor((p.width * p.height) / 300));
-            for (let i = 0; i < grainCount; i += 1) {
-              const isLight = Math.random() > 0.5;
-              if (isLight) {
-                p.fill(239, 250, 232, p.random(9, 20));
-              } else {
-                p.fill(118, 154, 68, p.random(8, 20));
-              }
-              p.circle(p.random(0, p.width), p.random(0, p.height), p.random(0.8, 2.2));
-            }
-          };
-
           p.setup = () => {
             const width = Math.max(1, root.clientWidth);
             const height = Math.max(1, root.clientHeight);
             p.pixelDensity(1);
             const canvas = p.createCanvas(width, height);
             canvas.parent(crayonRoot);
-            drawCrayonTexture?.();
+            p5SketchRef = p;
+            p5Ready = true;
+            drawCrayonTexture(p);
             p.noLoop();
           };
         };
@@ -230,6 +216,8 @@ export function CrayonPanelTexture() {
       if (rafId !== null) {
         cancelAnimationFrame(rafId);
       }
+      p5Ready = false;
+      p5SketchRef = null;
       p5Instance?.remove();
     };
   }, []);

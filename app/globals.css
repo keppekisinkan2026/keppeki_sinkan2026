@@ -712,26 +712,16 @@ body {
 
 .wf-crayon-panel {
   --panel-fill: var(--wf-block);
-  --panel-edge: clamp(7px, 0.8vw, 10px);
+  --panel-wave-step: clamp(14px, 1.25vw, 18px);
+  --panel-wave-size: clamp(8px, 0.78vw, 11px);
+  --panel-wave-offset: clamp(6px, 0.65vw, 9px);
   position: relative;
   overflow: hidden;
   isolation: isolate;
   padding: clamp(13px, 1.35vw, 22px);
   background: var(--panel-fill);
-  border-radius: 2px;
+  border-radius: 1px;
   box-shadow: 0 3px 0 rgba(39, 56, 35, 0.12);
-  -webkit-mask:
-    radial-gradient(circle at left center, transparent calc(var(--panel-edge) - 0.5px), #000 var(--panel-edge))
-      left top / calc(var(--panel-edge) * 1.6) calc(var(--panel-edge) * 1.6) repeat-y,
-    radial-gradient(circle at right center, transparent calc(var(--panel-edge) - 0.5px), #000 var(--panel-edge))
-      right top / calc(var(--panel-edge) * 1.6) calc(var(--panel-edge) * 1.6) repeat-y,
-    linear-gradient(#000 0 0) center / calc(100% - (var(--panel-edge) * 1.2)) 100% no-repeat;
-  mask:
-    radial-gradient(circle at left center, transparent calc(var(--panel-edge) - 0.5px), #000 var(--panel-edge))
-      left top / calc(var(--panel-edge) * 1.6) calc(var(--panel-edge) * 1.6) repeat-y,
-    radial-gradient(circle at right center, transparent calc(var(--panel-edge) - 0.5px), #000 var(--panel-edge))
-      right top / calc(var(--panel-edge) * 1.6) calc(var(--panel-edge) * 1.6) repeat-y,
-    linear-gradient(#000 0 0) center / calc(100% - (var(--panel-edge) * 1.2)) 100% no-repeat;
 }
 
 .wf-crayon-panel::before {
@@ -739,12 +729,36 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.12;
-  background: linear-gradient(180deg, rgba(232, 247, 214, 0.22), rgba(117, 156, 67, 0.12));
+  opacity: 0.15;
+  background:
+    linear-gradient(180deg, rgba(232, 247, 214, 0.22), rgba(117, 156, 67, 0.12)),
+    repeating-linear-gradient(
+      -9deg,
+      rgba(179, 220, 118, 0.16) 0 12px,
+      rgba(133, 178, 70, 0.13) 12px 22px
+    );
+  z-index: 0;
 }
 
 .wf-crayon-panel::after {
-  content: none;
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(
+        circle at left center,
+        var(--wf-paper) 0 calc(var(--panel-wave-size) - 0.25px),
+        transparent calc(var(--panel-wave-size) + 0.25px)
+      )
+      left var(--panel-wave-offset) / calc(var(--panel-wave-size) * 1.4) var(--panel-wave-step) repeat-y,
+    radial-gradient(
+        circle at right center,
+        var(--wf-paper) 0 calc(var(--panel-wave-size) - 0.25px),
+        transparent calc(var(--panel-wave-size) + 0.25px)
+      )
+      right var(--panel-wave-offset) / calc(var(--panel-wave-size) * 1.4) var(--panel-wave-step) repeat-y;
 }
 
 .wf-crayon-panel > * {
@@ -777,7 +791,7 @@ body {
 }
 
 .wf-panel-texture-pencil {
-  opacity: 0.8;
+  opacity: 0.66;
   mix-blend-mode: multiply;
 }
 
@@ -805,8 +819,13 @@ body {
 .wf-title-divider {
   position: relative;
   width: min(1260px, 98%);
-  height: 12px;
+  height: 14px;
   margin: 2px auto 0;
+  background:
+    linear-gradient(90deg, rgba(247, 252, 247, 0.84), rgba(253, 255, 253, 0.92), rgba(241, 248, 241, 0.8));
+  border-radius: 999px;
+  opacity: 0.92;
+  transform: rotate(-0.15deg);
 }
 
 .wf-title-divider::before,
@@ -826,18 +845,18 @@ body {
 }
 
 .wf-title-divider::before {
-  top: 1px;
-  height: 6px;
-  transform: rotate(-0.55deg);
+  top: 2px;
+  height: 5px;
+  transform: rotate(-0.6deg);
 }
 
 .wf-title-divider::after {
-  top: 5px;
-  left: 3%;
-  right: 2%;
-  height: 5px;
-  opacity: 0.76;
-  transform: rotate(0.42deg);
+  top: 7px;
+  left: 4%;
+  right: 3%;
+  height: 4px;
+  opacity: 0.72;
+  transform: rotate(0.55deg);
 }
 
 .wf-title-nav {
@@ -850,10 +869,15 @@ body {
 .wf-title-nav-link {
   color: rgba(249, 252, 248, 0.97);
   text-decoration: none;
-  font-size: clamp(16px, 1.75vw, 30px);
+  font-size: clamp(18px, 1.95vw, 32px);
   font-weight: 700;
   line-height: 1.2;
   text-shadow: 0 1px 0 rgba(58, 74, 42, 0.36);
+}
+
+.js-draw-header,
+.js-draw-section {
+  will-change: transform, opacity, clip-path;
 }
 
 .wf-title-nav-link:hover {
