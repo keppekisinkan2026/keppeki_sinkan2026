@@ -710,18 +710,56 @@ body {
   width: 100%;
 }
 
+.wf-title-hero-stage {
+  min-height: 0;
+  display: block;
+}
+
+.wf-title-hero-panel {
+  width: 100%;
+  z-index: 3;
+  will-change: transform, filter;
+}
+
 .wf-crayon-panel {
   --panel-fill: var(--wf-block);
-  --panel-wave-step: clamp(14px, 1.25vw, 18px);
-  --panel-wave-size: clamp(8px, 0.78vw, 11px);
-  --panel-wave-offset: clamp(6px, 0.65vw, 9px);
+  --panel-edge-y: clamp(20px, 1.9vw, 30px);
+  --panel-edge-x: clamp(13px, 1.12vw, 18px);
   position: relative;
   overflow: hidden;
   isolation: isolate;
   padding: clamp(13px, 1.35vw, 22px);
   background: var(--panel-fill);
-  border-radius: 1px;
+  border-radius: 2px;
   box-shadow: 0 3px 0 rgba(39, 56, 35, 0.12);
+  -webkit-mask:
+    radial-gradient(
+        ellipse 132% 100% at left center,
+        transparent calc(var(--panel-edge-y) - 1px),
+        #000 calc(var(--panel-edge-y) + 0.35px)
+      )
+      left top / calc(var(--panel-edge-y) * 2.95) calc(var(--panel-edge-y) * 2.45) repeat-y,
+    radial-gradient(
+        ellipse 132% 100% at right center,
+        transparent calc(var(--panel-edge-y) - 1px),
+        #000 calc(var(--panel-edge-y) + 0.35px)
+      )
+      right top / calc(var(--panel-edge-y) * 2.95) calc(var(--panel-edge-y) * 2.45) repeat-y,
+    linear-gradient(#000 0 0) center / calc(100% - (var(--panel-edge-x) * 2.25)) 100% no-repeat;
+  mask:
+    radial-gradient(
+        ellipse 132% 100% at left center,
+        transparent calc(var(--panel-edge-y) - 1px),
+        #000 calc(var(--panel-edge-y) + 0.35px)
+      )
+      left top / calc(var(--panel-edge-y) * 2.95) calc(var(--panel-edge-y) * 2.45) repeat-y,
+    radial-gradient(
+        ellipse 132% 100% at right center,
+        transparent calc(var(--panel-edge-y) - 1px),
+        #000 calc(var(--panel-edge-y) + 0.35px)
+      )
+      right top / calc(var(--panel-edge-y) * 2.95) calc(var(--panel-edge-y) * 2.45) repeat-y,
+    linear-gradient(#000 0 0) center / calc(100% - (var(--panel-edge-x) * 2.25)) 100% no-repeat;
 }
 
 .wf-crayon-panel::before {
@@ -729,13 +767,19 @@ body {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  opacity: 0.15;
+  opacity: 0.48;
+  mix-blend-mode: multiply;
   background:
-    linear-gradient(180deg, rgba(232, 247, 214, 0.22), rgba(117, 156, 67, 0.12)),
+    linear-gradient(180deg, rgba(237, 250, 222, 0.36), rgba(128, 172, 72, 0.25)),
     repeating-linear-gradient(
-      -9deg,
-      rgba(179, 220, 118, 0.16) 0 12px,
-      rgba(133, 178, 70, 0.13) 12px 22px
+      -8deg,
+      rgba(196, 230, 140, 0.32) 0 16px,
+      rgba(124, 167, 66, 0.24) 16px 31px
+    ),
+    repeating-linear-gradient(
+      11deg,
+      rgba(215, 239, 174, 0.2) 0 12px,
+      rgba(141, 184, 79, 0.18) 12px 24px
     );
   z-index: 0;
 }
@@ -747,18 +791,13 @@ body {
   pointer-events: none;
   z-index: 0;
   background:
-    radial-gradient(
-        circle at left center,
-        var(--wf-paper) 0 calc(var(--panel-wave-size) - 0.25px),
-        transparent calc(var(--panel-wave-size) + 0.25px)
-      )
-      left var(--panel-wave-offset) / calc(var(--panel-wave-size) * 1.4) var(--panel-wave-step) repeat-y,
-    radial-gradient(
-        circle at right center,
-        var(--wf-paper) 0 calc(var(--panel-wave-size) - 0.25px),
-        transparent calc(var(--panel-wave-size) + 0.25px)
-      )
-      right var(--panel-wave-offset) / calc(var(--panel-wave-size) * 1.4) var(--panel-wave-step) repeat-y;
+    linear-gradient(180deg, rgba(240, 251, 227, 0.18), rgba(122, 158, 69, 0.16)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(236, 248, 216, 0.15) 0 3px,
+      rgba(142, 183, 82, 0.1) 3px 6px
+    );
+  opacity: 0.78;
 }
 
 .wf-crayon-panel > * {
@@ -766,41 +805,33 @@ body {
   z-index: 1;
 }
 
-.wf-panel-texture {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
+.wf-cut-a {
+  --panel-edge-y: clamp(19px, 1.76vw, 29px);
 }
 
-.wf-panel-texture-crayon,
-.wf-panel-texture-pencil {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+.wf-cut-b {
+  --panel-edge-y: clamp(20px, 1.82vw, 30px);
 }
 
-.wf-panel-texture-crayon {
-  opacity: 0.86;
+.wf-cut-c {
+  --panel-edge-y: clamp(19px, 1.78vw, 29px);
 }
 
-.wf-panel-texture-crayon canvas {
-  width: 100%;
-  height: 100%;
+.wf-cut-d {
+  --panel-edge-y: clamp(21px, 1.9vw, 32px);
 }
 
-.wf-panel-texture-pencil {
-  opacity: 0.66;
-  mix-blend-mode: multiply;
+.wf-cut-e {
+  --panel-edge-y: clamp(20px, 1.84vw, 30px);
 }
 
 .wf-draw-overlay {
   position: absolute;
   inset: 0;
-  z-index: 2;
+  z-index: 1;
   pointer-events: none;
   overflow: hidden;
+  mix-blend-mode: multiply;
 }
 
 .wf-draw-stroke {
@@ -859,13 +890,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.wf-title-logo-stage {
+  position: relative;
+  width: min(1020px, 97%);
+  aspect-ratio: 3163 / 936;
 }
 
 .wf-title-logo {
-  display: block;
-  width: min(980px, 96%);
-  height: auto;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  z-index: 1;
 }
 
 .wf-title-divider {
@@ -927,10 +967,15 @@ body {
   text-shadow: 0 1px 0 rgba(58, 74, 42, 0.36);
 }
 
-.js-draw-header,
-.js-draw-section {
-  will-change: transform, opacity, clip-path;
-  overflow: hidden;
+.js-hero-divider,
+.js-hero-nav,
+.js-paper-reveal,
+.js-logo-image {
+  will-change: transform, opacity, filter;
+}
+
+.js-sns-bubble {
+  will-change: transform, opacity;
 }
 
 .wf-title-nav-link:hover {
@@ -1121,8 +1166,8 @@ body {
     width: calc(100% - 30px);
   }
 
-  .wf-title-logo {
-    width: min(620px, 100%);
+  .wf-title-logo-stage {
+    width: min(780px, 100%);
   }
 
   .wf-title-nav {
@@ -1139,12 +1184,16 @@ body {
     padding: 8px 0 14px;
   }
 
+  .wf-title-hero-stage {
+    min-height: 0;
+  }
+
   .wf-title-header {
     gap: 8px;
     padding: 10px 12px 12px;
   }
 
-  .wf-title-logo {
+  .wf-title-logo-stage {
     width: 100%;
   }
 
