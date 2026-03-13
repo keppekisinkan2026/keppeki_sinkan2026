@@ -10,6 +10,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { RoughSVG } from "roughjs/bin/svg";
 import { socialLinks } from "@/components/maintenance/socialLinkData";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
+import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
 import { withBasePath } from "@/lib/withBasePath";
 
 const openingFrameSources = [
@@ -436,18 +437,12 @@ export default function TitleWireframePage() {
           gsap.set(".js-about-title", { autoAlpha: 1, y: 0 });
           gsap.set(".js-about-text", { autoAlpha: 1, y: 0 });
           gsap.set(".js-about-image", { autoAlpha: 1, y: 0 });
-          gsap.set(".js-about-img1-frame", { autoAlpha: 0 });
-          gsap.set(".js-about-img1-frame:last-child", { autoAlpha: 1 });
-          gsap.set(".js-about-img2-frame", { autoAlpha: 0 });
-          gsap.set(".js-about-img2-frame:last-child", { autoAlpha: 1 });
-          gsap.set(".js-about-img3-frame", { autoAlpha: 0 });
-          gsap.set(".js-about-img3-frame:last-child", { autoAlpha: 1 });
-          gsap.set(".js-about-img-sinzin-frame", { autoAlpha: 0 });
-          gsap.set(".js-about-img-sinzin-frame:last-child", { autoAlpha: 1 });
-          gsap.set(".js-about-img-fune-frame", { autoAlpha: 0 });
-          gsap.set(".js-about-img-fune-frame:last-child", { autoAlpha: 1 });
-          gsap.set(".js-about-img-pichi-frame", { autoAlpha: 0 });
-          gsap.set(".js-about-img-pichi-frame:last-child", { autoAlpha: 1 });
+          showLastFlipbookFrame(gsap.utils.toArray<HTMLElement>(".js-about-img1-frame", aboutPanel));
+          showLastFlipbookFrame(gsap.utils.toArray<HTMLElement>(".js-about-img2-frame", aboutPanel));
+          showLastFlipbookFrame(gsap.utils.toArray<HTMLElement>(".js-about-img3-frame", aboutPanel));
+          showLastFlipbookFrame(gsap.utils.toArray<HTMLElement>(".js-about-img-sinzin-frame", aboutPanel));
+          showLastFlipbookFrame(gsap.utils.toArray<HTMLElement>(".js-about-img-fune-frame", aboutPanel));
+          showLastFlipbookFrame(gsap.utils.toArray<HTMLElement>(".js-about-img-pichi-frame", aboutPanel));
         }
 
         requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -455,7 +450,7 @@ export default function TitleWireframePage() {
       }
 
       if (snsSection && snsFrames.length > 0) {
-        gsap.set(snsFrames, { autoAlpha: 0 });
+        hideFlipbookFrames(snsFrames);
         gsap.set(snsTitle, { autoAlpha: 0, y: 10 });
         gsap.set(snsIcons, {
           autoAlpha: 0,
@@ -472,12 +467,7 @@ export default function TitleWireframePage() {
           },
         });
 
-        snsTimeline.set(snsFrames[0], { autoAlpha: 1 });
-
-        snsFrames.slice(1).forEach((frame) => {
-          snsTimeline.set(snsFrames, { autoAlpha: 0 }, "+=0.15");
-          snsTimeline.set(frame, { autoAlpha: 1 });
-        });
+        appendFlipbookFrames(snsTimeline, snsFrames);
 
         if (snsTitle) {
           snsTimeline.to(
@@ -575,33 +565,6 @@ export default function TitleWireframePage() {
         let hasPlayedAboutImg2And3 = false;
         let hasPlayedAboutProduceFrames = false;
 
-        const addFlipbookFrames = (
-          timeline: gsap.core.Timeline,
-          frames: HTMLElement[],
-          startAt = 0,
-          staggerDelay = 0.2,
-        ) => {
-          if (frames.length === 0) {
-            return;
-          }
-
-          timeline.set(frames, { autoAlpha: 0 }, startAt);
-          timeline.set(frames[0], { autoAlpha: 1 }, startAt);
-
-          frames.slice(1).forEach((frame, frameIndex) => {
-            const position = startAt + staggerDelay * (frameIndex + 1);
-            timeline.set(frames, { autoAlpha: 0 }, position);
-            timeline.to(
-              frame,
-              {
-                autoAlpha: 1,
-                duration: 0.01,
-              },
-              position,
-            );
-          });
-        };
-
         const playAboutImg1Frames = () => {
           if (hasPlayedAboutImg1 || aboutImg1Frames.length === 0) {
             return;
@@ -610,7 +573,7 @@ export default function TitleWireframePage() {
           hasPlayedAboutImg1 = true;
 
           const aboutImg1Timeline = gsap.timeline({ defaults: { ease: "none" } });
-          addFlipbookFrames(aboutImg1Timeline, aboutImg1Frames);
+          appendFlipbookFrames(aboutImg1Timeline, aboutImg1Frames);
         };
 
         const playAboutImg2And3Frames = () => {
@@ -621,8 +584,8 @@ export default function TitleWireframePage() {
           hasPlayedAboutImg2And3 = true;
 
           const aboutImg2And3Timeline = gsap.timeline({ defaults: { ease: "none" } });
-          addFlipbookFrames(aboutImg2And3Timeline, aboutImg2Frames, 0, 0.2);
-          addFlipbookFrames(aboutImg2And3Timeline, aboutImg3Frames, 0.7, 0.2);
+          appendFlipbookFrames(aboutImg2And3Timeline, aboutImg2Frames, { startAt: 0, staggerDelay: 0.2 });
+          appendFlipbookFrames(aboutImg2And3Timeline, aboutImg3Frames, { startAt: 0.7, staggerDelay: 0.2 });
         };
 
         const playAboutProduceFrames = () => {
@@ -636,21 +599,21 @@ export default function TitleWireframePage() {
           hasPlayedAboutProduceFrames = true;
 
           const aboutProduceTimeline = gsap.timeline({ defaults: { ease: "none" } });
-          addFlipbookFrames(aboutProduceTimeline, aboutImgSinzinFrames, 0, 0.15);
-          addFlipbookFrames(aboutProduceTimeline, aboutImgFuneFrames, 0.7, 0.15);
-          addFlipbookFrames(aboutProduceTimeline, aboutImgPichiFrames, 1.2, 0.15);
+          appendFlipbookFrames(aboutProduceTimeline, aboutImgSinzinFrames, { startAt: 0, staggerDelay: 0.15 });
+          appendFlipbookFrames(aboutProduceTimeline, aboutImgFuneFrames, { startAt: 0.7, staggerDelay: 0.15 });
+          appendFlipbookFrames(aboutProduceTimeline, aboutImgPichiFrames, { startAt: 1.2, staggerDelay: 0.15 });
         };
 
         if (aboutTitle) {
           gsap.set(aboutTitle, { autoAlpha: 0, y: 30 });
         }
         gsap.set(aboutRows, { autoAlpha: 0, y: 28 });
-        gsap.set(aboutImg1Frames, { autoAlpha: 0 });
-        gsap.set(aboutImg2Frames, { autoAlpha: 0 });
-        gsap.set(aboutImg3Frames, { autoAlpha: 0 });
-        gsap.set(aboutImgSinzinFrames, { autoAlpha: 0 });
-        gsap.set(aboutImgFuneFrames, { autoAlpha: 0 });
-        gsap.set(aboutImgPichiFrames, { autoAlpha: 0 });
+        hideFlipbookFrames(aboutImg1Frames);
+        hideFlipbookFrames(aboutImg2Frames);
+        hideFlipbookFrames(aboutImg3Frames);
+        hideFlipbookFrames(aboutImgSinzinFrames);
+        hideFlipbookFrames(aboutImgFuneFrames);
+        hideFlipbookFrames(aboutImgPichiFrames);
 
         const aboutTimeline = gsap.timeline({
           scrollTrigger: {

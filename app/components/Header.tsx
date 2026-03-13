@@ -11,11 +11,12 @@ const headerLinks = [
   { label: "過去公演", href: "/maintenance/past" },
   { label: "Q&A", href: "/maintenance/qa" },
 ] as const;
+const hiddenPaths = new Set(["/", "/maintenance", "/maintenance/title"]);
 
 export function Header() {
   const pathname = usePathname();
 
-  if (pathname === "/") {
+  if (hiddenPaths.has(pathname)) {
     return null;
   }
 
