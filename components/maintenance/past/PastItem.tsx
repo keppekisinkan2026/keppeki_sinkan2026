@@ -6,15 +6,10 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
+import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
 import { withBasePath } from "@/lib/withBasePath";
-
-export type PastPerformance = {
-  id: number;
-  title: string;
-  subtitle: string;
-  summaryLines: string[];
-  synopsis: string;
-};
+import { hiddenPastCardFrameSource, type PastPerformance } from "./pastShared";
+import { PastFrameStack } from "./PastFrameStack";
 
 type PastItemProps = {
   performance: PastPerformance;
@@ -26,14 +21,6 @@ type ScatterTarget = {
   y: number;
   rotation: number;
 };
-
-const pastFrameSources = [
-  "/images/image1.PNG",
-  "/images/image2.PNG",
-  "/images/image3.PNG",
-  "/images/image4.PNG",
-  "/images/image5.PNG",
-] as const;
 
 const hiddenCardCount = 5;
 
@@ -73,7 +60,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         return;
       }
 
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reduceMotion = prefersReducedMotion();
       const frames = gsap.utils.toArray<HTMLElement>(".js-past-frame", root);
       const content = root.querySelector<HTMLElement>(".js-past-content");
       const hiddenCards = hiddenCardRefs.current.filter(Boolean) as HTMLDivElement[];
@@ -184,7 +171,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
               className={`wf-past-hidden-card wf-past-hidden-card--${index + 1}`}
             >
               <Image
-                src={withBasePath("/images/hakusi5.PNG")}
+                src={withBasePath(hiddenPastCardFrameSource)}
                 alt=""
                 fill
                 quality={100}
@@ -201,18 +188,11 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
           <div className="wf-past-item-main-shell">
             <div className="wf-past-item-main-stage">
               <div className="wf-past-item-main-frames" aria-hidden>
-                {pastFrameSources.map((frameSrc) => (
-                  <Image
-                    key={`${performance.id}-${frameSrc}`}
-                    src={withBasePath(frameSrc)}
-                    alt=""
-                    fill
-                    quality={100}
-                    unoptimized
-                    sizes="(max-width: 720px) 72vw, 420px"
-                    className="js-past-frame wf-past-item-main-image"
-                  />
-                ))}
+                <PastFrameStack
+                  performanceId={performance.id}
+                  sizes="(max-width: 720px) 72vw, 420px"
+                  className="js-past-frame wf-past-item-main-image"
+                />
               </div>
 
               <div className="js-past-content wf-past-item-main-content">

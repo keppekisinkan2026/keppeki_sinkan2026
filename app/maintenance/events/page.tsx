@@ -1,80 +1,23 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { EventCardItem } from "@/components/events/EventCardItem";
+import { eventsData } from "./content";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
-import { withBasePath } from "@/lib/withBasePath";
-
-// ---------------------------------------------------------------------------
-// 型・定数
-// ---------------------------------------------------------------------------
-
-type EventCard = {
-  id: number;
-  title: string;
-  lines: string[];
-};
-
-const EVENT_FRAME_IMAGE_SIZES = "(max-width: 640px) 74vw, (max-width: 1024px) 40vw, 320px";
-
-const EVENT_TEXT_LINES = ["テキストが入ります", "テキストが入ります", "テキストが入ります"] as const;
-
-const eventsData: EventCard[] = Array.from({ length: 12 }, (_, i) => ({
-  id: i + 1,
-  title: "イベント詳細",
-  lines: [...EVENT_TEXT_LINES],
-}));
-
-const hakusiFrames = [
-  "/images/hakusi1.PNG",
-  "/images/hakusi2.PNG",
-  "/images/hakusi3.PNG",
-  "/images/hakusi4.PNG",
-  "/images/hakusi5.PNG",
-] as const;
+import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
-
-function EventCardItem({ event }: { event: EventCard }) {
-  return (
-    <article className="js-event-item wf-event-item">
-      <div className="wf-event-item-bg" aria-hidden>
-        {hakusiFrames.map((frameSrc) => (
-          <Image
-            key={`${event.id}-${frameSrc}`}
-            src={withBasePath(frameSrc)}
-            alt=""
-            fill
-            unoptimized
-            sizes={EVENT_FRAME_IMAGE_SIZES}
-            className="js-hakusi-frame wf-event-hakusi-img"
-          />
-        ))}
-      </div>
-
-      <div className="js-event-content wf-event-item-content">
-        <h3 className="wf-event-item-title wf-maki-title">{event.title}</h3>
-        <p className="wf-event-item-text">
-          {event.lines.map((line, index) => (
-            <span key={`${event.id}-${index}`} className="wf-event-item-line">
-              {line}
-            </span>
-          ))}
-        </p>
-      </div>
-    </article>
-  );
-}
 
 export default function EventsWireframePage() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
+      const reduceMotion = prefersReducedMotion();
       const items = gsap.utils.toArray<HTMLElement>(
         ".js-event-item",
         rootRef.current,
@@ -91,8 +34,6 @@ export default function EventsWireframePage() {
 
         hideFlipbookFrames(frames);
         gsap.set(content, { autoAlpha: 0, y: 14 });
-
-        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
         if (reduceMotion) {
           showLastFlipbookFrame(frames);

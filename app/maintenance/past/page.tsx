@@ -2,61 +2,11 @@
 
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import { pastPerformances } from "./content";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
-import { PastItem, type PastPerformance } from "@/components/maintenance/past/PastItem";
+import { PastItem } from "@/components/maintenance/past/PastItem";
 import { PastModal } from "@/components/maintenance/past/PastModal";
 import { withBasePath } from "@/lib/withBasePath";
-
-const pastPerformances: PastPerformance[] = [
-  {
-    id: 1,
-    title: "過去公演 01",
-    subtitle: "春公演",
-    summaryLines: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-    synopsis:
-      "ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。",
-  },
-  {
-    id: 2,
-    title: "過去公演 02",
-    subtitle: "初夏公演",
-    summaryLines: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-    synopsis:
-      "ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。",
-  },
-  {
-    id: 3,
-    title: "過去公演 03",
-    subtitle: "夏公演",
-    summaryLines: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-    synopsis:
-      "ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。",
-  },
-  {
-    id: 4,
-    title: "過去公演 04",
-    subtitle: "秋公演",
-    summaryLines: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-    synopsis:
-      "ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。",
-  },
-  {
-    id: 5,
-    title: "過去公演 05",
-    subtitle: "冬公演",
-    summaryLines: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-    synopsis:
-      "ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。",
-  },
-  {
-    id: 6,
-    title: "過去公演 06",
-    subtitle: "卒業公演",
-    summaryLines: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-    synopsis:
-      "ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。",
-  },
-];
 
 export default function PastWireframePage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);

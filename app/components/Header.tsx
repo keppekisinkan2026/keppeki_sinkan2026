@@ -2,24 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-const headerLinks = [
-  { label: "ホーム", href: "/title" },
-  { label: "劇団紹介", href: "/title#about" },
-  { label: "部署紹介", href: "/maintenance/departments" },
-  { label: "企画の流れ", href: "/maintenance/flow" },
-  { label: "新歓イベント", href: "/maintenance/events" },
-  { label: "過去公演", href: "/maintenance/past" },
-  { label: "Q&A", href: "/maintenance/qa" },
-] as const;
-const hiddenPaths = new Set(["/", "/title", "/maintenance", "/maintenance/title"]);
+import { normalizePathname } from "@/lib/normalizePathname";
+import { headerHiddenPaths, headerLinks } from "@/lib/siteNavigation";
 
 export function Header() {
   const pathname = usePathname();
-  const normalizedPathname =
-    pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  const normalizedPathname = normalizePathname(pathname);
 
-  if (hiddenPaths.has(normalizedPathname)) {
+  if (headerHiddenPaths.has(normalizedPathname)) {
     return null;
   }
 
@@ -31,8 +21,7 @@ export function Header() {
             {headerLinks.map((item) => {
               const isCurrent =
                 normalizedPathname === item.href ||
-                (item.href === "/title#about" &&
-                  (normalizedPathname === "/title" || normalizedPathname === "/maintenance/title"));
+                (item.href === "/title#about" && normalizedPathname === "/title");
 
               return (
                 <li key={item.href} className="wf-global-nav-item">

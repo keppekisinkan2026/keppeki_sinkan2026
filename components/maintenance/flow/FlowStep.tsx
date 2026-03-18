@@ -1,12 +1,7 @@
 import Image from "next/image";
 import rough from "roughjs/bin/rough";
+import type { FlowStepData } from "./flowData";
 import { withBasePath } from "@/lib/withBasePath";
-
-export type FlowStepData = {
-  id: number;
-  title: string;
-  description: string[];
-};
 
 type FlowStepProps = {
   step: FlowStepData;
@@ -64,7 +59,9 @@ export function FlowStep({ step, index, isLast, frameSources }: FlowStepProps) {
     <article
       className={`js-flow-step wf-flow-step ${isLeft ? "wf-flow-step--left" : "wf-flow-step--right"} ${!isLast ? "wf-flow-step--with-arrow" : ""}`}
     >
-      <div className="js-flow-step-visual wf-flow-step-card-shell">
+      <div
+        className={`js-flow-step-visual wf-flow-step-card-shell${step.isLongDescription ? " wf-flow-step-card-shell--long" : ""}`}
+      >
         <div className="wf-flow-step-card">
           <div className="wf-flow-step-frame-layer" aria-hidden>
             {frameSources.map((frameSrc) => (
@@ -81,16 +78,11 @@ export function FlowStep({ step, index, isLast, frameSources }: FlowStepProps) {
             ))}
           </div>
 
-          <div className="js-flow-step-content wf-flow-step-content">
-            <p className="wf-flow-step-index">STEP {String(index + 1).padStart(2, "0")}</p>
+          <div
+            className={`js-flow-step-content wf-flow-step-content${step.isLongDescription ? " wf-flow-step-content--long" : ""}`}
+          >
             <h2 className="wf-flow-step-title wf-maki-title">{step.title}</h2>
-            <div className="wf-flow-step-copy">
-              {step.description.map((line, lineIndex) => (
-                <span key={`${step.id}-${lineIndex}`} className="wf-flow-step-line">
-                  {line}
-                </span>
-              ))}
-            </div>
+            <div className="wf-flow-step-copy">{step.description}</div>
           </div>
         </div>
       </div>

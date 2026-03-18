@@ -1,15 +1,14 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-
-const hiddenPaths = new Set(["/maintenance"]);
+import { footerHiddenPaths } from "@/lib/siteNavigation";
+import { normalizePathname } from "@/lib/normalizePathname";
 
 export function Footer() {
   const pathname = usePathname();
-  const normalizedPathname =
-    pathname.length > 1 && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+  const normalizedPathname = normalizePathname(pathname);
 
-  if (hiddenPaths.has(normalizedPathname)) {
+  if (footerHiddenPaths.has(normalizedPathname)) {
     return null;
   }
 

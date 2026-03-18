@@ -5,21 +5,14 @@ import { useEffect, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
-import { withBasePath } from "@/lib/withBasePath";
-import type { PastPerformance } from "./PastItem";
+import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
+import { type PastPerformance } from "./pastShared";
+import { PastFrameStack } from "./PastFrameStack";
 
 type PastModalProps = {
   performance: PastPerformance | null;
   onClose: () => void;
 };
-
-const modalFrameSources = [
-  "/images/image1.PNG",
-  "/images/image2.PNG",
-  "/images/image3.PNG",
-  "/images/image4.PNG",
-  "/images/image5.PNG",
-] as const;
 
 export function PastModal({ performance, onClose }: PastModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -51,7 +44,7 @@ export function PastModal({ performance, onClose }: PastModalProps) {
         return;
       }
 
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reduceMotion = prefersReducedMotion();
       const overlay = rootRef.current.querySelector<HTMLElement>(".js-past-modal-overlay");
       const panel = rootRef.current.querySelector<HTMLElement>(".js-past-modal-panel");
       const frames = gsap.utils.toArray<HTMLElement>(".js-past-modal-frame", rootRef.current);
@@ -136,18 +129,11 @@ export function PastModal({ performance, onClose }: PastModalProps) {
 
         <div className="wf-past-modal-stage">
           <div className="wf-past-modal-frames" aria-hidden>
-            {modalFrameSources.map((frameSrc) => (
-              <Image
-                key={`${performance.id}-${frameSrc}`}
-                src={withBasePath(frameSrc)}
-                alt=""
-                fill
-                quality={100}
-                unoptimized
-                sizes="(max-width: 820px) 82vw, 620px"
-                className="js-past-modal-frame wf-past-modal-image"
-              />
-            ))}
+            <PastFrameStack
+              performanceId={performance.id}
+              sizes="(max-width: 820px) 82vw, 620px"
+              className="js-past-modal-frame wf-past-modal-image"
+            />
           </div>
 
           <div className="js-past-modal-content wf-past-modal-content">

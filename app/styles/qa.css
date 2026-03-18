@@ -1,0 +1,32 @@
+.wf-qa-leaves {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.wf-qa-leaves span {
+  width: 40px;
+  height: 20px;
+  border-radius: 60% 40% 60% 40%;
+  background: var(--wf-accent);
+}
+
+.wf-qa-divider {
+  width: calc(100% + 20px);
+  margin: 0 -10px 10px;
+  height: 7px;
+  background: #6e5938;
+  border-radius: 999px;
+}
+
+.wf-qa-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 240px;
+}
+
+.wf-join-flow-card {
+  min-height: 160px;
+}

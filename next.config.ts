@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
+    qualities: [75, 95, 100],
   },
   basePath: isGithubActions ? githubPagesBasePath : "",
   env: {

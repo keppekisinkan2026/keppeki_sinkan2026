@@ -1,0 +1,48 @@
+.wf-screen--title {
+  align-items: flex-start;
+  padding: 0;
+  overflow: visible;
+}
+
+.wf-frame--title {
+  width: min(1580px, calc(100% - 40px));
+}
+
+.wf-frame-inner--title {
+  gap: 0;
+}
+
+.wf-frame-inner--title > * {
+  width: 100%;
+}
+
+.wf-title-main {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  padding-top: clamp(32svh, 38vh, 46svh);
+  padding-bottom: clamp(30svh, 38vh, 46svh);
+  background: transparent;
+}
+
+.wf-title-scroll-block {
+  position: relative;
+  width: 100%;
+}
+
+.wf-title-scroll-block + .wf-title-scroll-block {
+  margin-top: clamp(30svh, 40vh, 50svh);
+}
+
+.wf-title-section {
+  scroll-margin-top: clamp(120px, 14vw, 180px);
+}
+
+.wf-title-section-title {
+  margin: 0;
+  color: rgba(244, 250, 245, 0.98);
+  text-align: center;
+  line-height: 1.08;
+  text-shadow: 0 1px 0 rgba(67, 86, 49, 0.34);
+  font-size: clamp(38px, 4.2vw, 74px);
+}

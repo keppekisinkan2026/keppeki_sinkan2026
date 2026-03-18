@@ -1,0 +1,428 @@
+/* --- Flow manual adjustments --- */
+/* --- 7. 本番 --- */
+.wf-flow-step-list > .wf-flow-step:nth-child(7) .wf-flow-step-arrow {
+  margin-top: 0;
+  margin-left: 0;
+}
+
+/* --- 8. バラシ --- */
+.wf-flow-step-list > .wf-flow-step:nth-child(8) .wf-flow-step-card-shell {
+  top: 0;
+  left: 0;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(8) .wf-flow-step-content {
+  margin-top: 0;
+  margin-left: 0;
+}
+
+.wf-frame--flow {
+  width: min(1460px, calc(100% - 28px));
+}
+
+.wf-frame-inner--flow {
+  width: 100%;
+  gap: 0;
+}
+
+.wf-frame-inner--flow > * {
+  width: 100%;
+}
+
+.wf-flow-page {
+  width: 100%;
+  position: relative;
+  padding: 0 0 clamp(96px, 12vw, 144px);
+}
+
+.wf-flow-page-header {
+  width: min(100%, 1240px);
+  min-height: clamp(320px, 52svh, 520px);
+  margin: 0 auto;
+  padding: clamp(118px, 14vw, 172px) 0 clamp(36px, 6vw, 64px);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.wf-flow-page-title {
+  margin: 0;
+  color: rgba(249, 252, 247, 0.98);
+  font-size: clamp(48px, 7vw, 92px);
+  line-height: 1;
+  text-shadow: 0 3px 8px rgba(49, 70, 40, 0.2);
+}
+
+.wf-flow-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3.5vw, 40px);
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  padding: 0;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(1) .wf-flow-step-card-shell {
+  top: 0px;
+  left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(1) .wf-flow-step-content {
+  margin-top: 170px;
+  margin-left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(1) .wf-flow-step-arrow {
+  margin-top: 360px;
+  margin-left: 70px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(2) .wf-flow-step-card-shell {
+  top: -470px;
+  left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(2) .wf-flow-step-content {
+  margin-top: 140px;
+  margin-left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(2) .wf-flow-step-arrow {
+  margin-top: -90px;
+  margin-left: -90px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(3) .wf-flow-step-card-shell {
+  top: -900px;
+  left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(3) .wf-flow-step-content {
+  margin-top: 170px;
+  margin-left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(3) .wf-flow-step-arrow {
+  margin-top: -500px;
+  margin-left: 30px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(4) .wf-flow-step-card-shell {
+  top: -1200px;
+  left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(4) .wf-flow-step-content {
+  margin-top: 150px;
+  margin-left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(4) .wf-flow-step-arrow {
+  margin-top: -780px;
+  margin-left: -40px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(5) .wf-flow-step-card-shell {
+  top: -1400px;
+  left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(5) .wf-flow-step-content {
+  margin-top: 150px;
+  margin-left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(5) .wf-flow-step-arrow {
+  margin-top: -960px;
+  margin-left: 40px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(6) .wf-flow-step-card-shell {
+  top: -1550px;
+  left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(6) .wf-flow-step-content {
+  margin-top: 150px;
+  margin-left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(6) .wf-flow-step-arrow {
+  margin-top: -1100px;
+  margin-left: -30px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(7) .wf-flow-step-card-shell {
+  top: -1800px;
+  left: 0px;
+}
+
+.wf-flow-step-list > .wf-flow-step:nth-child(7) .wf-flow-step-content {
+  margin-top: 160px;
+  margin-left: 0px;
+}
+
+.wf-flow-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  min-height: clamp(300px, 42vw, 460px);
+  width: 100%;
+  padding: clamp(54px, 7vw, 92px) 0;
+  box-sizing: border-box;
+}
+
+.wf-flow-step--with-arrow {
+  padding-bottom: clamp(92px, 12vw, 138px);
+}
+
+.wf-flow-step-card-shell {
+  position: relative;
+  width: clamp(420px, 46vw, 590px);
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+.wf-flow-step-card-shell--long {
+  width: clamp(500px, 53vw, 700px);
+  max-width: min(100%, 700px);
+}
+
+.wf-flow-step--left .wf-flow-step-card-shell {
+  grid-column: 1;
+  justify-self: end;
+}
+
+.wf-flow-step--right .wf-flow-step-card-shell {
+  grid-column: 2;
+  justify-self: start;
+}
+
+.wf-flow-step-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  width: 100%;
+  aspect-ratio: 375 / 666;
+  overflow: visible;
+}
+
+.wf-flow-step-frame-layer {
+  position: relative;
+  grid-area: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.wf-flow-step-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.wf-flow-step-content {
+  position: absolute;
+  inset: 0;
+  grid-area: 1 / 1;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(8px, 1vw, 14px);
+  padding: 20% 14% 12%;
+  color: rgba(250, 252, 246, 0.98);
+  overflow: hidden;
+  pointer-events: none;
+  min-width: 0;
+}
+
+.wf-flow-step-content--long {
+  padding: 16.5% 11.5% 11%;
+}
+
+.wf-flow-step-content--long .wf-flow-step-copy {
+  max-width: 94%;
+}
+
+.wf-flow-step-index {
+  margin: 0;
+  color: rgba(240, 247, 233, 0.88);
+  font-size: clamp(13px, 1.1vw, 17px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.wf-flow-step-title {
+  margin: 0;
+  color: rgba(249, 252, 247, 0.98);
+  font-size: clamp(30px, 3.8vw, 54px);
+  line-height: 1.05;
+  text-shadow: 0 2px 5px rgba(42, 62, 36, 0.16);
+}
+
+.wf-flow-step-copy {
+  display: block;
+  color: rgba(246, 250, 244, 0.95);
+  font-family:
+    "Hiragino Maru Gothic ProN",
+    "Zen Maru Gothic",
+    "Yu Rounded",
+    "Arial Rounded MT Bold",
+    sans-serif;
+  font-size: clamp(14px, 1.05vw, 15px);
+  line-height: 1.6;
+  text-shadow: 0 1px 3px rgba(41, 61, 34, 0.14);
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+.wf-flow-step-line {
+  display: block;
+  margin-top: 0.45em;
+  white-space: pre-wrap;
+  width: 100%;
+  max-width: 100%;
+}
+
+.wf-flow-step-line:first-child {
+  margin-top: 0;
+}
+
+.wf-flow-step-copy br {
+  display: block;
+  margin-top: 0.55em;
+}
+
+.wf-flow-step-arrow {
+  position: absolute;
+  top: clamp(170px, 18vw, 238px);
+  width: clamp(250px, 34vw, 400px);
+  height: clamp(132px, 16vw, 198px);
+  overflow: visible;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.wf-flow-step-arrow--to-right {
+  left: 50%;
+  transform: translateX(-12%);
+}
+
+.wf-flow-step-arrow--to-left {
+  left: 50%;
+  transform: translateX(-88%);
+}
+
+.wf-flow-step-arrow-path {
+  fill: none;
+  stroke: rgba(118, 145, 177, 0.86);
+  stroke-width: 14;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wf-flow-step-arrow-path:first-child {
+  stroke-width: 16;
+}
+
+@media (max-width: 960px) {
+  .wf-frame--flow {
+    width: calc(100% - 22px);
+  }
+
+  .wf-flow-step-list {
+    width: min(100%, 980px);
+    gap: clamp(18px, 3vw, 30px);
+  }
+
+  .wf-flow-step {
+    min-height: clamp(280px, 46vw, 380px);
+    padding: clamp(48px, 8vw, 80px) 0;
+  }
+
+  .wf-flow-step-card-shell {
+    width: clamp(290px, 41vw, 410px);
+  }
+
+  .wf-flow-step-card-shell--long {
+    width: clamp(360px, 48vw, 500px);
+  }
+
+  .wf-flow-step-content--long {
+    padding: 17.5% 11.5% 10.5%;
+  }
+
+  .wf-flow-step-arrow {
+    top: clamp(152px, 20vw, 214px);
+    width: clamp(210px, 30vw, 320px);
+    height: clamp(118px, 15vw, 170px);
+  }
+
+  .wf-flow-step-arrow-path {
+    stroke-width: 14;
+  }
+}
+
+@media (max-width: 700px) {
+  .wf-flow-step-list {
+    gap: 12px;
+  }
+
+  .wf-flow-page-header {
+    min-height: clamp(280px, 48svh, 420px);
+    padding-top: clamp(108px, 20vw, 150px);
+  }
+
+  .wf-flow-step,
+  .wf-flow-step--with-arrow {
+    grid-template-columns: 1fr;
+    min-height: clamp(340px, 62svh, 500px);
+    padding: clamp(56px, 12vw, 96px) 0 108px;
+  }
+
+  .wf-flow-step--left .wf-flow-step-card-shell,
+  .wf-flow-step--right .wf-flow-step-card-shell {
+    grid-column: 1;
+    justify-self: center;
+  }
+
+  .wf-flow-step-card-shell {
+    width: min(100%, 420px);
+  }
+
+  .wf-flow-step-card-shell--long {
+    width: min(100%, 520px);
+  }
+
+  .wf-flow-step-arrow {
+    top: calc(100% - 24px);
+    left: 50%;
+    width: min(72vw, 290px);
+    height: 128px;
+    transform: translateX(-50%) !important;
+  }
+
+  .wf-flow-step-arrow-path {
+    stroke-width: 12;
+  }
+
+  .wf-flow-step-title {
+    font-size: clamp(26px, 8vw, 40px);
+  }
+
+  .wf-flow-step-copy {
+    font-size: clamp(13px, 3.7vw, 15px);
+    line-height: 1.55;
+  }
+}

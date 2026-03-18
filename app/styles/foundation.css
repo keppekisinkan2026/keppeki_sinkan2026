@@ -1,0 +1,61 @@
+@font-face {
+  font-family: "MakiCircle";
+  src: url("/fonts/makiirclehand.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --crayon-green: #96c44b;
+  --crayon-green-dark: #7ead39;
+  --white-ink: #f9f9f2;
+  --pencil: #202020;
+  --wf-paper: #dbeced;
+  --wf-block: #96c44b;
+  --wf-accent: #7e9eb4;
+  --wf-layer-texture: 0;
+  --wf-layer-surface: 1;
+  --wf-layer-decor: 2;
+  --wf-layer-content: 3;
+  --wf-layer-ui: 4;
+  --wf-page-width: min(100%, 1280px);
+  --wf-page-gutter: clamp(14px, 3vw, 28px);
+  --wf-panel-radius: clamp(18px, 2.6vw, 28px);
+}
+
+@theme inline {
+  --color-background: var(--crayon-green);
+  --color-foreground: var(--pencil);
+}
+
+body {
+  margin: 0;
+  color: var(--pencil);
+  font-family:
+    "Hiragino Maru Gothic ProN",
+    "Hiragino Sans",
+    "Yu Gothic UI",
+    "YuGothic",
+    "Meiryo",
+    sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.wf-maki-title {
+  font-family:
+    "MakiCircle",
+    "Hiragino Maru Gothic ProN",
+    "Hiragino Sans",
+    "Yu Gothic UI",
+    "YuGothic",
+    "Meiryo",
+    sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}

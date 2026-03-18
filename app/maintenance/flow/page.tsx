@@ -4,55 +4,11 @@ import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { FlowStep, type FlowStepData } from "@/components/maintenance/flow/FlowStep";
+import { FlowStep } from "@/components/maintenance/flow/FlowStep";
+import { flowFrameSources, flowSteps, getFlowTriggerStart } from "@/components/maintenance/flow/flowData";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
-
-const flowSteps: FlowStepData[] = [
-  {
-    id: 1,
-    title: "説明会に参加",
-    description: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  },
-  {
-    id: 2,
-    title: "企画を知る",
-    description: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  },
-  {
-    id: 3,
-    title: "見学してみる",
-    description: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  },
-  {
-    id: 4,
-    title: "体験してみる",
-    description: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  },
-  {
-    id: 5,
-    title: "相談してみる",
-    description: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  },
-  {
-    id: 6,
-    title: "手続きを進める",
-    description: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  },
-  {
-    id: 7,
-    title: "参加スタート",
-    description: ["テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  },
-];
-
-const flowFrameSources = [
-  "/images/image1.PNG",
-  "/images/image2.PNG",
-  "/images/image3.PNG",
-  "/images/image4.PNG",
-  "/images/image5.PNG",
-] as const;
+import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -61,7 +17,7 @@ export default function FlowWireframePage() {
 
   useGSAP(
     () => {
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const reduceMotion = prefersReducedMotion();
       const steps = gsap.utils.toArray<HTMLElement>(".js-flow-step", rootRef.current);
       const refresh = () => ScrollTrigger.refresh();
 
@@ -105,7 +61,7 @@ export default function FlowWireframePage() {
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: step,
-            start: "top 72%",
+            start: getFlowTriggerStart(index),
             toggleActions: "play none none none",
             once: true,
             invalidateOnRefresh: true,
@@ -181,7 +137,7 @@ export default function FlowWireframePage() {
     >
       <section className="wf-flow-page">
         <header className="wf-flow-page-header">
-          <h1 className="wf-flow-page-title wf-maki-title">企画の流れ</h1>
+          <h1 className="wf-flow-page-title wf-maki-title">公演ができるまで</h1>
         </header>
 
         <div className="wf-flow-step-list">
