@@ -6,9 +6,37 @@ export type DepartmentConfig = {
   tapes: readonly { src: keyof typeof tapeAssetMap; pos: string }[];
   description: ReactNode;
   isLongText?: boolean;
+  sidePhotos?: readonly DepartmentSidePhoto[];
+};
+
+export type DepartmentSidePhoto = {
+  id: string;
+  label: string;
+  width: number;
+  height: number;
+  src?: string;
 };
 
 export const leafFrameSources = ["/images/leaf.PNG", "/images/leaf2.PNG", "/images/leaf3.PNG", "/images/leaf4.PNG"] as const;
+
+const departmentSidePhotoMap = {
+  keikoba1: { id: "keikoba1", label: "keikoba1", src: "/images/busyo/keikoba1.jpg", width: 1587, height: 2046 },
+  keikoba2: { id: "keikoba2", label: "keikoba2", src: "/images/busyo/keikoba2.jpg", width: 2011, height: 1533 },
+  butai1: { id: "butai1", label: "butai1", src: "/images/busyo/butai1.jpg", width: 1556, height: 2032 },
+  butai2: { id: "butai2", label: "butai2", src: "/images/busyo/butai2.jpg", width: 1516, height: 2008 },
+  syomei1: { id: "syomei1", label: "syomei1", src: "/images/busyo/syomei1.jpg", width: 1962, height: 1489 },
+  syomei2: { id: "syomei2", label: "syomei2", src: "/images/busyo/syomei2.jpg", width: 1938, height: 1490 },
+  onkyo1: { id: "onkyo1", label: "onkyo1", src: "/images/busyo/onkyo1.PNG", width: 2048, height: 2048 },
+  onkyo2: { id: "onkyo2", label: "onkyo2", width: 1200, height: 1500 },
+  eizou1: { id: "eizou1", label: "eizou1", src: "/images/busyo/eizou1.jpg", width: 1471, height: 1951 },
+  eizou2: { id: "eizou2", label: "eizou2", src: "/images/busyo/eizou2.jpg", width: 2002, height: 1369 },
+  iko1: { id: "iko1", label: "iko1", src: "/images/busyo/iko1.jpg", width: 2002, height: 1530 },
+  iko2: { id: "iko2", label: "iko2", src: "/images/busyo/iko2.jpg", width: 1198, height: 2019 },
+  seisaku1: { id: "seisaku1", label: "seisaku1", width: 1500, height: 1100 },
+  seisaku2: { id: "seisaku2", label: "seisaku2", src: "/images/busyo/seisaku2.jpg", width: 2048, height: 1576 },
+  senden1: { id: "senden1", label: "senden1", src: "/images/busyo/senden1.jpg", width: 2048, height: 1541 },
+  senden2: { id: "senden2", label: "senden2", src: "/images/busyo/senden2.PNG", width: 2048, height: 2048 },
+} as const satisfies Record<string, DepartmentSidePhoto>;
 
 export const departmentsData: DepartmentConfig[] = [
   {
@@ -29,6 +57,7 @@ export const departmentsData: DepartmentConfig[] = [
     isLeftLeaf: false,
     tapes: [{ src: "red_tape.png", pos: "left-vertical" }],
     isLongText: true,
+    sidePhotos: [departmentSidePhotoMap.keikoba1, departmentSidePhotoMap.keikoba2],
     description: (
       <>
         役者として、舞台に立つ。その為に練習する部署です。人前に立ったり、演じるということに慣れてないそこのあなたでも大丈夫！！あなたの中の様々な経験が演技や作劇の糧になります。
@@ -42,6 +71,7 @@ export const departmentsData: DepartmentConfig[] = [
     isLeftLeaf: true,
     tapes: [{ src: "y_tape.png", pos: "top-left" }, { src: "y_tape.png", pos: "bottom-left" }],
     isLongText: true,
+    sidePhotos: [departmentSidePhotoMap.butai1, departmentSidePhotoMap.butai2],
     description: (
       <>
         舞台班は、舞台上の空間、大道具をデザインして制作する部署です。ケッペキは規模の大きい劇団なので、大きな舞台でも実現可能！
@@ -57,6 +87,7 @@ export const departmentsData: DepartmentConfig[] = [
     isLeftLeaf: false,
     tapes: [{ src: "red_tape.png", pos: "top-left" }],
     isLongText: true,
+    sidePhotos: [departmentSidePhotoMap.onkyo1, departmentSidePhotoMap.onkyo2],
     description: (
       <>
         効果音や音楽を探して、作って、流して。声に調和し、空間に馴染む、あるいは際立った存在感を放つ。音という1つの情報から大きな世界を創造する、職人たちが集まる部署です。
@@ -68,6 +99,7 @@ export const departmentsData: DepartmentConfig[] = [
     isLeftLeaf: true,
     tapes: [{ src: "blue_tape.png", pos: "top-center" }],
     isLongText: true,
+    sidePhotos: [departmentSidePhotoMap.syomei1, departmentSidePhotoMap.syomei2],
     description: (
       <>
         照明班は、脚本から舞台の照明を考え、実際に灯体を配置、操作を行います。ただ、舞台や役者を照らすだけでなく、舞台上の雰囲気や場所、時間などを様々な方法を使って表現します。たくさんの灯体を使って、大きな舞台を明るく照らすことができるところが照明の魅力です。自分たちで考えた照明を実際に舞台上で見た時はいつも感動します。
@@ -79,6 +111,7 @@ export const departmentsData: DepartmentConfig[] = [
     isLeftLeaf: false,
     tapes: [{ src: "y_tape.png", pos: "top-left" }, { src: "y_tape.png", pos: "top-right" }],
     isLongText: true,
+    sidePhotos: [departmentSidePhotoMap.eizou1, departmentSidePhotoMap.eizou2],
     description: (
       <>
         一見、演劇とは関係なさそう？映像というとこういうイメージがある。確かに、演劇は「人」の瞬間、予測不能の「現在」、とはいえ、その瞬間と現在に彩りを添え、表現をさらに豊かにしてくれるのが映像です。
@@ -94,6 +127,7 @@ export const departmentsData: DepartmentConfig[] = [
     isLeftLeaf: true,
     tapes: [{ src: "red_tape.png", pos: "top-left" }, { src: "red_tape.png", pos: "top-right" }],
     isLongText: true,
+    sidePhotos: [departmentSidePhotoMap.iko1, departmentSidePhotoMap.iko2],
     description: (
       <>
         衣装小道具部署の役割は、演出との綿密な打ち合わせを経て衣装や小道具のプランを立てたり、それを実際に買ったり作ったり、本番期間は役者のヘアメイクを担当したりと多岐に渡ります。
@@ -109,6 +143,7 @@ export const departmentsData: DepartmentConfig[] = [
     isLeftLeaf: false,
     tapes: [{ src: "blue_tape.png", pos: "bottom-right" }],
     isLongText: true,
+    sidePhotos: [departmentSidePhotoMap.seisaku2, departmentSidePhotoMap.seisaku1],
     description: (
       <>
         制作はより多くの人に「見に行きたい！」と思ってもらえるように、SNSでの発信やビラの店置き、タテカンづくりなど会議を重ねながら様々な宣伝を行います。
@@ -124,6 +159,7 @@ export const departmentsData: DepartmentConfig[] = [
     isLeftLeaf: true,
     tapes: [{ src: "blue_tape.png", pos: "top-right" }],
     isLongText: true,
+    sidePhotos: [departmentSidePhotoMap.senden1, departmentSidePhotoMap.senden2],
     description: (
       <>
         宣伝美術はビラ、パンフレット、タテカンなどを作り、劇団ケッペキとその公演の魅力を伝える部署です。制作部署と一緒に作業を進めます。

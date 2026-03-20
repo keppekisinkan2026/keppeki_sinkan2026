@@ -26,6 +26,58 @@ function DepartmentLeaf({ name }: DepartmentLeafProps) {
   );
 }
 
+type DepartmentPhotoClusterProps = {
+  department: DepartmentConfig;
+};
+
+function DepartmentPhotoCluster({ department }: DepartmentPhotoClusterProps) {
+  if (!department.sidePhotos || department.sidePhotos.length === 0) {
+    return null;
+  }
+
+  return (
+    <div
+      className={`wf-dept-photo-cluster ${department.isLeftLeaf ? "wf-dept-photo-cluster--left" : "wf-dept-photo-cluster--right"}`}
+      aria-hidden
+    >
+      {department.sidePhotos.map((photo, index) => (
+        <div key={`${department.name}-${photo.id}`} className={`wf-dept-photo-card wf-dept-photo-card--${index + 1}`}>
+          <div className="js-dept-photo-reveal wf-dept-photo-reveal">
+            <div className={`wf-dept-photo-paper${photo.src ? "" : " wf-dept-photo-paper--placeholder"}`}>
+              {photo.src ? (
+                <Image
+                  src={withBasePath(photo.src)}
+                  alt=""
+                  width={photo.width}
+                  height={photo.height}
+                  quality={100}
+                  unoptimized
+                  sizes="(max-width: 640px) 18vw, (max-width: 1024px) 12vw, 176px"
+                  className="wf-dept-photo-image"
+                />
+              ) : (
+                <div className="wf-dept-photo-placeholder">
+                  <span className="wf-dept-photo-placeholder-tag">placeholder</span>
+                  <span className="wf-dept-photo-placeholder-name">{photo.label}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DepartmentLeafStage({ department }: DepartmentPhotoClusterProps) {
+  return (
+    <div className={`wf-dept-leaf-stage ${department.isLeftLeaf ? "wf-dept-leaf-stage--left" : "wf-dept-leaf-stage--right"}`}>
+      <DepartmentPhotoCluster department={department} />
+      <DepartmentLeaf name={department.name} />
+    </div>
+  );
+}
+
 type DepartmentTextBlockProps = {
   department: DepartmentConfig;
 };
@@ -65,7 +117,7 @@ type DepartmentRowProps = {
 };
 
 export function DepartmentRow({ department }: DepartmentRowProps) {
-  const leaf = <DepartmentLeaf name={department.name} />;
+  const leaf = <DepartmentLeafStage department={department} />;
   const textBlock = <DepartmentTextBlock department={department} />;
 
   return (

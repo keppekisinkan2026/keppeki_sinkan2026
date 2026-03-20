@@ -47,6 +47,7 @@ export default function DepartmentsWireframePage() {
         const leafFrames = gsap.utils.toArray<HTMLElement>(".js-leaf-frame", row);
         const leafLabel = row.querySelector<HTMLElement>(".js-leaf-label");
         const textBlock = row.querySelector<HTMLElement>(".js-dept-text-block");
+        const photoCards = gsap.utils.toArray<HTMLElement>(".js-dept-photo-reveal", row);
 
         if (leafFrames.length === 0 || !textBlock || !leafLabel) {
           return;
@@ -55,12 +56,20 @@ export default function DepartmentsWireframePage() {
         hideFlipbookFrames(leafFrames);
         gsap.set(leafLabel, { autoAlpha: 0, y: 8 });
         gsap.set(textBlock, { autoAlpha: 0, y: 20 });
+        gsap.set(photoCards, {
+          autoAlpha: 0,
+          rotationX: -72,
+          y: -14,
+          scale: 0.94,
+          transformOrigin: "top center",
+        });
 
         if (reduceMotion) {
           gsap.set(leafFrames, { autoAlpha: 0 });
           gsap.set(leafFrames[leafFrames.length - 1], { autoAlpha: 1 });
           gsap.set(leafLabel, { autoAlpha: 1, y: 0 });
           gsap.set(textBlock, { autoAlpha: 1, y: 0 });
+          gsap.set(photoCards, { autoAlpha: 1, rotationX: 0, y: 0, scale: 1 });
           return;
         }
 
@@ -95,6 +104,23 @@ export default function DepartmentsWireframePage() {
           },
           "<+=0.12",
         );
+
+        if (photoCards.length > 0) {
+          timeline.to(
+            photoCards,
+            {
+              autoAlpha: 1,
+              rotationX: 0,
+              y: 0,
+              scale: 1,
+              duration: 0.58,
+              stagger: 0.16,
+              ease: "power2.out",
+              clearProps: "transform",
+            },
+            ">+=0.08",
+          );
+        }
       });
     },
     { scope: rootRef },

@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
-import { type PastPerformance } from "./pastShared";
+import { type PastPerformance, pastModalFrameSources, pastModalPosterImageSources } from "./pastShared";
 import { PastFrameStack } from "./PastFrameStack";
 
 type PastModalProps = {
@@ -16,6 +16,11 @@ type PastModalProps = {
 
 export function PastModal({ performance, onClose }: PastModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (!performance) {
@@ -37,6 +42,42 @@ export function PastModal({ performance, onClose }: PastModalProps) {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [performance, onClose]);
+
+  useEffect(() => {
+    if (!performance || !rootRef.current) {
+      return;
+    }
+
+    const content = rootRef.current.querySelector<HTMLElement>(".js-past-modal-content");
+    if (!content) {
+      return;
+    }
+
+    let scrollTimer: number | null = null;
+
+    const handleScroll = () => {
+      content.classList.add("is-scrolling");
+
+      if (scrollTimer !== null) {
+        window.clearTimeout(scrollTimer);
+      }
+
+      scrollTimer = window.setTimeout(() => {
+        content.classList.remove("is-scrolling");
+        scrollTimer = null;
+      }, 420);
+    };
+
+    content.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      content.removeEventListener("scroll", handleScroll);
+      if (scrollTimer !== null) {
+        window.clearTimeout(scrollTimer);
+      }
+      content.classList.remove("is-scrolling");
+    };
+  }, [performance]);
 
   useGSAP(
     () => {
@@ -78,11 +119,10 @@ export function PastModal({ performance, onClose }: PastModalProps) {
 
       timeline.fromTo(
         panel,
-        { autoAlpha: 0, y: 24, scale: 0.96 },
+        { autoAlpha: 0, y: 24 },
         {
           autoAlpha: 1,
           y: 0,
-          scale: 1,
           duration: 0.4,
           ease: "power2.out",
         },
@@ -105,15 +145,17 @@ export function PastModal({ performance, onClose }: PastModalProps) {
         },
         ">",
       );
+
+      timeline.set(panel, { clearProps: "transform" });
     },
     { dependencies: [performance], scope: rootRef, revertOnUpdate: true },
   );
 
-  if (!performance) {
+  if (!performance || !isMounted) {
     return null;
   }
 
-  return (
+  return createPortal(
     <div ref={rootRef} className="wf-past-modal-root">
       <button
         type="button"
@@ -122,27 +164,34 @@ export function PastModal({ performance, onClose }: PastModalProps) {
         aria-label="モーダルを閉じる"
       />
 
-      <div className="js-past-modal-panel wf-past-modal-panel" role="dialog" aria-modal="true">
-        <button type="button" className="wf-past-modal-close wf-maki-title" onClick={onClose} aria-label="閉じる">
-          ×
-        </button>
+      <button type="button" className="wf-past-modal-close wf-maki-title" onClick={onClose} aria-label="閉じる">
+        ×
+      </button>
 
+      <div className="js-past-modal-panel wf-past-modal-panel" role="dialog" aria-modal="true">
         <div className="wf-past-modal-stage">
           <div className="wf-past-modal-frames" aria-hidden>
             <PastFrameStack
               performanceId={performance.id}
-              sizes="(max-width: 820px) 82vw, 620px"
+              sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1200px) calc(100vw - 40px), 1040px"
               className="js-past-modal-frame wf-past-modal-image"
+              frameSources={pastModalFrameSources}
+            />
+            <PastFrameStack
+              performanceId={performance.id}
+              sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1200px) calc(100vw - 40px), 1040px"
+              className="js-past-modal-frame wf-past-modal-poster-image"
+              frameSources={[pastModalPosterImageSources[performance.key]]}
             />
           </div>
 
           <div className="js-past-modal-content wf-past-modal-content">
-            <p className="wf-past-modal-subtitle">{performance.subtitle}</p>
             <h2 className="wf-past-modal-title wf-maki-title">{performance.title}</h2>
             <p className="wf-past-modal-text">{performance.synopsis}</p>
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

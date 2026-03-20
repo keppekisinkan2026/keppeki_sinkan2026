@@ -1,17 +1,18 @@
 import Image from "next/image";
 import { withBasePath } from "@/lib/withBasePath";
-import { pastFrameSources } from "./pastShared";
+import { pastCardFrameSources } from "./pastShared";
 
 type PastFrameStackProps = {
   performanceId: number;
   sizes: string;
   className: string;
+  frameSources?: readonly string[];
 };
 
-export function PastFrameStack({ performanceId, sizes, className }: PastFrameStackProps) {
+export function PastFrameStack({ performanceId, sizes, className, frameSources = pastCardFrameSources }: PastFrameStackProps) {
   return (
     <>
-      {pastFrameSources.map((frameSrc) => (
+      {frameSources.map((frameSrc) => (
         <Image
           key={`${performanceId}-${frameSrc}`}
           src={withBasePath(frameSrc)}
