@@ -43,38 +43,82 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
       const getScatterTarget = (slot: number, cardWidth: number, shellWidth: number, shellHeight: number) => {
         const gap = Math.max(38, shellWidth * 0.08);
 
+        let target = { x: 0, y: 0, rotation: 0 };
+
         switch (slot) {
           case 0:
-            return {
+            target = {
               x: -(shellWidth * 0.5 + cardWidth * 0.42 + gap),
               y: -(shellHeight * 0.3 + cardWidth * 0.1),
               rotation: -13,
             };
+            break;
           case 1:
-            return {
+            target = {
               x: shellWidth * 0.5 + cardWidth * 0.44 + gap,
               y: -(shellHeight * 0.26 + cardWidth * 0.08),
               rotation: 10,
             };
+            break;
           case 2:
-            return {
+            target = {
               x: shellWidth * 0.52 + cardWidth * 0.46 + gap,
               y: shellHeight * 0.22 + cardWidth * 0.08,
               rotation: 15,
             };
+            break;
           case 3:
-            return {
+            target = {
               x: -(shellWidth * 0.5 + cardWidth * 0.42 + gap),
               y: shellHeight * 0.28 + cardWidth * 0.1,
               rotation: -10,
             };
+            break;
+          case 4:
+            target = {
+              x: -(shellWidth * 0.6 + cardWidth * 0.4 + gap),
+              y: shellHeight * 0.05,
+              rotation: -25,
+            };
+            break;
+          case 5:
+            target = {
+              x: shellWidth * 0.6 + cardWidth * 0.4 + gap,
+              y: -(shellHeight * 0.05),
+              rotation: 20,
+            };
+            break;
+          case 6:
+            target = {
+              x: -(shellWidth * 0.3 + cardWidth * 0.3 + gap),
+              y: -(shellHeight * 0.5 + cardWidth * 0.1),
+              rotation: 5,
+            };
+            break;
+          case 7:
+            target = {
+              x: shellWidth * 0.3 + cardWidth * 0.3 + gap,
+              y: shellHeight * 0.5 + cardWidth * 0.1,
+              rotation: -15,
+            };
+            break;
           default:
-            return {
+            target = {
               x: 0,
               y: shellHeight * 0.56 + cardWidth * 0.55 + gap * 0.4,
               rotation: 4,
             };
+            break;
         }
+
+        const offset = performance.scatterOffsets?.[slot];
+        if (offset) {
+          target.x += offset.x || 0;
+          target.y += offset.y || 0;
+          target.rotation += offset.rotation || 0;
+        }
+
+        return target;
       };
 
       const setScatterRestState = () => {

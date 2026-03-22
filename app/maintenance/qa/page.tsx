@@ -1,32 +1,57 @@
+import Image from "next/image";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
+import { QaAccordion } from "@/components/qa/QaAccordion";
+import { withBasePath } from "@/lib/withBasePath";
+import { qaItems } from "./content";
 
 export default function QaWireframePage() {
   return (
-    <WireframeShell>
-      <section className="wf-card wf-qa-card">
-        <h1 className="wf-card-title">Q&amp;A</h1>
-        <div className="wf-qa-leaves" aria-hidden>
-          <span />
-          <span />
-        </div>
-        <div className="wf-qa-divider" />
-        <div className="wf-qa-placeholder">
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
-      </section>
+    <WireframeShell frameClassName="wf-frame--qa" innerClassName="wf-frame-inner--qa">
+      <section className="wf-qa-page">
+        <section className="wf-qa-card" aria-labelledby="wf-qa-title">
+          <h1 id="wf-qa-title" className="wf-card-title wf-qa-title wf-maki-title">
+            Q&amp;A
+          </h1>
+          <QaAccordion items={qaItems} />
+        </section>
 
-      <section className="wf-card wf-join-flow-card">
-        <h2 className="wf-card-title">入団の流れ</h2>
-        <div className="wf-join-lines">
-          <span />
-          <span />
-          <span />
-          <span />
-        </div>
+        <section className="wf-qa-illustration-strip" aria-hidden>
+          <Image
+            src={withBasePath("/images/chara_2.PNG")}
+            alt=""
+            width={595}
+            height={842}
+            quality={100}
+            unoptimized
+            sizes="(max-width: 640px) 20vw, (max-width: 1100px) 16vw, 180px"
+            className="wf-qa-character wf-qa-character--left"
+          />
+
+          <div className="wf-qa-plant-wrap">
+            <span className="wf-qa-plant-soil" />
+            <Image
+              src={withBasePath("/images/futaba.PNG")}
+              alt=""
+              width={2048}
+              height={2048}
+              quality={100}
+              unoptimized
+              sizes="(max-width: 640px) 34vw, (max-width: 1100px) 28vw, 360px"
+              className="wf-qa-futaba"
+            />
+          </div>
+
+          <Image
+            src={withBasePath("/images/chara_1.PNG")}
+            alt=""
+            width={595}
+            height={842}
+            quality={100}
+            unoptimized
+            sizes="(max-width: 640px) 20vw, (max-width: 1100px) 16vw, 180px"
+            className="wf-qa-character wf-qa-character--right"
+          />
+        </section>
       </section>
     </WireframeShell>
   );

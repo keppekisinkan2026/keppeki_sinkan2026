@@ -30,8 +30,8 @@ const scatterCards = [
 export function PastGalleryScatter({ imageSources }: PastGalleryScatterProps) {
   return (
     <>
-      {imageSources.slice(0, scatterCards.length).map((imageSource, index) => {
-        const card = scatterCards[index];
+      {imageSources.map((imageSource, index) => {
+        const card = scatterCards[index % scatterCards.length];
         const style: ScatterCardStyle = {
           "--wf-scatter-width": card.width,
         };

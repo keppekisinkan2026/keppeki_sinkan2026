@@ -72,6 +72,14 @@ export const pastPerformances: PastPerformance[] = [
       "THEATRE E9 KYOTOでの新歓公演。「二十億光年の孤独」で知られる詩人、谷川俊太郎による豊かな言葉に満ちた脚本を、演劇のあらゆる要素を掛け合わすことを意識し、劇場空間に立ち上げました。２ヶ月間、座組をあげて、時空と向き合って出来上がった作品は、懐かしい過去で、輝かしい未来の姿となって現れました。そして、E9に立ち現れた空間は、私たちを「今」に導くようでした。",
     galleryImageSources: pastGalleryImageSources.sinkan,
     posterImageSource: pastPosterImageSources.sinkan,
+
+    scatterOffsets: [
+      { x: 100, y: -10, rotation: -20 },
+      { x: -50, y: -20, rotation: 10 },
+      { x: -40, y: -50, rotation: -20},
+      { x: 0, y: -200, rotation: 20},
+      { x: -300, y: -450, rotation: -20}
+    ]
   },
   {
     id: 2,
@@ -81,7 +89,21 @@ export const pastPerformances: PastPerformance[] = [
       "５月に入団した新入団員が初めて参加した公演です。25年度は4班に分かれてそれぞれ30-40分ほどの作品を作りあげました。上回生のサポートを受けながら参加できるので、演劇が初めての方も安心です！先輩や同期とも仲良くなれます♪",
     galleryImageSources: pastGalleryImageSources.midhi,
     posterImageSource: pastPosterImageSources.midhi,
+
+    scatterOffsets: [
+      { x: 100, y: -10, rotation: -20 },
+      { x: -50, y: -20, rotation: 10 },
+      { x: -40, y: -50, rotation: -20},
+      { x: 0, y: -200, rotation: 20},
+      { x: 0, y: -200, rotation: 20},
+      { x: 0, y: -200, rotation: 20},
+      { x: 0, y: -200, rotation: 20},
+      { x: -300, y: -450, rotation: -20}
+    ]
+
   },
+
+
   {
     id: 3,
     key: "natu",

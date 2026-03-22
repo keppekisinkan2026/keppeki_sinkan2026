@@ -66,4 +66,5 @@ export type PastPerformance = {
   synopsis: ReactNode;
   galleryImageSources: string[];
   posterImageSource: string;
+  scatterOffsets?: { x?: number; y?: number; rotation?: number }[]
 };
