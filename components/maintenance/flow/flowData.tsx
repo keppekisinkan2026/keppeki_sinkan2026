@@ -7,6 +7,18 @@ export type FlowStepData = {
   isLongDescription?: boolean;
 };
 
+export type FlowPhoto = {
+  id: string;
+  src: string;
+  top: string;
+  left: string;
+  rotation: number;
+  width: string;
+  imageWidth: number;
+  imageHeight: number;
+  alt: string;
+};
+
 export const flowSteps: FlowStepData[] = [
   {
     id: 1,
@@ -106,6 +118,130 @@ export const flowFrameSources = [
   "/images/image4.PNG",
   "/images/image5.PNG",
 ] as const;
+
+export const flowPhotos: readonly FlowPhoto[] = [
+  {
+    id: "keikoba1",
+    src: "/images/flow/keikoba1.jpg",
+    top: "42%",
+    left: "12%",
+    rotation: -8,
+    width: "clamp(220px, 20vw, 300px)",
+    imageWidth: 1587,
+    imageHeight: 2046,
+    alt: "稽古の様子 1",
+  },
+  {
+    id: "keikoba2",
+    src: "/images/flow/keikoba2.jpg",
+    top: "46%",
+    left: "69%",
+    rotation: 8,
+    width: "clamp(280px, 26vw, 380px)",
+    imageWidth: 1792,
+    imageHeight: 1053,
+    alt: "稽古の様子 2",
+  },
+  {
+    id: "staff1",
+    src: "/images/flow/staff1.jpg",
+    top: "53%",
+    left: "12%",
+    rotation: -7,
+    width: "clamp(260px, 24vw, 360px)",
+    imageWidth: 1913,
+    imageHeight: 1331,
+    alt: "スタッフワークの様子 1",
+  },
+  {
+    id: "staff2",
+    src: "/images/flow/staff2.jpg",
+    top: "58%",
+    left: "74%",
+    rotation: 10,
+    width: "clamp(220px, 20vw, 300px)",
+    imageWidth: 1806,
+    imageHeight: 1740,
+    alt: "スタッフワークの様子 2",
+  },
+  {
+    id: "sikomi1",
+    src: "/images/flow/sikomi1.jpg",
+    top: "64%",
+    left: "11%",
+    rotation: -6,
+    width: "clamp(270px, 24vw, 360px)",
+    imageWidth: 1779,
+    imageHeight: 1376,
+    alt: "仕込みの様子 1",
+  },
+  {
+    id: "sikomi2",
+    src: "/images/flow/sikomi2.jpg",
+    top: "68%",
+    left: "70%",
+    rotation: 8,
+    width: "clamp(250px, 23vw, 340px)",
+    imageWidth: 1870,
+    imageHeight: 1455,
+    alt: "仕込みの様子 2",
+  },
+  {
+    id: "honban1",
+    src: "/images/flow/honban1.jpg",
+    top: "75%",
+    left: "10%",
+    rotation: -12,
+    width: "clamp(250px, 22vw, 330px)",
+    imageWidth: 1794,
+    imageHeight: 1214,
+    alt: "本番の様子 1",
+  },
+  {
+    id: "honban2",
+    src: "/images/flow/honban2.jpg",
+    top: "79%",
+    left: "73%",
+    rotation: 7,
+    width: "clamp(250px, 23vw, 340px)",
+    imageWidth: 1847,
+    imageHeight: 1406,
+    alt: "本番の様子 2",
+  },
+  {
+    id: "honban3",
+    src: "/images/flow/honban3.jpg",
+    top: "82%",
+    left: "43%",
+    rotation: 5,
+    width: "clamp(220px, 20vw, 300px)",
+    imageWidth: 1753,
+    imageHeight: 1316,
+    alt: "本番の様子 3",
+  },
+  {
+    id: "barasi1",
+    src: "/images/flow/barasi1.jpg",
+    top: "91%",
+    left: "17%",
+    rotation: -8,
+    width: "clamp(250px, 23vw, 340px)",
+    imageWidth: 1854,
+    imageHeight: 1424,
+    alt: "バラシの様子 1",
+  },
+  {
+    id: "barasi2",
+    src: "/images/flow/barasi2.jpg",
+    top: "93%",
+    left: "66%",
+    rotation: 10,
+    width: "clamp(260px, 24vw, 350px)",
+    imageWidth: 1686,
+    imageHeight: 1296,
+    alt: "バラシの様子 2",
+  },
+];
 
 export function getFlowTriggerStart(index: number) {
   switch (index) {

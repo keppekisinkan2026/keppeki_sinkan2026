@@ -21,11 +21,22 @@ export default function TitleWireframePage() {
   const aboutStageRef = useRef<HTMLElement>(null);
   const aboutPanelRef = useRef<HTMLDivElement>(null);
   const [isIntroComplete, setIsIntroComplete] = useState(false);
+  const [shouldSkipIntro, setShouldSkipIntro] = useState(false);
 
   useEffect(() => {
+    const hasAboutHash = window.location.hash === "#about";
     const previousScrollRestoration = window.history.scrollRestoration;
 
     window.history.scrollRestoration = "manual";
+    setShouldSkipIntro(hasAboutHash);
+
+    if (hasAboutHash) {
+      setIsIntroComplete(true);
+      return () => {
+        window.history.scrollRestoration = previousScrollRestoration;
+      };
+    }
+
     window.scrollTo(0, 0);
 
     const resetScroll = window.requestAnimationFrame(() => {
@@ -37,6 +48,20 @@ export default function TitleWireframePage() {
       window.history.scrollRestoration = previousScrollRestoration;
     };
   }, []);
+
+  useEffect(() => {
+    if (!isIntroComplete || window.location.hash !== "#about") {
+      return;
+    }
+
+    const scrollToAbout = window.requestAnimationFrame(() => {
+      aboutPanelRef.current?.scrollIntoView({ block: "start" });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(scrollToAbout);
+    };
+  }, [isIntroComplete]);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -73,8 +98,13 @@ export default function TitleWireframePage() {
         header: headerRef.current,
         lineSvg: lineSvgRef.current,
         setIsIntroComplete,
+        skipIntro: shouldSkipIntro,
       }),
-    { scope: rootRef },
+    {
+      scope: rootRef,
+      dependencies: [shouldSkipIntro],
+      revertOnUpdate: true,
+    },
   );
 
   useGSAP(

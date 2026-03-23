@@ -45,6 +45,8 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .wf-flow-page-title {
@@ -62,6 +64,25 @@
   width: min(100%, 1280px);
   margin: 0 auto;
   padding: 0;
+  position: relative;
+  z-index: 2;
+}
+
+.wf-flow-photo-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.wf-flow-floating-photo {
+  margin: 0;
+  transform-origin: center;
+}
+
+.wf-flow-floating-photo .wf-dept-photo-paper {
+  display: block;
+  width: 100%;
 }
 
 .wf-flow-step-list > .wf-flow-step:nth-child(1) .wf-flow-step-card-shell {
@@ -375,6 +396,10 @@
 }
 
 @media (max-width: 700px) {
+  .wf-flow-floating-photo {
+    max-width: 34vw;
+  }
+
   .wf-flow-step-list {
     gap: 12px;
   }

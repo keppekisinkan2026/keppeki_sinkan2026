@@ -1,14 +1,16 @@
 "use client";
 
+import Image from "next/image";
 import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { FlowStep } from "@/components/maintenance/flow/FlowStep";
-import { flowFrameSources, flowSteps, getFlowTriggerStart } from "@/components/maintenance/flow/flowData";
+import { flowFrameSources, flowPhotos, flowSteps, getFlowTriggerStart } from "@/components/maintenance/flow/flowData";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
+import { withBasePath } from "@/lib/withBasePath";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
@@ -139,6 +141,36 @@ export default function FlowWireframePage() {
         <header className="wf-flow-page-header">
           <h1 className="wf-flow-page-title wf-maki-title">公演ができるまで</h1>
         </header>
+
+        <div className="wf-flow-photo-layer" aria-hidden>
+          {flowPhotos.map((photo) => (
+            <figure
+              key={photo.id}
+              className="wf-flow-floating-photo"
+              style={{
+                position: "absolute",
+                top: photo.top,
+                left: photo.left,
+                transform: `rotate(${photo.rotation}deg)`,
+                width: photo.width,
+                zIndex: 1,
+              }}
+            >
+              <div className="wf-dept-photo-paper">
+                <Image
+                  src={withBasePath(photo.src)}
+                  alt={photo.alt}
+                  width={photo.imageWidth}
+                  height={photo.imageHeight}
+                  quality={100}
+                  unoptimized
+                  sizes="(max-width: 700px) 34vw, 220px"
+                  className="wf-dept-photo-image"
+                />
+              </div>
+            </figure>
+          ))}
+        </div>
 
         <div className="wf-flow-step-list">
           {flowSteps.map((step, index) => (

@@ -8,6 +8,7 @@ type TitleIntroAnimationOptions = {
   header: HTMLElement | null;
   lineSvg: SVGSVGElement | null;
   setIsIntroComplete: Dispatch<SetStateAction<boolean>>;
+  skipIntro?: boolean;
 };
 
 type RoughLineDefinition = {
@@ -179,6 +180,7 @@ export function setupTitleIntroAnimation({
   header,
   lineSvg,
   setIsIntroComplete,
+  skipIntro = false,
 }: TitleIntroAnimationOptions) {
   if (!header || !lineSvg) {
     return;
@@ -213,7 +215,7 @@ export function setupTitleIntroAnimation({
   });
   gsap.set(lineSvg, { autoAlpha: 1 });
 
-  if (reduceMotion) {
+  if (reduceMotion || skipIntro) {
     applyReducedMotionState(paperFrames, logo, linePaths, menuItems, setIsIntroComplete);
     return;
   }
