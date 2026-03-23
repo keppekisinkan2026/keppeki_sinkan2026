@@ -29,6 +29,28 @@ export default function EventsWireframePage() {
             className="wf-event-map-image"
           />
 
+          <div className="wf-event-character wf-event-character--left" aria-hidden="true">
+            <Image
+              src={withBasePath("/images/chara_2.PNG")}
+              alt=""
+              fill
+              unoptimized
+              sizes="(max-width: 640px) 120px, (max-width: 1280px) 18vw, 220px"
+              className="wf-event-character-image"
+            />
+          </div>
+
+          <div className="wf-event-character wf-event-character--right" aria-hidden="true">
+            <Image
+              src={withBasePath("/images/chara_1.PNG")}
+              alt=""
+              fill
+              unoptimized
+              sizes="(max-width: 640px) 110px, (max-width: 1280px) 16vw, 200px"
+              className="wf-event-character-image"
+            />
+          </div>
+
           {welcomeEvents.map((event) => (
             <button
               key={event.id}
@@ -47,6 +69,7 @@ export default function EventsWireframePage() {
                 backgroundColor: "rgba(255, 0, 0, 0.5)",
                 border: "none",
                 padding: 0,
+                zIndex: 3,
               }}
               onClick={() => openModal(event)}
               aria-label={`${event.date} ${event.title} の詳細を開く`}

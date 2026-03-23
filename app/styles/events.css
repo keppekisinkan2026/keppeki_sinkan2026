@@ -32,6 +32,32 @@
   user-select: none;
 }
 
+.wf-event-character {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  aspect-ratio: 595 / 842;
+}
+
+.wf-event-character--left {
+  top: 14.5%;
+  left: 12.5%;
+  width: clamp(120px, 19vw, 230px);
+}
+
+.wf-event-character--right {
+  top: 56%;
+  right: -2.5%;
+  width: clamp(112px, 16vw, 196px);
+}
+
+.wf-event-character-image {
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 10px 14px rgba(37, 45, 31, 0.18));
+}
+
 .wf-event-hotspot {
   position: absolute;
   z-index: 2;
@@ -193,6 +219,18 @@
     padding-top: clamp(88px, 20vw, 132px);
   }
 
+  .wf-event-character--left {
+    top: 14.8%;
+    left: 11.8%;
+    width: clamp(110px, 19vw, 180px);
+  }
+
+  .wf-event-character--right {
+    top: 57.4%;
+    right: -1.6%;
+    width: clamp(98px, 14vw, 152px);
+  }
+
   .wf-events-modal-root {
     --wf-events-modal-stage-height: min(calc(100svh - 72px), 760px);
   }
@@ -205,6 +243,18 @@
 @media (max-width: 640px) {
   .wf-event-map-shell {
     width: min(100vw - 12px, 640px);
+  }
+
+  .wf-event-character--left {
+    top: 15%;
+    left: 11.5%;
+    width: clamp(78px, 18vw, 112px);
+  }
+
+  .wf-event-character--right {
+    top: 58%;
+    right: -0.5%;
+    width: clamp(72px, 15vw, 100px);
   }
 
   .wf-event-hotspot::before {

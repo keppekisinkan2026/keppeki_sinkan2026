@@ -55,7 +55,7 @@ function DepartmentLeafStage({ department, onOpen }: DepartmentLeafStageProps) {
         aria-label={`${department.name}の説明を開く`}
       >
         <span
-          className={`js-dept-click-sign wf-dept-click-sign ${department.isLeftLeaf ? "wf-dept-click-sign--left" : "wf-dept-click-sign--right"}`}
+          className={`js-dept-click-sign wf-dept-click-sign wf-maki-title ${department.isLeftLeaf ? "wf-dept-click-sign--left" : "wf-dept-click-sign--right"}`}
           aria-hidden
         >
           \click!/
