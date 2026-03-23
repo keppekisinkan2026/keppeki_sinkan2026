@@ -1,14 +1,30 @@
+import type { CSSProperties } from "react";
 import Image from "next/image";
-import { leafFrameSources, tapeAssetMap, type DepartmentConfig } from "@/app/maintenance/departments/content";
+import { leafFrameSources, type DepartmentConfig } from "@/app/maintenance/departments/content";
 import { withBasePath } from "@/lib/withBasePath";
+
+type DepartmentPhotoCardStyle = CSSProperties & {
+  "--wf-dept-photo-offset-x": string;
+  "--wf-dept-photo-offset-y": string;
+  "--wf-dept-photo-rotate-adjust": string;
+};
 
 type DepartmentLeafProps = {
   name: string;
 };
 
+type DepartmentLeafStageProps = {
+  department: DepartmentConfig;
+  onOpen: (department: DepartmentConfig, trigger: HTMLButtonElement) => void;
+};
+
+type DepartmentPhotoFieldProps = {
+  department: DepartmentConfig;
+};
+
 function DepartmentLeaf({ name }: DepartmentLeafProps) {
   return (
-    <div className="wf-dept-leaf-wrapper">
+    <div className="js-dept-leaf-wrapper wf-dept-leaf-wrapper">
       {leafFrameSources.map((frameSrc) => (
         <Image
           key={`${name}-${frameSrc}`}
@@ -26,106 +42,104 @@ function DepartmentLeaf({ name }: DepartmentLeafProps) {
   );
 }
 
-type DepartmentPhotoClusterProps = {
-  department: DepartmentConfig;
-};
+function DepartmentLeafStage({ department, onOpen }: DepartmentLeafStageProps) {
+  return (
+    <div className="wf-dept-leaf-stage">
+      <button
+        type="button"
+        className={`js-dept-leaf-button wf-dept-leaf-button ${department.isLeftLeaf ? "wf-dept-leaf-button--left" : "wf-dept-leaf-button--right"}`}
+        onClick={(event) => {
+          onOpen(department, event.currentTarget);
+        }}
+        aria-haspopup="dialog"
+        aria-label={`${department.name}の説明を開く`}
+      >
+        <span
+          className={`js-dept-click-sign wf-dept-click-sign ${department.isLeftLeaf ? "wf-dept-click-sign--left" : "wf-dept-click-sign--right"}`}
+          aria-hidden
+        >
+          \click!/
+        </span>
+        <DepartmentLeaf name={department.name} />
+      </button>
+    </div>
+  );
+}
 
-function DepartmentPhotoCluster({ department }: DepartmentPhotoClusterProps) {
+function DepartmentPhotoField({ department }: DepartmentPhotoFieldProps) {
   if (!department.sidePhotos || department.sidePhotos.length === 0) {
     return null;
   }
 
+  const stageSideClass = department.isLeftLeaf ? "wf-dept-photo-stage--right" : "wf-dept-photo-stage--left";
+
   return (
-    <div
-      className={`wf-dept-photo-cluster ${department.isLeftLeaf ? "wf-dept-photo-cluster--left" : "wf-dept-photo-cluster--right"}`}
-      aria-hidden
-    >
-      {department.sidePhotos.map((photo, index) => (
-        <div key={`${department.name}-${photo.id}`} className={`wf-dept-photo-card wf-dept-photo-card--${index + 1}`}>
-          <div className="js-dept-photo-reveal wf-dept-photo-reveal">
-            <div className={`wf-dept-photo-paper${photo.src ? "" : " wf-dept-photo-paper--placeholder"}`}>
-              {photo.src ? (
-                <Image
-                  src={withBasePath(photo.src)}
-                  alt=""
-                  width={photo.width}
-                  height={photo.height}
-                  quality={100}
-                  unoptimized
-                  sizes="(max-width: 640px) 18vw, (max-width: 1024px) 12vw, 176px"
-                  className="wf-dept-photo-image"
-                />
-              ) : (
-                <div className="wf-dept-photo-placeholder">
-                  <span className="wf-dept-photo-placeholder-tag">placeholder</span>
-                  <span className="wf-dept-photo-placeholder-name">{photo.label}</span>
+    <div className={`wf-dept-photo-stage ${stageSideClass}`} aria-hidden>
+      <div className="wf-dept-photo-cluster">
+        {department.sidePhotos.map((photo, index) => {
+          const photoStyle: DepartmentPhotoCardStyle = {
+            "--wf-dept-photo-offset-x": `${photo.offsetX ?? 0}px`,
+            "--wf-dept-photo-offset-y": `${photo.offsetY ?? 0}px`,
+            "--wf-dept-photo-rotate-adjust": `${photo.rotation ?? 0}deg`,
+          };
+
+          return (
+            <div
+              key={`${department.name}-${photo.id}`}
+              className={`wf-dept-photo-card wf-dept-photo-card--${index + 1}`}
+              style={photoStyle}
+            >
+              <div className="js-dept-photo-reveal wf-dept-photo-reveal">
+                <div className={`wf-dept-photo-paper${photo.src ? "" : " wf-dept-photo-paper--placeholder"}`}>
+                  {photo.src ? (
+                    <Image
+                      src={withBasePath(photo.src)}
+                      alt=""
+                      width={photo.width}
+                      height={photo.height}
+                      quality={100}
+                      unoptimized
+                      sizes="(max-width: 640px) 28vw, (max-width: 1024px) 18vw, 260px"
+                      className="wf-dept-photo-image"
+                    />
+                  ) : (
+                    <div className="wf-dept-photo-placeholder">
+                      <span className="wf-dept-photo-placeholder-tag">placeholder</span>
+                      <span className="wf-dept-photo-placeholder-name">{photo.label}</span>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
             </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function DepartmentLeafStage({ department }: DepartmentPhotoClusterProps) {
-  return (
-    <div className={`wf-dept-leaf-stage ${department.isLeftLeaf ? "wf-dept-leaf-stage--left" : "wf-dept-leaf-stage--right"}`}>
-      <DepartmentPhotoCluster department={department} />
-      <DepartmentLeaf name={department.name} />
-    </div>
-  );
-}
-
-type DepartmentTextBlockProps = {
-  department: DepartmentConfig;
-};
-
-function DepartmentTextBlock({ department }: DepartmentTextBlockProps) {
-  return (
-    <div className={`js-dept-text-block wf-dept-text-wrapper${department.isLongText ? " wf-dept-text-wrapper--long" : ""}`}>
-      <Image
-        src={withBasePath("/images/nyudan.PNG")}
-        alt=""
-        width={2048}
-        height={2048}
-        quality={100}
-        unoptimized
-        sizes="(max-width: 640px) 64vw, (max-width: 1024px) 42vw, 480px"
-        className="wf-dept-text-bg"
-      />
-      {department.tapes.map((tape, index) => (
-        <Image
-          key={`${department.name}-${tape.src}-${tape.pos}-${index}`}
-          src={withBasePath(tapeAssetMap[tape.src])}
-          alt=""
-          width={140}
-          height={60}
-          quality={100}
-          unoptimized
-          className={`wf-dept-tape wf-dept-tape--${tape.pos}`}
-        />
-      ))}
-      <div className="wf-dept-desc-text">{department.description}</div>
+          );
+        })}
+      </div>
     </div>
   );
 }
 
 type DepartmentRowProps = {
   department: DepartmentConfig;
+  onOpen: (department: DepartmentConfig, trigger: HTMLButtonElement) => void;
 };
 
-export function DepartmentRow({ department }: DepartmentRowProps) {
-  const leaf = <DepartmentLeafStage department={department} />;
-  const textBlock = <DepartmentTextBlock department={department} />;
+export function DepartmentRow({ department, onOpen }: DepartmentRowProps) {
+  const leafStage = <DepartmentLeafStage department={department} onOpen={onOpen} />;
+  const photoField = <DepartmentPhotoField department={department} />;
+  const hasPhotos = Boolean(department.sidePhotos && department.sidePhotos.length > 0);
+
+  if (!hasPhotos) {
+    return (
+      <li className={`js-dept-row wf-dept-row wf-dept-row--solo ${department.isLeftLeaf ? "wf-dept-row--left" : "wf-dept-row--right"}`}>
+        <div className="wf-dept-cell-solo">{leafStage}</div>
+      </li>
+    );
+  }
 
   return (
-    <li
-      className={`js-dept-row wf-dept-row ${department.isLeftLeaf ? "wf-dept-row--left" : "wf-dept-row--right"}`}
-    >
-      <div className="wf-dept-cell-left">{department.isLeftLeaf ? leaf : textBlock}</div>
-      <div className="wf-dept-cell-right">{department.isLeftLeaf ? textBlock : leaf}</div>
+    <li className={`js-dept-row wf-dept-row ${department.isLeftLeaf ? "wf-dept-row--left" : "wf-dept-row--right"}`}>
+      <div className="wf-dept-cell-left">{department.isLeftLeaf ? leafStage : photoField}</div>
+      <div className="wf-dept-cell-right">{department.isLeftLeaf ? photoField : leafStage}</div>
     </li>
   );
 }

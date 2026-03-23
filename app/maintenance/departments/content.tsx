@@ -3,9 +3,7 @@ import type { ReactNode } from "react";
 export type DepartmentConfig = {
   name: string;
   isLeftLeaf: boolean;
-  tapes: readonly { src: keyof typeof tapeAssetMap; pos: string }[];
   description: ReactNode;
-  isLongText?: boolean;
   sidePhotos?: readonly DepartmentSidePhoto[];
 };
 
@@ -15,35 +13,180 @@ export type DepartmentSidePhoto = {
   width: number;
   height: number;
   src?: string;
+  offsetX?: number;
+  offsetY?: number;
+  rotation?: number;
 };
 
 export const leafFrameSources = ["/images/leaf.PNG", "/images/leaf2.PNG", "/images/leaf3.PNG", "/images/leaf4.PNG"] as const;
 
 const departmentSidePhotoMap = {
-  keikoba1: { id: "keikoba1", label: "keikoba1", src: "/images/busyo/keikoba1.jpg", width: 1587, height: 2046 },
-  keikoba2: { id: "keikoba2", label: "keikoba2", src: "/images/busyo/keikoba2.jpg", width: 2011, height: 1533 },
-  butai1: { id: "butai1", label: "butai1", src: "/images/busyo/butai1.jpg", width: 1556, height: 2032 },
-  butai2: { id: "butai2", label: "butai2", src: "/images/busyo/butai2.jpg", width: 1516, height: 2008 },
-  syomei1: { id: "syomei1", label: "syomei1", src: "/images/busyo/syomei1.jpg", width: 1962, height: 1489 },
-  syomei2: { id: "syomei2", label: "syomei2", src: "/images/busyo/syomei2.jpg", width: 1938, height: 1490 },
-  onkyo1: { id: "onkyo1", label: "onkyo1", src: "/images/busyo/onkyo1.PNG", width: 2048, height: 2048 },
-  onkyo2: { id: "onkyo2", label: "onkyo2", width: 1200, height: 1500 },
-  eizou1: { id: "eizou1", label: "eizou1", src: "/images/busyo/eizou1.jpg", width: 1471, height: 1951 },
-  eizou2: { id: "eizou2", label: "eizou2", src: "/images/busyo/eizou2.jpg", width: 2002, height: 1369 },
-  iko1: { id: "iko1", label: "iko1", src: "/images/busyo/iko1.jpg", width: 2002, height: 1530 },
-  iko2: { id: "iko2", label: "iko2", src: "/images/busyo/iko2.jpg", width: 1198, height: 2019 },
-  seisaku1: { id: "seisaku1", label: "seisaku1", width: 1500, height: 1100 },
-  seisaku2: { id: "seisaku2", label: "seisaku2", src: "/images/busyo/seisaku2.jpg", width: 2048, height: 1576 },
-  senden1: { id: "senden1", label: "senden1", src: "/images/busyo/senden1.jpg", width: 2048, height: 1541 },
-  senden2: { id: "senden2", label: "senden2", src: "/images/busyo/senden2.PNG", width: 2048, height: 2048 },
+  keikoba1: {
+    id: "keikoba1",
+    label: "keikoba1",
+    src: "/images/busyo/keikoba1.jpg",
+    width: 1587,
+    height: 2046,
+    offsetX: -8,
+    offsetY: -14,
+    rotation: -4,
+  },
+  keikoba2: {
+    id: "keikoba2",
+    label: "keikoba2",
+    src: "/images/busyo/keikoba2.jpg",
+    width: 2011,
+    height: 1533,
+    offsetX: 12,
+    offsetY: 12,
+    rotation: 5,
+  },
+  butai1: {
+    id: "butai1",
+    label: "butai1",
+    src: "/images/busyo/butai1.jpg",
+    width: 1556,
+    height: 2032,
+    offsetX: -10,
+    offsetY: -18,
+    rotation: -5,
+  },
+  butai2: {
+    id: "butai2",
+    label: "butai2",
+    src: "/images/busyo/butai2.jpg",
+    width: 1516,
+    height: 2008,
+    offsetX: 14,
+    offsetY: 10,
+    rotation: 6,
+  },
+  syomei1: {
+    id: "syomei1",
+    label: "syomei1",
+    src: "/images/busyo/syomei1.jpg",
+    width: 1962,
+    height: 1489,
+    offsetX: -12,
+    offsetY: -8,
+    rotation: -3,
+  },
+  syomei2: {
+    id: "syomei2",
+    label: "syomei2",
+    src: "/images/busyo/syomei2.jpg",
+    width: 1938,
+    height: 1490,
+    offsetX: 16,
+    offsetY: 14,
+    rotation: 5,
+  },
+  onkyo1: {
+    id: "onkyo1",
+    label: "onkyo1",
+    src: "/images/busyo/onkyo1.PNG",
+    width: 2048,
+    height: 2048,
+    offsetX: -8,
+    offsetY: -10,
+    rotation: -4,
+  },
+  onkyo2: {
+    id: "onkyo2",
+    label: "onkyo2",
+    src: "/images/busyo/onkuo2.jpg",
+    width: 1792,
+    height: 1393,
+    offsetX: 12,
+    offsetY: 10,
+    rotation: 6,
+  },
+  eizou1: {
+    id: "eizou1",
+    label: "eizou1",
+    src: "/images/busyo/eizou1.jpg",
+    width: 1471,
+    height: 1951,
+    offsetX: -14,
+    offsetY: -12,
+    rotation: -5,
+  },
+  eizou2: {
+    id: "eizou2",
+    label: "eizou2",
+    src: "/images/busyo/eizou2.jpg",
+    width: 2002,
+    height: 1369,
+    offsetX: 12,
+    offsetY: 14,
+    rotation: 4,
+  },
+  iko1: {
+    id: "iko1",
+    label: "iko1",
+    src: "/images/busyo/iko1.jpg",
+    width: 2002,
+    height: 1530,
+    offsetX: -8,
+    offsetY: -10,
+    rotation: -4,
+  },
+  iko2: {
+    id: "iko2",
+    label: "iko2",
+    src: "/images/busyo/iko2.jpg",
+    width: 1198,
+    height: 2019,
+    offsetX: 16,
+    offsetY: 12,
+    rotation: 6,
+  },
+  seisaku1: {
+    id: "seisaku1",
+    label: "seisaku1",
+    src: "/images/busyo/seisaku1.jpg",
+    width: 1814,
+    height: 1334,
+    offsetX: 12,
+    offsetY: 8,
+    rotation: 5,
+  },
+  seisaku2: {
+    id: "seisaku2",
+    label: "seisaku2",
+    src: "/images/busyo/seisaku2.jpg",
+    width: 2048,
+    height: 1576,
+    offsetX: -12,
+    offsetY: -8,
+    rotation: -4,
+  },
+  senden1: {
+    id: "senden1",
+    label: "senden1",
+    src: "/images/busyo/senden1.jpg",
+    width: 2048,
+    height: 1541,
+    offsetX: -10,
+    offsetY: -12,
+    rotation: -3,
+  },
+  senden2: {
+    id: "senden2",
+    label: "senden2",
+    src: "/images/busyo/senden2.PNG",
+    width: 2048,
+    height: 2048,
+    offsetX: 14,
+    offsetY: 14,
+    rotation: 5,
+  },
 } as const satisfies Record<string, DepartmentSidePhoto>;
 
 export const departmentsData: DepartmentConfig[] = [
   {
     name: "脚本",
     isLeftLeaf: true,
-    tapes: [{ src: "y_tape.png", pos: "top-center" }],
-    isLongText: true,
     description: (
       <>
         台詞として立ち上がった言葉が、舞台の上で他者の身体を通して発せられたとき、それがお客さんに届いたとき、自分ひとりでは辿り着けなかった意味が生まれることがあります。それが、演劇の脚本家だけが味わうことができる楽しさです。
@@ -55,8 +198,6 @@ export const departmentsData: DepartmentConfig[] = [
   {
     name: "稽古場",
     isLeftLeaf: false,
-    tapes: [{ src: "red_tape.png", pos: "left-vertical" }],
-    isLongText: true,
     sidePhotos: [departmentSidePhotoMap.keikoba1, departmentSidePhotoMap.keikoba2],
     description: (
       <>
@@ -69,8 +210,6 @@ export const departmentsData: DepartmentConfig[] = [
   {
     name: "舞台",
     isLeftLeaf: true,
-    tapes: [{ src: "y_tape.png", pos: "top-left" }, { src: "y_tape.png", pos: "bottom-left" }],
-    isLongText: true,
     sidePhotos: [departmentSidePhotoMap.butai1, departmentSidePhotoMap.butai2],
     description: (
       <>
@@ -85,8 +224,6 @@ export const departmentsData: DepartmentConfig[] = [
   {
     name: "音響",
     isLeftLeaf: false,
-    tapes: [{ src: "red_tape.png", pos: "top-left" }],
-    isLongText: true,
     sidePhotos: [departmentSidePhotoMap.onkyo1, departmentSidePhotoMap.onkyo2],
     description: (
       <>
@@ -97,8 +234,6 @@ export const departmentsData: DepartmentConfig[] = [
   {
     name: "照明",
     isLeftLeaf: true,
-    tapes: [{ src: "blue_tape.png", pos: "top-center" }],
-    isLongText: true,
     sidePhotos: [departmentSidePhotoMap.syomei1, departmentSidePhotoMap.syomei2],
     description: (
       <>
@@ -109,8 +244,6 @@ export const departmentsData: DepartmentConfig[] = [
   {
     name: "映像",
     isLeftLeaf: false,
-    tapes: [{ src: "y_tape.png", pos: "top-left" }, { src: "y_tape.png", pos: "top-right" }],
-    isLongText: true,
     sidePhotos: [departmentSidePhotoMap.eizou1, departmentSidePhotoMap.eizou2],
     description: (
       <>
@@ -125,8 +258,6 @@ export const departmentsData: DepartmentConfig[] = [
   {
     name: "衣装・小道具",
     isLeftLeaf: true,
-    tapes: [{ src: "red_tape.png", pos: "top-left" }, { src: "red_tape.png", pos: "top-right" }],
-    isLongText: true,
     sidePhotos: [departmentSidePhotoMap.iko1, departmentSidePhotoMap.iko2],
     description: (
       <>
@@ -141,8 +272,6 @@ export const departmentsData: DepartmentConfig[] = [
   {
     name: "制作",
     isLeftLeaf: false,
-    tapes: [{ src: "blue_tape.png", pos: "bottom-right" }],
-    isLongText: true,
     sidePhotos: [departmentSidePhotoMap.seisaku2, departmentSidePhotoMap.seisaku1],
     description: (
       <>
@@ -157,8 +286,6 @@ export const departmentsData: DepartmentConfig[] = [
   {
     name: "宣伝美術",
     isLeftLeaf: true,
-    tapes: [{ src: "blue_tape.png", pos: "top-right" }],
-    isLongText: true,
     sidePhotos: [departmentSidePhotoMap.senden1, departmentSidePhotoMap.senden2],
     description: (
       <>
@@ -171,9 +298,3 @@ export const departmentsData: DepartmentConfig[] = [
     ),
   },
 ];
-
-export const tapeAssetMap = {
-  "red_tape.png": "/images/red_tape.png.png",
-  "blue_tape.png": "/images/blue_tape.png.png",
-  "y_tape.png": "/images/y_tape.png.png",
-} as const;

@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { departmentsData } from "./content";
+import { departmentsData, type DepartmentConfig } from "./content";
 import { renderDepartmentVine } from "./renderVine";
+import { DepartmentModal } from "@/components/departments/DepartmentModal";
 import { DepartmentRow } from "@/components/departments/DepartmentRow";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { appendFlipbookFrames, hideFlipbookFrames } from "@/lib/gsap/flipbook";
@@ -18,6 +20,7 @@ export default function DepartmentsWireframePage() {
   const rootRef = useRef<HTMLElement>(null);
   const vineSvgRef = useRef<SVGSVGElement>(null);
   const vinePathGroupRef = useRef<SVGGElement>(null);
+  const [selectedDepartment, setSelectedDepartment] = useState<DepartmentConfig | null>(null);
 
   useEffect(() => {
     const vineSvg = vineSvgRef.current;
@@ -46,16 +49,16 @@ export default function DepartmentsWireframePage() {
       rows.forEach((row) => {
         const leafFrames = gsap.utils.toArray<HTMLElement>(".js-leaf-frame", row);
         const leafLabel = row.querySelector<HTMLElement>(".js-leaf-label");
-        const textBlock = row.querySelector<HTMLElement>(".js-dept-text-block");
+        const clickSign = row.querySelector<HTMLElement>(".js-dept-click-sign");
         const photoCards = gsap.utils.toArray<HTMLElement>(".js-dept-photo-reveal", row);
 
-        if (leafFrames.length === 0 || !textBlock || !leafLabel) {
+        if (leafFrames.length === 0 || !leafLabel || !clickSign) {
           return;
         }
 
         hideFlipbookFrames(leafFrames);
         gsap.set(leafLabel, { autoAlpha: 0, y: 8 });
-        gsap.set(textBlock, { autoAlpha: 0, y: 20 });
+        gsap.set(clickSign, { autoAlpha: 0, y: 6, scale: 0.94 });
         gsap.set(photoCards, {
           autoAlpha: 0,
           rotationX: -72,
@@ -68,7 +71,7 @@ export default function DepartmentsWireframePage() {
           gsap.set(leafFrames, { autoAlpha: 0 });
           gsap.set(leafFrames[leafFrames.length - 1], { autoAlpha: 1 });
           gsap.set(leafLabel, { autoAlpha: 1, y: 0 });
-          gsap.set(textBlock, { autoAlpha: 1, y: 0 });
+          gsap.set(clickSign, { autoAlpha: 1, y: 0, scale: 1 });
           gsap.set(photoCards, { autoAlpha: 1, rotationX: 0, y: 0, scale: 1 });
           return;
         }
@@ -95,11 +98,12 @@ export default function DepartmentsWireframePage() {
         );
 
         timeline.to(
-          textBlock,
+          clickSign,
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.6,
+            scale: 1,
+            duration: 0.36,
             ease: "power2.out",
           },
           "<+=0.12",
@@ -127,7 +131,7 @@ export default function DepartmentsWireframePage() {
   );
 
   return (
-    <WireframeShell>
+    <WireframeShell frameClassName="wf-frame--departments" innerClassName="wf-frame-inner--departments">
       <section ref={rootRef} className="wf-departments-stage">
         <div className="wf-department-tree">
           <svg ref={vineSvgRef} className="wf-department-vine-svg" aria-hidden preserveAspectRatio="none">
@@ -147,11 +151,45 @@ export default function DepartmentsWireframePage() {
           </svg>
           <ul className="wf-department-list">
             {departmentsData.map((department) => (
-              <DepartmentRow key={department.name} department={department} />
+              <DepartmentRow
+                key={department.name}
+                department={department}
+                onOpen={(nextDepartment, trigger) => {
+                  gsap.killTweensOf(trigger);
+                  gsap.timeline()
+                    .set(trigger, {
+                      transformOrigin: nextDepartment.isLeftLeaf ? "right center" : "left center",
+                    })
+                    .to(trigger, {
+                      rotation: nextDepartment.isLeftLeaf ? 14 : -14,
+                      duration: 0.11,
+                      ease: "power1.out",
+                    })
+                    .to(trigger, {
+                      rotation: nextDepartment.isLeftLeaf ? -10 : 10,
+                      duration: 0.1,
+                      ease: "power1.inOut",
+                    })
+                    .to(trigger, {
+                      rotation: nextDepartment.isLeftLeaf ? 5 : -5,
+                      duration: 0.09,
+                      ease: "power1.inOut",
+                    })
+                    .to(trigger, {
+                      rotation: 0,
+                      duration: 0.14,
+                      ease: "power2.out",
+                    });
+
+                  setSelectedDepartment(nextDepartment);
+                }}
+              />
             ))}
           </ul>
         </div>
       </section>
+
+      <DepartmentModal department={selectedDepartment} onClose={() => setSelectedDepartment(null)} />
     </WireframeShell>
   );
 }

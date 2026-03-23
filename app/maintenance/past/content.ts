@@ -63,6 +63,67 @@ const sotuTitle = [
   "『天使ちゃんたち』",
 ];
 
+type ScatterOffset = NonNullable<PastPerformance["scatterOffsets"]>[number];
+
+function createScatterOffsets(count: number, offsets: readonly ScatterOffset[]) {
+  return Array.from({ length: count }, (_, index) => offsets[index] ?? { x: 0, y: 0, rotation: 0 });
+}
+
+const sinkanScatterOffsets = createScatterOffsets(pastGalleryImageSources.sinkan.length, [
+  { x: -24, y: -18, rotation: -14 },
+  { x: 18, y: -12, rotation: 11 },
+  { x: 24, y: 16, rotation: 16 },
+  { x: -16, y: 20, rotation: -12 },
+  { x: -286, y: -168, rotation: -14 },
+  { x: 274, y: -182, rotation: 13 },
+]);
+
+const midhiScatterOffsets = createScatterOffsets(pastGalleryImageSources.midhi.length, [
+  { x: -18, y: -22, rotation: -12 },
+  { x: 24, y: -18, rotation: 14 },
+  { x: 16, y: 22, rotation: 18 },
+  { x: -22, y: 18, rotation: -10 },
+  { x: -292, y: -176, rotation: -15 },
+  { x: 286, y: -188, rotation: 15 },
+  { x: 8, y: -364, rotation: 6 },
+  { x: -112, y: 102, rotation: -11 },
+]);
+
+const natuScatterOffsets = createScatterOffsets(pastGalleryImageSources.natu.length, [
+  { x: -28, y: -14, rotation: -15 },
+  { x: 20, y: -20, rotation: 12 },
+  { x: 26, y: 14, rotation: 17 },
+  { x: -18, y: 24, rotation: -9 },
+]);
+
+const nfScatterOffsets = createScatterOffsets(pastGalleryImageSources.nf.length, [
+  { x: -20, y: -24, rotation: -13 },
+  { x: 26, y: -10, rotation: 10 },
+  { x: 18, y: 20, rotation: 15 },
+  { x: -24, y: 16, rotation: -11 },
+]);
+
+const huyuScatterOffsets = createScatterOffsets(pastGalleryImageSources.huyu.length, [
+  { x: -16, y: -26, rotation: -10 },
+  { x: 28, y: -14, rotation: 13 },
+  { x: 20, y: 24, rotation: 19 },
+  { x: -18, y: 18, rotation: -8 },
+]);
+
+const sinzinScatterOffsets = createScatterOffsets(pastGalleryImageSources.sinzin.length, [
+  { x: -26, y: -12, rotation: -16 },
+  { x: 16, y: -22, rotation: 9 },
+  { x: 28, y: 18, rotation: 14 },
+  { x: -14, y: 26, rotation: -12 },
+]);
+
+const sotuScatterOffsets = createScatterOffsets(pastGalleryImageSources.sotu.length, [
+  { x: -22, y: -16, rotation: -11 },
+  { x: 22, y: -16, rotation: 12 },
+  { x: 18, y: 18, rotation: 15 },
+  { x: -20, y: 20, rotation: -10 },
+]);
+
 export const pastPerformances: PastPerformance[] = [
   {
     id: 1,
@@ -72,14 +133,7 @@ export const pastPerformances: PastPerformance[] = [
       "THEATRE E9 KYOTOでの新歓公演。「二十億光年の孤独」で知られる詩人、谷川俊太郎による豊かな言葉に満ちた脚本を、演劇のあらゆる要素を掛け合わすことを意識し、劇場空間に立ち上げました。２ヶ月間、座組をあげて、時空と向き合って出来上がった作品は、懐かしい過去で、輝かしい未来の姿となって現れました。そして、E9に立ち現れた空間は、私たちを「今」に導くようでした。",
     galleryImageSources: pastGalleryImageSources.sinkan,
     posterImageSource: pastPosterImageSources.sinkan,
-
-    scatterOffsets: [
-      { x: 100, y: -10, rotation: -20 },
-      { x: -50, y: -20, rotation: 10 },
-      { x: -40, y: -50, rotation: -20},
-      { x: 0, y: -200, rotation: 20},
-      { x: -300, y: -450, rotation: -20}
-    ]
+    scatterOffsets: sinkanScatterOffsets,
   },
   {
     id: 2,
@@ -89,21 +143,8 @@ export const pastPerformances: PastPerformance[] = [
       "５月に入団した新入団員が初めて参加した公演です。25年度は4班に分かれてそれぞれ30-40分ほどの作品を作りあげました。上回生のサポートを受けながら参加できるので、演劇が初めての方も安心です！先輩や同期とも仲良くなれます♪",
     galleryImageSources: pastGalleryImageSources.midhi,
     posterImageSource: pastPosterImageSources.midhi,
-
-    scatterOffsets: [
-      { x: 100, y: -10, rotation: -20 },
-      { x: -50, y: -20, rotation: 10 },
-      { x: -40, y: -50, rotation: -20},
-      { x: 0, y: -200, rotation: 20},
-      { x: 0, y: -200, rotation: 20},
-      { x: 0, y: -200, rotation: 20},
-      { x: 0, y: -200, rotation: 20},
-      { x: -300, y: -450, rotation: -20}
-    ]
-
+    scatterOffsets: midhiScatterOffsets,
   },
-
-
   {
     id: 3,
     key: "natu",
@@ -112,6 +153,7 @@ export const pastPerformances: PastPerformance[] = [
       "大学内の学生集会所という体育館のような場所を団員の手で劇場に作り変えて行った公演です。この劇は、愛、欲望、嫉妬、そして身体をめぐる、触れたい、奪いたい、わかりたい、そんな人間のやっかいな衝動を写真、歌、祈り、そして言葉で立ち上げてみます。きれいごとでは終わらない、痛くて、美しくて、どこか可笑しい恋と執着の劇ですが、夏の唯一無二の思い出になります。夏休みをまるまる使って惜しみなくかけた手間暇が作品から伝わってきます。",
     galleryImageSources: pastGalleryImageSources.natu,
     posterImageSource: pastPosterImageSources.natu,
+    scatterOffsets: natuScatterOffsets,
   },
   {
     id: 4,
@@ -121,6 +163,7 @@ export const pastPerformances: PastPerformance[] = [
       "11月祭では1996年に初演された『赤鬼』（作：野田秀樹）を上演しました。技術を先輩から継承し脂の乗った2、3回生（当時）が野田秀樹特有のセリフ回しや世界観に挑戦しました。11月祭での公演はコンパクトな舞台でありながら、たくさんの方が見に来きていただきました。学生演劇を見たことがない方にもケッペキを知ってもらえるいい機会になりました。",
     galleryImageSources: pastGalleryImageSources.nf,
     posterImageSource: pastPosterImageSources.nf,
+    scatterOffsets: nfScatterOffsets,
   },
   {
     id: 5,
@@ -130,6 +173,7 @@ export const pastPerformances: PastPerformance[] = [
       "ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。",
     galleryImageSources: pastGalleryImageSources.huyu,
     posterImageSource: pastPosterImageSources.huyu,
+    scatterOffsets: huyuScatterOffsets,
   },
   {
     id: 6,
@@ -139,6 +183,7 @@ export const pastPerformances: PastPerformance[] = [
       "2025年5月に入団した33期による新人公演。 オリジナル脚本の執筆から運営に至る全てを一回生の手で取り仕切りました。大胆な曲線と影絵の演出が目を引く、モノクロームの舞台。音響・照明・衣装・役者が共鳴し、多彩な空間が立ち上がるのが見所です。各々が表現を模索し、作品は最後まで生き物のように変化し続けていく。その不自由で、どうしようもなく自由なうねりに巻き込まれること。 それこそが、劇団員の醍醐味なのかもしれないと思わされました。",
     galleryImageSources: pastGalleryImageSources.sinzin,
     posterImageSource: pastPosterImageSources.sinzin,
+    scatterOffsets: sinzinScatterOffsets,
   },
   {
     id: 7,
@@ -148,5 +193,6 @@ export const pastPerformances: PastPerformance[] = [
       "昨年度卒団した30期生の卒業公演です。舞台は真っ白でふわふわな天上界。そこに集まった天使ちゃんたちは、各々の時間を好き勝手に過ごします。私たちみんなが持つ息や骨、身近な存在への愛、あるもののために自分が出来ることとは何なのか？30期生の新たなお引越しに向け、これまでの全てを詰め込みました。",
     galleryImageSources: pastGalleryImageSources.sotu,
     posterImageSource: pastPosterImageSources.sotu,
+    scatterOffsets: sotuScatterOffsets,
   },
 ];

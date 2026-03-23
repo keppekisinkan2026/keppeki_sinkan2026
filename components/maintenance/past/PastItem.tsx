@@ -74,34 +74,6 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
               rotation: -10,
             };
             break;
-          case 4:
-            target = {
-              x: -(shellWidth * 0.6 + cardWidth * 0.4 + gap),
-              y: shellHeight * 0.05,
-              rotation: -25,
-            };
-            break;
-          case 5:
-            target = {
-              x: shellWidth * 0.6 + cardWidth * 0.4 + gap,
-              y: -(shellHeight * 0.05),
-              rotation: 20,
-            };
-            break;
-          case 6:
-            target = {
-              x: -(shellWidth * 0.3 + cardWidth * 0.3 + gap),
-              y: -(shellHeight * 0.5 + cardWidth * 0.1),
-              rotation: 5,
-            };
-            break;
-          case 7:
-            target = {
-              x: shellWidth * 0.3 + cardWidth * 0.3 + gap,
-              y: shellHeight * 0.5 + cardWidth * 0.1,
-              rotation: -15,
-            };
-            break;
           default:
             target = {
               x: 0,

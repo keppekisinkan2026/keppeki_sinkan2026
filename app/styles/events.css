@@ -1,22 +1,10 @@
-.wf-event-page-container {
-  padding: clamp(100px, 14vw, 180px) 0 96px;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(60px, 8vw, 100px);
-  align-items: stretch;
-}
-
 .wf-frame--events {
   width: 100%;
 }
 
 .wf-frame-inner--events {
-  gap: 0;
   width: 100%;
+  gap: 0;
   align-items: center;
 }
 
@@ -24,189 +12,227 @@
   width: 100%;
 }
 
-.wf-event-schedule-section,
-.wf-event-board-section {
+.wf-event-page-container {
   width: 100%;
-}
-
-.wf-event-schedule-section {
+  padding: clamp(96px, 12vw, 156px) 0 clamp(40px, 6vw, 72px);
   display: flex;
   justify-content: center;
 }
 
-.wf-event-schedule-placeholder {
-  width: min(92vw, 1040px);
-  max-width: 1040px;
-  aspect-ratio: 21 / 9;
-  background: #ffffff;
-  border: 3px solid #202020;
-  border-radius: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: clamp(20px, 3vw, 32px);
-  font-weight: 700;
-  color: #202020;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+.wf-event-map-shell {
+  position: relative;
+  width: min(96vw, 1200px);
   margin: 0 auto;
 }
 
-.wf-event-board-section {
-  position: relative;
-  isolation: isolate;
-  width: 100%;
-  max-width: none;
-  min-height: max(88vh, 1120px);
-  flex-shrink: 0;
-  margin: 0;
-  padding: clamp(148px, 15vw, 188px) clamp(20px, 4vw, 48px) clamp(84px, 10vw, 128px);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: visible;
-  clip-path: inset(0);
-}
-
-.wf-event-board-bg-container {
-  position: absolute;
-  top: 0;
-  left: -5vw;
-  right: -5vw;
-  bottom: 0;
-  z-index: -1;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.wf-event-board-bg-sticky {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  background-image: url("/images/block_large.PNG");
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: 100% 100%;
-  transform: scale(1.9);
-  pointer-events: none;
-}
-
-.wf-event-board-title {
-  position: absolute;
-  top: clamp(18px, 2.4vw, 32px);
-  left: 50%;
-  z-index: 2;
-  transform: translateX(-50%);
-  font-size: clamp(36px, 6vw, 64px);
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  margin: 0;
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.wf-event-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(60px, 6vw, 60px);
-  width: 100%;
-  max-width: 1280px;
-  padding-bottom: 90px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 2;
-}
-
-.wf-event-item {
-  width: 100%;
-  aspect-ratio: 3.5 / 4;
-  position: relative;
+.wf-event-map-image {
   display: block;
-  flex-shrink: 0;
-  overflow: hidden;
+  width: 100%;
+  height: auto;
+  user-select: none;
 }
 
-.wf-event-item-bg {
+.wf-event-hotspot {
+  position: absolute;
+  z-index: 2;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.wf-event-hotspot::before {
+  content: "";
+  position: absolute;
+  inset: 10%;
+  border-radius: inherit;
+  background: transparent;
+  transition:
+    transform 0.18s ease,
+    background-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.wf-event-hotspot:hover::before,
+.wf-event-hotspot:focus-visible::before {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.14);
+  transform: scale(1.05);
+}
+
+.wf-event-hotspot:hover,
+.wf-event-hotspot:focus-visible {
+  transform: translateY(-2px);
+}
+
+.wf-event-hotspot:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.85);
+  outline-offset: 2px;
+}
+
+.wf-events-modal-root {
+  --wf-events-modal-stage-height: min(calc(100svh - 72px), 980px);
+  --wf-events-modal-stage-width: min(calc(var(--wf-events-modal-stage-height) * 375 / 666), calc(100vw - 32px));
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.wf-events-modal-overlay {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  background: rgba(16, 18, 14, 0.74);
+  cursor: pointer;
+}
+
+.wf-events-modal-panel {
+  position: relative;
+  z-index: 1;
+  width: var(--wf-events-modal-stage-width);
+}
+
+.wf-events-modal-close {
+  position: fixed;
+  top: max(12px, calc(env(safe-area-inset-top) + 12px));
+  right: max(12px, calc(env(safe-area-inset-right) + 12px));
+  z-index: 2;
+  width: clamp(42px, 4vw, 54px);
+  height: clamp(42px, 4vw, 54px);
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(53, 70, 43, 0.96);
+  cursor: pointer;
+  font-size: clamp(24px, 2vw, 32px);
+  line-height: 1;
+}
+
+.wf-events-modal-stage {
+  position: relative;
+  width: var(--wf-events-modal-stage-width);
+  height: var(--wf-events-modal-stage-height);
+}
+
+.wf-events-modal-frames {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
 }
 
-.wf-event-hakusi-img {
+.wf-events-modal-frame-image {
   object-fit: contain;
   object-position: center;
-  transform: scale(1.08);
-  transform-origin: center;
 }
 
-.wf-event-item-content {
+.wf-events-modal-content {
   position: absolute;
   inset: 0;
   z-index: 1;
-  padding: 22% 16% 16%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  color: #202020;
-  overflow: hidden;
-  font-size: clamp(14px, 2vw, 20px);
-  line-height: 1.6;
+  gap: clamp(12px, 1vw, 18px);
+  padding: 23% 14% 14%;
+  overflow-y: auto;
+  overflow-x: hidden;
   text-align: center;
+  color: rgba(54, 70, 39, 0.97);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.wf-event-item-title,
-.wf-event-item-text {
-  width: 76%;
-  word-break: keep-all;
-  white-space: pre-wrap;
-  color: #202020;
-  margin-inline: auto;
-  text-align: center;
+.wf-events-modal-content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
-.wf-event-item-title {
-  margin: 0 0 clamp(14px, 1.8vw, 24px);
-  font-size: clamp(22px, 2.8vw, 34px);
-  color: rgba(58, 76, 41, 0.9);
-}
-
-.wf-event-item-text {
+.wf-events-modal-date,
+.wf-events-modal-title,
+.wf-events-modal-description {
   margin: 0;
-  font-family:
-    "Hiragino Maru Gothic ProN",
-    "Hiragino Sans",
-    "Yu Gothic UI",
-    "YuGothic",
-    "Meiryo",
-    sans-serif;
-  font-size: clamp(16px, 1.8vw, 22px);
-  line-height: 1.6;
-  color: rgba(58, 76, 41, 0.88);
+  width: 100%;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
 }
 
-.wf-event-item-line {
-  display: block;
+.wf-events-modal-date {
+  font-size: clamp(17px, 1.4vw, 24px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: rgba(66, 84, 49, 0.82);
 }
 
-@media (max-width: 700px) {
+.wf-events-modal-title {
+  font-size: clamp(34px, 3.6vw, 52px);
+  line-height: 1.16;
+  color: rgba(56, 74, 39, 0.98);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.wf-events-modal-description {
+  font-size: clamp(18px, 1.75vw, 28px);
+  line-height: 1.8;
+  padding: clamp(16px, 1.4vw, 22px) clamp(16px, 1.8vw, 28px);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+@media (max-width: 900px) {
   .wf-event-page-container {
-    padding-inline: 12px;
+    padding-top: clamp(88px, 20vw, 132px);
   }
 
-  .wf-event-schedule-section,
-  .wf-event-board-section,
-  .wf-event-grid {
-    width: 100%;
-    max-width: none;
+  .wf-events-modal-root {
+    --wf-events-modal-stage-height: min(calc(100svh - 72px), 760px);
   }
 
-  .wf-event-grid {
-    grid-template-columns: 1fr;
+  .wf-events-modal-content {
+    padding: 24% 13% 14%;
+  }
+}
+
+@media (max-width: 640px) {
+  .wf-event-map-shell {
+    width: min(100vw - 12px, 640px);
+  }
+
+  .wf-event-hotspot::before {
+    inset: 6%;
+  }
+
+  .wf-events-modal-root {
+    --wf-events-modal-stage-height: min(calc(100svh - 52px), 640px);
+    padding: 12px;
+  }
+
+  .wf-events-modal-content {
+    gap: 10px;
+    padding: 25% 12.5% 15%;
+  }
+
+  .wf-events-modal-date {
+    font-size: clamp(15px, 4vw, 18px);
+  }
+
+  .wf-events-modal-title {
+    font-size: clamp(26px, 8vw, 38px);
+  }
+
+  .wf-events-modal-description {
+    font-size: clamp(15px, 4.5vw, 20px);
+    line-height: 1.72;
+    padding: 14px 16px;
+    border-radius: 22px;
   }
 }

@@ -1,108 +1,63 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { EventCardItem } from "@/components/events/EventCardItem";
-import { eventsData } from "./content";
+import { useState } from "react";
+import Image from "next/image";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
-import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
-import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+import { WelcomeEventModal } from "@/components/events/WelcomeEventModal";
+import { EVENT_CALENDAR_IMAGE, type WelcomeEvent, welcomeEvents } from "./content";
+import { withBasePath } from "@/lib/withBasePath";
 
 export default function EventsWireframePage() {
-  const rootRef = useRef<HTMLDivElement>(null);
+  const [selectedEvent, setSelectedEvent] = useState<WelcomeEvent | null>(null);
 
-  useGSAP(
-    () => {
-      const reduceMotion = prefersReducedMotion();
-      const items = gsap.utils.toArray<HTMLElement>(
-        ".js-event-item",
-        rootRef.current,
-      );
-
-      items.forEach((item) => {
-        const frames = gsap.utils.toArray<HTMLElement>(
-          ".js-hakusi-frame",
-          item,
-        );
-        const content = item.querySelector<HTMLElement>(".js-event-content");
-
-        if (frames.length === 0 || !content) return;
-
-        hideFlipbookFrames(frames);
-        gsap.set(content, { autoAlpha: 0, y: 14 });
-
-        if (reduceMotion) {
-          showLastFlipbookFrame(frames);
-          gsap.set(content, { autoAlpha: 1, y: 0 });
-          return;
-        }
-
-        const timeline = gsap.timeline({
-          scrollTrigger: {
-            trigger: item,
-            start: "top 75%",
-            toggleActions: "play none none none",
-          },
-        });
-
-        appendFlipbookFrames(timeline, frames, {
-          startAt: 0,
-          staggerDelay: 0.15,
-          frameDuration: 0.02,
-        });
-
-        timeline.to(
-          content,
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.42,
-            ease: "power2.out",
-          },
-          ">",
-        );
-      });
-    },
-    { scope: rootRef },
-  );
+  const openModal = (event: WelcomeEvent) => {
+    setSelectedEvent(event);
+  };
 
   return (
     <WireframeShell frameClassName="wf-frame--events" innerClassName="wf-frame-inner--events">
-      {/*
-       * wf-event-page-container がページ全体の横幅の器。
-       * スケジュール表は中央の固定幅、イベントボードは画面幅いっぱいに伸びる。
-       */}
-      <div ref={rootRef} className="wf-event-page-container">
-        {/* ── スケジュール ───────────────────────────────── */}
-        <section className="wf-event-schedule-section">
-          <div className="wf-event-schedule-placeholder">スケジュール表</div>
-        </section>
+      <div className="wf-event-page-container">
+        <div className="wf-event-map-shell">
+          <Image
+            src={withBasePath(EVENT_CALENDAR_IMAGE.src)}
+            alt="新歓カレンダー"
+            width={EVENT_CALENDAR_IMAGE.width}
+            height={EVENT_CALENDAR_IMAGE.height}
+            priority
+            unoptimized
+            sizes="(max-width: 1280px) 96vw, 1200px"
+            className="wf-event-map-image"
+          />
 
-        {/* ── イベント一覧 ───────────────────────────────── */}
-        {/*
-         * position: relative を持つ wf-event-board-section が
-         * fill 画像（block_large.PNG）の基準矩形になる。
-         * 背景画像は CSS 側で画面幅いっぱいまで引き伸ばす。
-         */}
-        <section className="wf-event-board-section">
-
-          <div className="wf-event-board-bg-container" aria-hidden>
-            <div className="wf-event-board-bg-sticky" />
-          </div>
-          
-          <h2 className="wf-event-board-title wf-maki-title">新歓イベント</h2>
-
-          <div className="wf-event-grid">
-            {eventsData.map((event) => (
-              <EventCardItem key={event.id} event={event} />
-            ))}
-          </div>
-        </section>
+          {welcomeEvents.map((event) => (
+            <button
+              key={event.id}
+              type="button"
+              className="event-map-button"
+              style={{
+                position: "absolute",
+                top: event.position.top,
+                left: event.position.left,
+                width: event.position.width,
+                height: event.shape === "capsule" ? event.position.height : undefined,
+                aspectRatio: event.shape === "capsule" ? undefined : "1 / 1",
+                borderRadius: event.shape === "capsule" ? "999px" : "50%",
+                transform: "translate(-50%, -50%)",
+                cursor: "pointer",
+                backgroundColor: "rgba(255, 0, 0, 0.5)",
+                border: "none",
+                padding: 0,
+              }}
+              onClick={() => openModal(event)}
+              aria-label={`${event.date} ${event.title} の詳細を開く`}
+            >
+              <span className="sr-only">{`${event.date} ${event.title}`}</span>
+            </button>
+          ))}
+        </div>
       </div>
+
+      <WelcomeEventModal event={selectedEvent} onClose={() => setSelectedEvent(null)} />
     </WireframeShell>
   );
 }
