@@ -84,7 +84,12 @@ export const flowSteps: FlowStepData[] = [
     title: "⑥仕込み",
     description: (
       <span className="wf-flow-step-line">
-        会場に入り、客席作りや幕吊り、照明吊り込みなどの舞台設営を行います。普段は話す機会があまりない他部署の人や先輩と仲良くなります!本番1日前にはゲネプロと呼ばれるリハーサルを行うことが多いです。
+        会場に入り、客席作りや幕吊り、照明吊り込みなどの舞台設営を行います。
+        普段は話す機会があまりない他部署の人や<br />先輩と仲良くなります!
+        <br />
+        本番1日前にはゲネプロと呼ばれる
+        <br />
+        リハーサルを行うことが多いです。
       </span>
     ),
     isLongDescription: true,
@@ -123,10 +128,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "keikoba1",
     src: "/images/flow/keikoba1.jpg",
-    top: "42%",
+    top: "30%",
     left: "12%",
     rotation: -8,
-    width: "clamp(220px, 20vw, 300px)",
+    width: "clamp(286px, 26vw, 390px)",
     imageWidth: 1587,
     imageHeight: 2046,
     alt: "稽古の様子 1",
@@ -134,10 +139,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "keikoba2",
     src: "/images/flow/keikoba2.jpg",
-    top: "46%",
-    left: "69%",
+    top: "37%",
+    left: "37%",
     rotation: 8,
-    width: "clamp(280px, 26vw, 380px)",
+    width: "clamp(364px, 33.8vw, 494px)",
     imageWidth: 1792,
     imageHeight: 1053,
     alt: "稽古の様子 2",
@@ -145,10 +150,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "staff1",
     src: "/images/flow/staff1.jpg",
-    top: "53%",
+    top: "47%",
     left: "12%",
     rotation: -7,
-    width: "clamp(260px, 24vw, 360px)",
+    width: "clamp(338px, 31.2vw, 468px)",
     imageWidth: 1913,
     imageHeight: 1331,
     alt: "スタッフワークの様子 1",
@@ -156,10 +161,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "staff2",
     src: "/images/flow/staff2.jpg",
-    top: "58%",
-    left: "74%",
+    top: "43%",
+    left: "68%",
     rotation: 10,
-    width: "clamp(220px, 20vw, 300px)",
+    width: "clamp(286px, 26vw, 390px)",
     imageWidth: 1806,
     imageHeight: 1740,
     alt: "スタッフワークの様子 2",
@@ -167,10 +172,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "sikomi1",
     src: "/images/flow/sikomi1.jpg",
-    top: "64%",
+    top: "53%",
     left: "11%",
     rotation: -6,
-    width: "clamp(270px, 24vw, 360px)",
+    width: "clamp(351px, 31.2vw, 468px)",
     imageWidth: 1779,
     imageHeight: 1376,
     alt: "仕込みの様子 1",
@@ -178,10 +183,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "sikomi2",
     src: "/images/flow/sikomi2.jpg",
-    top: "68%",
-    left: "70%",
+    top: "59%",
+    left: "60%",
     rotation: 8,
-    width: "clamp(250px, 23vw, 340px)",
+    width: "clamp(325px, 29.9vw, 442px)",
     imageWidth: 1870,
     imageHeight: 1455,
     alt: "仕込みの様子 2",
@@ -189,10 +194,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "honban1",
     src: "/images/flow/honban1.jpg",
-    top: "75%",
+    top: "68%",
     left: "10%",
     rotation: -12,
-    width: "clamp(250px, 22vw, 330px)",
+    width: "clamp(325px, 28.6vw, 429px)",
     imageWidth: 1794,
     imageHeight: 1214,
     alt: "本番の様子 1",
@@ -200,10 +205,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "honban2",
     src: "/images/flow/honban2.jpg",
-    top: "79%",
-    left: "73%",
+    top: "64%",
+    left: "65%",
     rotation: 7,
-    width: "clamp(250px, 23vw, 340px)",
+    width: "clamp(325px, 29.9vw, 442px)",
     imageWidth: 1847,
     imageHeight: 1406,
     alt: "本番の様子 2",
@@ -211,10 +216,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "honban3",
     src: "/images/flow/honban3.jpg",
-    top: "82%",
-    left: "43%",
+    top: "70%",
+    left: "59%",
     rotation: 5,
-    width: "clamp(220px, 20vw, 300px)",
+    width: "clamp(286px, 26vw, 390px)",
     imageWidth: 1753,
     imageHeight: 1316,
     alt: "本番の様子 3",
@@ -222,10 +227,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "barasi1",
     src: "/images/flow/barasi1.jpg",
-    top: "91%",
-    left: "17%",
+    top: "76%",
+    left: "10%",
     rotation: -8,
-    width: "clamp(250px, 23vw, 340px)",
+    width: "clamp(325px, 29.9vw, 442px)",
     imageWidth: 1854,
     imageHeight: 1424,
     alt: "バラシの様子 1",
@@ -233,10 +238,10 @@ export const flowPhotos: readonly FlowPhoto[] = [
   {
     id: "barasi2",
     src: "/images/flow/barasi2.jpg",
-    top: "93%",
-    left: "66%",
+    top: "80%",
+    left: "60%",
     rotation: 10,
-    width: "clamp(260px, 24vw, 350px)",
+    width: "clamp(338px, 31.2vw, 455px)",
     imageWidth: 1686,
     imageHeight: 1296,
     alt: "バラシの様子 2",
@@ -245,23 +250,9 @@ export const flowPhotos: readonly FlowPhoto[] = [
 
 export function getFlowTriggerStart(index: number) {
   switch (index) {
-    case 0:
-      return "top 70%";
-    case 1:
-      return "top-=470px 70%";
-    case 2:
-      return "top-=900px 70%";
-    case 3:
-      return "top-=1200px 70%";
-    case 4:
-      return "top-=1400px 70%";
-    case 5:
-      return "top-=1550px 70%";
-    case 6:
-      return "top-=1800px 70%";
     case 7:
       return "top 80%";
     default:
-      return "top 90%";
+      return "top 70%";
   }
 }

@@ -391,6 +391,7 @@
   --dept-leaf-shift: calc(var(--dept-leaf-nudge-md) * -1);
 }
 
+.wf-notebook-modal-root,
 .wf-dept-modal-root {
   --wf-dept-modal-stage-width: min(calc((100svh - 120px) * 375 / 666 * 2.4), calc(100vw - 40px));
   position: fixed;
@@ -405,6 +406,7 @@
   padding: 20px;
 }
 
+.wf-notebook-modal-overlay,
 .wf-dept-modal-overlay {
   position: fixed;
   inset: 0;
@@ -414,6 +416,7 @@
   cursor: pointer;
 }
 
+.wf-notebook-modal-panel,
 .wf-dept-modal-panel {
   position: relative;
   z-index: var(--wf-layer-ui);
@@ -426,6 +429,7 @@
   flex: none;
 }
 
+.wf-notebook-modal-close,
 .wf-dept-modal-close {
   position: fixed;
   top: max(12px, calc(env(safe-area-inset-top) + 12px));
@@ -442,6 +446,7 @@
   font-size: clamp(24px, 2vw, 32px);
 }
 
+.wf-notebook-modal-stage,
 .wf-dept-modal-stage {
   position: relative;
   width: var(--wf-dept-modal-stage-width);
@@ -451,6 +456,7 @@
   margin: auto;
 }
 
+.wf-notebook-modal-frames,
 .wf-dept-modal-frames {
   position: absolute;
   inset: 0;
@@ -458,11 +464,13 @@
   transform: translateY(110px);
 }
 
+.wf-notebook-modal-image,
 .wf-dept-modal-image {
   object-fit: contain;
   object-position: center;
 }
 
+.wf-notebook-modal-content,
 .wf-dept-modal-content {
   position: absolute;
   inset: 0;
@@ -478,6 +486,7 @@
   color: rgba(249, 252, 246, 0.98);
 }
 
+.wf-notebook-modal-title,
 .wf-dept-modal-title {
   margin: 0;
   font-size: clamp(28px, 3vw, 52px);
@@ -488,6 +497,7 @@
   white-space: normal;
 }
 
+.wf-notebook-modal-text,
 .wf-dept-modal-text {
   margin: 0;
   font-size: clamp(20px, 1.65vw, 28px);
@@ -616,16 +626,19 @@
     font-size: clamp(12px, 2.9vw, 18px);
   }
 
+  .wf-notebook-modal-root,
   .wf-dept-modal-root {
     --wf-dept-modal-stage-width: min(calc((100svh - 120px) * 375 / 666), calc(100vw - 40px));
     padding: 20px;
   }
 
+  .wf-notebook-modal-panel,
   .wf-dept-modal-panel {
     width: 100%;
     padding: 0;
   }
 
+  .wf-notebook-modal-content,
   .wf-dept-modal-content {
     padding: 20px;
   }
