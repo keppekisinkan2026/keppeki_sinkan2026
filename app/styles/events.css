@@ -38,24 +38,49 @@
   pointer-events: none;
   user-select: none;
   aspect-ratio: 595 / 842;
+  will-change: transform;
 }
 
 .wf-event-character--left {
   top: 11%;
   left: -14%;
   width: clamp(450px, 19vw, 400px);
+  transform-origin: 58% 10%;
+  animation: wf-event-character-sway-left 1.8s steps(3, end) infinite alternate;
 }
 
 .wf-event-character--right {
   top: 65%;
   right: -25%;
   width: clamp(400px, 16vw, 400px);
+  transform-origin: 48% 8%;
+  animation: wf-event-character-sway-right 1.8s steps(3, end) infinite alternate;
 }
 
 .wf-event-character-image {
   object-fit: contain;
   object-position: center bottom;
   filter: drop-shadow(0 10px 14px rgba(37, 45, 31, 0.18));
+}
+
+@keyframes wf-event-character-sway-left {
+  from {
+    transform: rotate(-7deg);
+  }
+
+  to {
+    transform: rotate(7deg);
+  }
+}
+
+@keyframes wf-event-character-sway-right {
+  from {
+    transform: rotate(6deg);
+  }
+
+  to {
+    transform: rotate(-6deg);
+  }
 }
 
 .wf-event-hotspot {
@@ -138,5 +163,13 @@
 
   .wf-event-hotspot::before {
     inset: 6%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-event-character--left,
+  .wf-event-character--right {
+    animation: none;
+    transform: none;
   }
 }
