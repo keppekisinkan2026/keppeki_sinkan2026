@@ -8,6 +8,7 @@ import { pastPerformances } from "./content";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { PastItem } from "@/components/maintenance/past/PastItem";
 import { PastModal } from "@/components/maintenance/past/PastModal";
+import { getPastPerformanceScatterKey } from "@/components/maintenance/past/pastShared";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
 import { withBasePath } from "@/lib/withBasePath";
 
@@ -78,7 +79,7 @@ export default function PastWireframePage() {
             <div className="wf-past-list">
               {pastPerformances.map((performance) => (
                 <PastItem
-                  key={performance.id}
+                  key={getPastPerformanceScatterKey(performance)}
                   performance={performance}
                   onOpen={() => setSelectedId(performance.id)}
                 />

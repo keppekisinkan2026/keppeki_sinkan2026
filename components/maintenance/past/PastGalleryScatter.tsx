@@ -11,19 +11,19 @@ type ScatterCardStyle = CSSProperties & {
 
 const scatterCards = [
   {
-    width: "clamp(176px, 18vw, 336px)",
+    width: "clamp(264px, 27vw, 504px)",
   },
   {
-    width: "clamp(184px, 19vw, 352px)",
+    width: "clamp(276px, 28.5vw, 528px)",
   },
   {
-    width: "clamp(168px, 17.6vw, 320px)",
+    width: "clamp(252px, 26.4vw, 480px)",
   },
   {
-    width: "clamp(180px, 18.6vw, 344px)",
+    width: "clamp(270px, 27.9vw, 516px)",
   },
   {
-    width: "clamp(164px, 16.8vw, 308px)",
+    width: "clamp(246px, 25.2vw, 462px)",
   },
 ];
 

@@ -28,7 +28,6 @@ export default function QaWireframePage() {
           />
 
           <div className="wf-qa-plant-wrap">
-            <span className="wf-qa-plant-soil" />
             <Image
               src={withBasePath("/images/futaba.PNG")}
               alt=""

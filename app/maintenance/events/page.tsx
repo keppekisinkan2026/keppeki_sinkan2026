@@ -40,6 +40,14 @@ export default function EventsWireframePage() {
             />
           </div>
 
+          <div className="wf-event-speech-bubble wf-event-speech-bubble--left" aria-hidden="true">
+            <span className="wf-event-speech-text wf-maki-title">
+              気になるイベントを
+              <br />
+              クリック！タップ！
+            </span>
+          </div>
+
           <div className="wf-event-character wf-event-character--right" aria-hidden="true">
             <Image
               src={withBasePath("/images/chara_1.PNG")}
@@ -66,7 +74,6 @@ export default function EventsWireframePage() {
                 borderRadius: event.shape === "capsule" ? "999px" : "50%",
                 transform: "translate(-50%, -50%)",
                 cursor: "pointer",
-                backgroundColor: "rgba(255, 0, 0, 0.5)",
                 border: "none",
                 padding: 0,
                 zIndex: 3,

@@ -21,6 +21,7 @@ export function WelcomeEventModal({ event, onClose }: WelcomeEventModalProps) {
       titleId={`wf-events-modal-title-${event.id}`}
       onClose={onClose}
       frameSources={welcomeEventFrameSources}
+      rootClassName="wf-events-modal-root"
     />
   );
 }

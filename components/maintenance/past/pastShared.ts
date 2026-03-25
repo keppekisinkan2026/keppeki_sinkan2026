@@ -68,3 +68,18 @@ export type PastPerformance = {
   posterImageSource: string;
   scatterOffsets?: { x?: number; y?: number; rotation?: number }[]
 };
+
+export function getPastPerformanceScatterKey({
+  id,
+  scatterOffsets,
+}: Pick<PastPerformance, "id" | "scatterOffsets">) {
+  if (!scatterOffsets || scatterOffsets.length === 0) {
+    return String(id);
+  }
+
+  const scatterSignature = scatterOffsets
+    .map(({ x = 0, y = 0, rotation = 0 }) => `${x}:${y}:${rotation}`)
+    .join("|");
+
+  return `${id}-${scatterSignature}`;
+}

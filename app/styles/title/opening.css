@@ -128,11 +128,20 @@
   letter-spacing: 0.04em;
   text-shadow: 0 1px 0 rgba(41, 54, 40, 0.32);
   will-change: transform, opacity, filter;
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease,
+    filter 0.24s ease,
+    text-shadow 0.24s ease;
 }
 
-.wf-title-opening-menu-link:hover {
+.wf-title-opening-menu-link:hover,
+.wf-title-opening-menu-link:focus-visible {
   text-decoration: none;
-  opacity: 0.84;
+  opacity: 0.74;
+  transform: rotate(-2deg) translateY(-1px);
+  filter: saturate(1.05);
+  text-shadow: 0 2px 5px rgba(24, 38, 28, 0.42);
 }
 
 .wf-title-opening-menu-text {

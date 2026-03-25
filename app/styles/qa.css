@@ -181,7 +181,6 @@
 }
 
 .wf-qa-illustration-strip {
-  position: relative;
   width: min(100%, 980px);
   margin: 0 auto;
   padding: 0 clamp(6px, 2.4vw, 30px) clamp(10px, 1.5vw, 18px);
@@ -196,8 +195,6 @@
   width: clamp(80px, 13vw, 180px);
   height: auto;
   flex-shrink: 0;
-  position: relative;
-  z-index: 2;
 }
 
 .wf-qa-character--left {
@@ -209,7 +206,6 @@
 }
 
 .wf-qa-plant-wrap {
-  position: relative;
   flex: 1 1 auto;
   min-width: 0;
   display: flex;
@@ -217,24 +213,9 @@
   justify-content: center;
 }
 
-.wf-qa-plant-soil {
-  position: absolute;
-  bottom: 0;
-  width: clamp(120px, 28vw, 340px);
-  height: clamp(18px, 3vw, 42px);
-  border-radius: 999px 999px 0 0;
-  background:
-    radial-gradient(circle at 24% 36%, rgba(156, 119, 86, 0.88) 0 16%, rgba(124, 89, 58, 0.88) 17% 100%),
-    linear-gradient(180deg, rgba(150, 107, 72, 0.98), rgba(103, 71, 43, 0.98));
-  filter: drop-shadow(0 6px 6px rgba(73, 51, 32, 0.12));
-  z-index: 0;
-}
-
 .wf-qa-futaba {
   width: clamp(156px, 28vw, 360px);
   height: auto;
-  position: relative;
-  z-index: 1;
 }
 
 .wf-global-footer--qa {
@@ -275,11 +256,6 @@
   .wf-qa-futaba {
     width: clamp(130px, 34vw, 220px);
   }
-
-  .wf-qa-plant-soil {
-    width: clamp(108px, 28vw, 200px);
-    height: clamp(16px, 4vw, 26px);
-  }
 }
 
 @media (max-width: 480px) {
@@ -309,10 +285,5 @@
 
   .wf-qa-futaba {
     width: clamp(120px, 38vw, 164px);
-  }
-
-  .wf-qa-plant-soil {
-    width: clamp(96px, 30vw, 136px);
-    height: clamp(14px, 4vw, 18px);
   }
 }

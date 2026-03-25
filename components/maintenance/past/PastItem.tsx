@@ -17,6 +17,79 @@ type PastItemProps = {
   onOpen: () => void;
 };
 
+type ScatterTarget = {
+  x: number;
+  y: number;
+  rotation: number;
+};
+
+function getScatterTarget({
+  slot,
+  cardWidth,
+  shellWidth,
+  shellHeight,
+  scatterOffsets,
+}: {
+  slot: number;
+  cardWidth: number;
+  shellWidth: number;
+  shellHeight: number;
+  scatterOffsets?: PastPerformance["scatterOffsets"];
+}): ScatterTarget {
+  const gap = Math.max(38, shellWidth * 0.08);
+
+  let target: ScatterTarget = { x: 0, y: 0, rotation: 0 };
+
+  switch (slot) {
+    case 0:
+      target = {
+        x: -(shellWidth * 0.5 + cardWidth * 0.42 + gap),
+        y: -(shellHeight * 0.3 + cardWidth * 0.1),
+        rotation: -13,
+      };
+      break;
+    case 1:
+      target = {
+        x: shellWidth * 0.5 + cardWidth * 0.44 + gap,
+        y: -(shellHeight * 0.26 + cardWidth * 0.08),
+        rotation: 10,
+      };
+      break;
+    case 2:
+      target = {
+        x: shellWidth * 0.52 + cardWidth * 0.46 + gap,
+        y: shellHeight * 0.22 + cardWidth * 0.08,
+        rotation: 15,
+      };
+      break;
+    case 3:
+      target = {
+        x: -(shellWidth * 0.5 + cardWidth * 0.42 + gap),
+        y: shellHeight * 0.28 + cardWidth * 0.1,
+        rotation: -10,
+      };
+      break;
+    default:
+      target = {
+        x: 0,
+        y: shellHeight * 0.56 + cardWidth * 0.55 + gap * 0.4,
+        rotation: 4,
+      };
+      break;
+  }
+
+  const offset = scatterOffsets?.[slot];
+  if (!offset) {
+    return target;
+  }
+
+  return {
+    x: target.x + (offset.x || 0),
+    y: target.y + (offset.y || 0),
+    rotation: target.rotation + (offset.rotation || 0),
+  };
+}
+
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function PastItem({ performance, onOpen }: PastItemProps) {
@@ -40,59 +113,6 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         return;
       }
 
-      const getScatterTarget = (slot: number, cardWidth: number, shellWidth: number, shellHeight: number) => {
-        const gap = Math.max(38, shellWidth * 0.08);
-
-        let target = { x: 0, y: 0, rotation: 0 };
-
-        switch (slot) {
-          case 0:
-            target = {
-              x: -(shellWidth * 0.5 + cardWidth * 0.42 + gap),
-              y: -(shellHeight * 0.3 + cardWidth * 0.1),
-              rotation: -13,
-            };
-            break;
-          case 1:
-            target = {
-              x: shellWidth * 0.5 + cardWidth * 0.44 + gap,
-              y: -(shellHeight * 0.26 + cardWidth * 0.08),
-              rotation: 10,
-            };
-            break;
-          case 2:
-            target = {
-              x: shellWidth * 0.52 + cardWidth * 0.46 + gap,
-              y: shellHeight * 0.22 + cardWidth * 0.08,
-              rotation: 15,
-            };
-            break;
-          case 3:
-            target = {
-              x: -(shellWidth * 0.5 + cardWidth * 0.42 + gap),
-              y: shellHeight * 0.28 + cardWidth * 0.1,
-              rotation: -10,
-            };
-            break;
-          default:
-            target = {
-              x: 0,
-              y: shellHeight * 0.56 + cardWidth * 0.55 + gap * 0.4,
-              rotation: 4,
-            };
-            break;
-        }
-
-        const offset = performance.scatterOffsets?.[slot];
-        if (offset) {
-          target.x += offset.x || 0;
-          target.y += offset.y || 0;
-          target.rotation += offset.rotation || 0;
-        }
-
-        return target;
-      };
-
       const setScatterRestState = () => {
         if (scatterCards.length === 0) {
           return;
@@ -110,8 +130,8 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         });
       };
 
-      const showScatter = () => {
-        if (!button.classList.contains("is-poster-ready") || scatterCards.length === 0) {
+      const layoutScatter = (animated: boolean) => {
+        if (scatterCards.length === 0) {
           return;
         }
 
@@ -119,21 +139,32 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
 
         scatterCards.forEach((card, index) => {
           const cardWidth = card.getBoundingClientRect().width || 120;
-          const target = getScatterTarget(index, cardWidth, shellRect.width, shellRect.height);
+          const target = getScatterTarget({
+            slot: index,
+            cardWidth,
+            shellWidth: shellRect.width,
+            shellHeight: shellRect.height,
+            scatterOffsets: performance.scatterOffsets,
+          });
 
-          if (reduceMotion) {
+          if (!animated || reduceMotion) {
             gsap.set(card, {
               autoAlpha: 1,
+              xPercent: -50,
+              yPercent: -50,
               x: target.x,
               y: target.y,
               rotation: target.rotation,
               scale: 1,
+              transformOrigin: "center center",
             });
             return;
           }
 
           gsap.to(card, {
             autoAlpha: 1,
+            xPercent: -50,
+            yPercent: -50,
             x: target.x,
             y: target.y,
             rotation: target.rotation,
@@ -141,9 +172,18 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
             duration: 0.42,
             delay: index * 0.03,
             ease: "back.out(1.5)",
+            transformOrigin: "center center",
             overwrite: true,
           });
         });
+      };
+
+      const showScatter = () => {
+        if (!button.classList.contains("is-poster-ready") || scatterCards.length === 0) {
+          return;
+        }
+
+        layoutScatter(true);
       };
 
       const hideScatter = () => {

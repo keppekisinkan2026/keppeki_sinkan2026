@@ -70,58 +70,58 @@ function createScatterOffsets(count: number, offsets: readonly ScatterOffset[]) 
 }
 
 const sinkanScatterOffsets = createScatterOffsets(pastGalleryImageSources.sinkan.length, [
-  { x: -24, y: -18, rotation: -14 },
-  { x: 18, y: -12, rotation: 11 },
-  { x: 24, y: 16, rotation: 16 },
-  { x: -16, y: 20, rotation: -12 },
-  { x: -286, y: -168, rotation: -14 },
-  { x: 274, y: -182, rotation: 13 },
+  { x: 100, y: -18, rotation: -14 },
+  { x: -100, y: -12, rotation: 11 },
+  { x: -30, y: -260, rotation: 16 },
+  { x: -16, y: -300, rotation: -12 },
+  { x: -286, y: -500, rotation: -14 },
+  { x: 274, y: -500, rotation: 13 },
 ]);
 
 const midhiScatterOffsets = createScatterOffsets(pastGalleryImageSources.midhi.length, [
-  { x: -18, y: -22, rotation: -12 },
-  { x: 24, y: -18, rotation: 14 },
-  { x: 16, y: 22, rotation: 18 },
-  { x: -22, y: 18, rotation: -10 },
-  { x: -292, y: -176, rotation: -15 },
-  { x: 286, y: -188, rotation: 15 },
-  { x: 8, y: -364, rotation: 6 },
-  { x: -112, y: 102, rotation: -11 },
+  { x: 100, y: -22, rotation: -12 },
+  { x: -500, y: -40, rotation: 14 },
+  { x: -100, y: -500, rotation: -30 },
+  { x: -30, y: -300, rotation: -10 },
+  { x: -292, y: -500, rotation: 12 },
+  { x: 300, y: -500, rotation: -5 },
+  { x: 400, y: -800, rotation: 6 },
+  { x: 0, y: -500, rotation: -20 },
 ]);
 
 const natuScatterOffsets = createScatterOffsets(pastGalleryImageSources.natu.length, [
-  { x: -28, y: -14, rotation: -15 },
-  { x: 20, y: -20, rotation: 12 },
-  { x: 26, y: 14, rotation: 17 },
-  { x: -18, y: 24, rotation: -9 },
+  { x: 100, y: 50, rotation: -15 },
+  { x: -400, y: -50, rotation: 12 },
+  { x: -50, y: -300, rotation: -30 },
+  { x: 100, y: -200, rotation: 15 },
 ]);
 
 const nfScatterOffsets = createScatterOffsets(pastGalleryImageSources.nf.length, [
-  { x: -20, y: -24, rotation: -13 },
-  { x: 26, y: -10, rotation: 10 },
-  { x: 18, y: 20, rotation: 15 },
-  { x: -24, y: 16, rotation: -11 },
+  { x: 100, y: 300, rotation: -15 },
+  { x: -400, y: -50, rotation: 12 },
+  { x: -200, y: -50, rotation: -30 },
+  { x: 300, y: -100, rotation: 15 },
 ]);
 
 const huyuScatterOffsets = createScatterOffsets(pastGalleryImageSources.huyu.length, [
-  { x: -16, y: -26, rotation: -10 },
-  { x: 28, y: -14, rotation: 13 },
-  { x: 20, y: 24, rotation: 19 },
-  { x: -18, y: 18, rotation: -8 },
+  { x: 100, y: 300, rotation: -15 },
+  { x: -400, y: -50, rotation: 12 },
+  { x: -200, y: -50, rotation: -30 },
+  { x: 300, y: -100, rotation: 15 },
 ]);
 
 const sinzinScatterOffsets = createScatterOffsets(pastGalleryImageSources.sinzin.length, [
-  { x: -26, y: -12, rotation: -16 },
-  { x: 16, y: -22, rotation: 9 },
-  { x: 28, y: 18, rotation: 14 },
-  { x: -14, y: 26, rotation: -12 },
+  { x: 100, y: 50, rotation: -15 },
+  { x: -400, y: -50, rotation: 12 },
+  { x: -50, y: -300, rotation: -30 },
+  { x: 100, y: -200, rotation: 15 },
 ]);
 
 const sotuScatterOffsets = createScatterOffsets(pastGalleryImageSources.sotu.length, [
-  { x: -22, y: -16, rotation: -11 },
-  { x: 22, y: -16, rotation: 12 },
-  { x: 18, y: 18, rotation: 15 },
-  { x: -20, y: 20, rotation: -10 },
+  { x: 100, y: 300, rotation: -15 },
+  { x: -400, y: -50, rotation: 12 },
+  { x: -200, y: -50, rotation: -30 },
+  { x: 300, y: -100, rotation: 15 },
 ]);
 
 export const pastPerformances: PastPerformance[] = [

@@ -15,9 +15,18 @@ type NotebookModalProps = {
   titleId: string;
   onClose: () => void;
   frameSources: readonly string[];
+  rootClassName?: string;
 };
 
-export function NotebookModal({ modalKey, title, body, titleId, onClose, frameSources }: NotebookModalProps) {
+export function NotebookModal({
+  modalKey,
+  title,
+  body,
+  titleId,
+  onClose,
+  frameSources,
+  rootClassName,
+}: NotebookModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -114,7 +123,10 @@ export function NotebookModal({ modalKey, title, body, titleId, onClose, frameSo
   }
 
   return createPortal(
-    <div ref={rootRef} className="wf-notebook-modal-root">
+    <div
+      ref={rootRef}
+      className={rootClassName ? `wf-notebook-modal-root ${rootClassName}` : "wf-notebook-modal-root"}
+    >
       <button
         type="button"
         className="js-notebook-modal-overlay wf-notebook-modal-overlay"
