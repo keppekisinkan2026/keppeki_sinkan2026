@@ -224,11 +224,3 @@
     font-size: clamp(14px, 3.2vw, 18px);
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .wf-event-character--left,
-  .wf-event-character--right {
-    animation: none;
-    transform: none;
-  }
-}

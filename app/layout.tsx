@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
 import { ScrollToTopButton } from "./components/ScrollToTopButton";
 import "./globals.css";
 
@@ -19,7 +18,6 @@ export default function RootLayout({
       <body>
         <Header />
         {children}
-        <Footer />
         <ScrollToTopButton />
       </body>
     </html>

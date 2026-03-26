@@ -240,6 +240,22 @@
     font-size: clamp(22px, 5vw, 36px);
   }
 
+  .wf-join-content {
+    inset: 36% 12% 10%;
+    gap: 16px;
+  }
+
+  .wf-join-message {
+    width: min(100%, 480px);
+    font-size: clamp(18px, 4vw, 28px);
+    line-height: 1.5;
+  }
+
+  .wf-join-qr-placeholder {
+    width: min(100%, clamp(138px, 28vw, 220px));
+    padding: 12px;
+  }
+
   .wf-title-hp-text {
     font-size: clamp(24px, 6vw, 38px);
     padding: 18px 20px;

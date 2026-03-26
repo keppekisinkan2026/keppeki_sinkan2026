@@ -1,3 +1,9 @@
+.wf-screen--qa {
+  isolation: auto;
+  overflow: visible;
+  padding-bottom: 42px;
+}
+
 .wf-frame--qa {
   width: min(1040px, calc(100% - 24px));
 }
@@ -175,38 +181,40 @@
   margin-bottom: 0;
 }
 
+.wf-qa-answer-qr-shell {
+  margin-top: clamp(16px, 2vw, 24px);
+  display: flex;
+  justify-content: center;
+}
+
+.wf-qa-answer-qr {
+  width: min(100%, clamp(180px, 26vw, 260px));
+  height: auto;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.96);
+  padding: clamp(8px, 1vw, 12px);
+  box-shadow: 0 4px 14px rgba(49, 66, 35, 0.12);
+}
+
 .wf-qa-item.is-open .wf-qa-item-toggle-bubble {
   border-radius: 56% 44% 49% 51% / 46% 56% 44% 54%;
   transform: rotate(1.8deg);
 }
 
 .wf-qa-illustration-strip {
-  width: min(100%, 980px);
+  width: min(100%, 1120px);
   margin: 0 auto;
-  padding: 0 clamp(6px, 2.4vw, 30px) clamp(10px, 1.5vw, 18px);
+  min-height: clamp(360px, 42vw, 580px);
+  padding: 0 clamp(8px, 2.4vw, 26px);
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
-  gap: clamp(12px, 3vw, 34px);
+  justify-content: center;
   box-sizing: border-box;
-}
-
-.wf-qa-character {
-  width: clamp(80px, 13vw, 180px);
-  height: auto;
-  flex-shrink: 0;
-}
-
-.wf-qa-character--left {
-  transform: translateY(2px);
-}
-
-.wf-qa-character--right {
-  transform: translateY(2px);
+  pointer-events: none;
 }
 
 .wf-qa-plant-wrap {
-  flex: 1 1 auto;
+  width: min(100%, 1000px);
   min-width: 0;
   display: flex;
   align-items: flex-end;
@@ -214,12 +222,8 @@
 }
 
 .wf-qa-futaba {
-  width: clamp(156px, 28vw, 360px);
+  width: min(100%, clamp(400px, 80vw, 800px));
   height: auto;
-}
-
-.wf-global-footer--qa {
-  margin-top: 0;
 }
 
 @media (max-width: 720px) {
@@ -244,17 +248,16 @@
   }
 
   .wf-qa-illustration-strip {
-    gap: 10px;
+    min-height: clamp(260px, 52vw, 360px);
     padding-inline: 4px;
-    padding-bottom: 8px;
   }
 
-  .wf-qa-character {
-    width: clamp(72px, 18vw, 116px);
+  .wf-qa-plant-wrap {
+    width: min(100%, 720px);
   }
 
   .wf-qa-futaba {
-    width: clamp(130px, 34vw, 220px);
+    width: min(100%, clamp(420px, 76vw, 760px));
   }
 }
 
@@ -276,14 +279,15 @@
   }
 
   .wf-qa-illustration-strip {
-    gap: 6px;
+    min-height: clamp(220px, 58vw, 300px);
+    padding-inline: 0;
   }
 
-  .wf-qa-character {
-    width: clamp(60px, 17vw, 82px);
+  .wf-qa-plant-wrap {
+    width: min(100%, 520px);
   }
 
   .wf-qa-futaba {
-    width: clamp(120px, 38vw, 164px);
+    width: min(100%, clamp(320px, 82vw, 520px));
   }
 }

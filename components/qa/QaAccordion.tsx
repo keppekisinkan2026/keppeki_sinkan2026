@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import type { QaItem } from "@/app/maintenance/qa/content";
+import { withBasePath } from "@/lib/withBasePath";
 
 type QaAccordionProps = {
   items: readonly QaItem[];
@@ -54,6 +56,21 @@ export function QaAccordion({ items }: QaAccordionProps) {
                       {line}
                     </p>
                   ))}
+
+                  {item.qrCodeSrc ? (
+                    <div className="wf-qa-answer-qr-shell">
+                      <Image
+                        src={withBasePath(item.qrCodeSrc)}
+                        alt="入団申し込み用 公式LINE QRコード"
+                        width={357}
+                        height={357}
+                        quality={100}
+                        unoptimized
+                        sizes="(max-width: 480px) 42vw, (max-width: 840px) 220px, 260px"
+                        className="wf-qa-answer-qr"
+                      />
+                    </div>
+                  ) : null}
                 </div>
               </div>
             </div>

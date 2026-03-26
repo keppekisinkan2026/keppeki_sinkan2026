@@ -170,7 +170,7 @@ export const pastPerformances: PastPerformance[] = [
     key: "huyu",
     title: huyuTitle,
     synopsis:
-      "ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。ここに公演のあらすじや紹介文が入ります。",
+      "京大構内に位置する西部講堂という大きな劇場で、コロナ禍を経て、およそ5年ぶりに打たれた本公演。団員の多くが初めて利用する劇場の、安全で円滑な使い方を皆で足並みを揃えて学び、継承していきました。暗中模索の中から現れた劇空間は、舞台と光、音、そして身体とが混じり合った、重厚な幻への入り口に姿を変えました。冷え込んだ京都で、皆でお鍋を突きながら挑戦を繰り返した経験は、学生ならではの掛け替えのないものでした。",
     galleryImageSources: pastGalleryImageSources.huyu,
     posterImageSource: pastPosterImageSources.huyu,
     scatterOffsets: huyuScatterOffsets,

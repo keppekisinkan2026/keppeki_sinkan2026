@@ -1,6 +1,7 @@
 export type QaItem = {
   question: string;
   answerLines: readonly string[];
+  qrCodeSrc?: string;
 };
 
 export const qaItems: readonly QaItem[] = [
@@ -39,7 +40,7 @@ export const qaItems: readonly QaItem[] = [
     question: "入団期限はいつまで？",
     answerLines: [
       "入団は一年中受け付けていますが、1回生の皆様が活動を始める新入生育成企画に参加するためには5/10(日)までの入団が必要です。入団申し込みは以下の公式LINEより受け付けています！",
-      "（※ここにLINEのURLが入ります）",
     ],
+    qrCodeSrc: "/images/qr.png",
   },
 ];
