@@ -22,18 +22,16 @@ export default function TitleWireframePage() {
   const aboutStageRef = useRef<HTMLElement>(null);
   const aboutPanelRef = useRef<HTMLDivElement>(null);
   const [isIntroComplete, setIsIntroComplete] = useState(false);
-  const [shouldSkipIntro, setShouldSkipIntro] = useState(false);
   const isMobileLayout = useVisualViewportMobile();
+  const shouldSkipIntro = typeof window !== "undefined" && window.location.hash === "#about";
+  const shouldLockIntroScroll = !shouldSkipIntro && !isIntroComplete;
 
   useEffect(() => {
-    const hasAboutHash = window.location.hash === "#about";
     const previousScrollRestoration = window.history.scrollRestoration;
 
     window.history.scrollRestoration = "manual";
-    setShouldSkipIntro(hasAboutHash);
 
-    if (hasAboutHash) {
-      setIsIntroComplete(true);
+    if (shouldSkipIntro) {
       return () => {
         window.history.scrollRestoration = previousScrollRestoration;
       };
@@ -49,7 +47,7 @@ export default function TitleWireframePage() {
       window.cancelAnimationFrame(resetScroll);
       window.history.scrollRestoration = previousScrollRestoration;
     };
-  }, []);
+  }, [shouldSkipIntro]);
 
   useEffect(() => {
     if (!isIntroComplete || window.location.hash !== "#about") {
@@ -71,7 +69,7 @@ export default function TitleWireframePage() {
     const previousHtmlOverflow = html.style.overflow;
     const previousBodyOverflow = body.style.overflow;
 
-    if (!isIntroComplete) {
+    if (shouldLockIntroScroll) {
       html.style.overflow = "hidden";
       body.style.overflow = "hidden";
     }
@@ -80,7 +78,7 @@ export default function TitleWireframePage() {
       html.style.overflow = previousHtmlOverflow;
       body.style.overflow = previousBodyOverflow;
     };
-  }, [isIntroComplete]);
+  }, [shouldLockIntroScroll]);
 
   useEffect(() => {
     const refreshScrollTriggers = () => {

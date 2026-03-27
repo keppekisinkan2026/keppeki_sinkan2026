@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -16,11 +16,6 @@ type PastModalProps = {
 
 export function PastModal({ performance, onClose }: PastModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [isMounted, setIsMounted] = useState(false);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!performance) {
@@ -151,7 +146,7 @@ export function PastModal({ performance, onClose }: PastModalProps) {
     { dependencies: [performance], scope: rootRef, revertOnUpdate: true },
   );
 
-  if (!performance || !isMounted) {
+  if (!performance || typeof document === "undefined") {
     return null;
   }
 
