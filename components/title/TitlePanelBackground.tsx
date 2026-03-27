@@ -17,7 +17,14 @@ export function TitlePanelBackground({
 }: TitlePanelBackgroundProps) {
   return (
     <div className={containerClassName} aria-hidden>
-      <Image src={withBasePath(src)} alt="" fill sizes={sizes} className={joinClassNames(imageClassName)} />
+      <Image
+        src={withBasePath(src)}
+        alt=""
+        fill
+        sizes={sizes}
+        unoptimized
+        className={joinClassNames(imageClassName)}
+      />
     </div>
   );
 }

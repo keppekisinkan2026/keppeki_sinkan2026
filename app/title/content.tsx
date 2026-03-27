@@ -9,7 +9,7 @@ export const openingFrameSources = [
   "/images/title5.png",
 ] as const;
 
-export const snsFrameSources = ["/images/sns1.png", "/images/sns2.png", "/images/sns3.png", "/images/sns4.png"] as const;
+export const snsFrameSources = ["/images/sns1.PNG", "/images/sns2.PNG", "/images/sns3.PNG", "/images/sns4.png"] as const;
 
 export const aboutImg1FrameSources = ["/images/i1_1.PNG", "/images/i1_2.PNG", "/images/i1_3.PNG", "/images/i1.PNG"] as const;
 export const aboutCommonAnimFrameSources = [
@@ -40,7 +40,7 @@ export const aboutProduceText = (
   <div className="js-about-text-container wf-about-text-container">
     <h3 className="wf-about-subheading">プロデュース制</h3>
     <p className="js-about-text wf-about-text">
-      劇団ケッペキの最大の特徴は、定期公演制ではなく、全ての団員が公演を企画することができるプロデュース制を採用していることです。座長をおかないことで、団員一人一人の「芝居を創りたい」という想いを最大限に尊重しています。これは様々な劇団が存在する京都の学生演劇界においても珍しい制度です。また団全体としてではなく、団員が集まり結成したユニットによる「ユニット公演」も年に数回あり、かなり自由度の高い演劇活動が可能となっています。
+      劇団ケッペキの最大の特徴は、定期公演制ではなく、全ての団員が公演を企画することができるプロデュース制を採用していることです。座長をおかないことで、団員一人一人の「芝居を創りたい」という想いを最大限に尊重しています。これは様々な劇団が存在する京都の学生演劇界においても<br />珍しい制度です。また団全体としてではなく、団員が集まり結成した<br />ユニットによる「ユニット公演」も年に数回あり、かなり自由度の高い演劇活動が可能となっています。
     </p>
   </div>
 );
