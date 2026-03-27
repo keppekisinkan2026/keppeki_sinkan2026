@@ -8,6 +8,7 @@ type TitleContentAnimationOptions = {
   aboutStage: HTMLElement | null;
   aboutPanel: HTMLDivElement | null;
   isIntroComplete: boolean;
+  isMobileLayout?: boolean;
 };
 
 type FlipbookSequence = {
@@ -26,6 +27,8 @@ type AboutFrameGroups = {
   fune: HTMLElement[];
   pichi: HTMLElement[];
 };
+
+type AboutRowPlayer = (() => void) | null;
 
 const aboutFrameSelectors = {
   img1: ".js-about-img1-frame",
@@ -241,6 +244,43 @@ function createFrameSequencePlayer(sequences: FlipbookSequence[]) {
   };
 }
 
+function createDesktopAboutRowPlayers(aboutFrames: AboutFrameGroups) {
+  return [
+    createFrameSequencePlayer([{ frames: aboutFrames.img1, startAt: 0, staggerDelay: 0.2 }]),
+    createFrameSequencePlayer([
+      { frames: aboutFrames.img2, startAt: 0, staggerDelay: 0.2 },
+      { frames: aboutFrames.img3, startAt: 0.7, staggerDelay: 0.2 },
+    ]),
+    createFrameSequencePlayer([
+      { frames: aboutFrames.sinzin, startAt: 0, staggerDelay: 0.15 },
+      { frames: aboutFrames.fune, startAt: 0.7, staggerDelay: 0.15 },
+      { frames: aboutFrames.pichi, startAt: 1.2, staggerDelay: 0.15 },
+    ]),
+    createFrameSequencePlayer([
+      { frames: aboutFrames.img4, startAt: 0, staggerDelay: 0.2 },
+      { frames: aboutFrames.img5, startAt: 0.7, staggerDelay: 0.2 },
+    ]),
+  ] as const;
+}
+
+function createMobileAboutRowPlayers(aboutFrames: AboutFrameGroups): readonly AboutRowPlayer[] {
+  return [
+    createFrameSequencePlayer([{ frames: aboutFrames.img1, startAt: 0, staggerDelay: 0.18 }]),
+    null,
+    createFrameSequencePlayer([
+      { frames: aboutFrames.img2, startAt: 0, staggerDelay: 0.18 },
+      { frames: aboutFrames.img3, startAt: 0.72, staggerDelay: 0.18 },
+      { frames: aboutFrames.sinzin, startAt: 1.44, staggerDelay: 0.15 },
+      { frames: aboutFrames.fune, startAt: 2.04, staggerDelay: 0.15 },
+      { frames: aboutFrames.pichi, startAt: 2.6, staggerDelay: 0.15 },
+    ]),
+    createFrameSequencePlayer([
+      { frames: aboutFrames.img4, startAt: 0, staggerDelay: 0.18 },
+      { frames: aboutFrames.img5, startAt: 0.72, staggerDelay: 0.18 },
+    ]),
+  ] as const;
+}
+
 function setupAboutAnimation(
   aboutStage: HTMLElement | null,
   aboutPanel: HTMLDivElement | null,
@@ -253,21 +293,6 @@ function setupAboutAnimation(
   const aboutTitle = aboutPanel.querySelector<HTMLElement>(".js-about-title");
   const aboutRows = gsap.utils.toArray<HTMLElement>(".js-about-row", aboutPanel);
   const aboutFrames = collectAboutFrameGroups(aboutPanel);
-
-  const playAboutImg1Frames = createFrameSequencePlayer([{ frames: aboutFrames.img1, startAt: 0, staggerDelay: 0.2 }]);
-  const playAboutImg2And3Frames = createFrameSequencePlayer([
-    { frames: aboutFrames.img2, startAt: 0, staggerDelay: 0.2 },
-    { frames: aboutFrames.img3, startAt: 0.7, staggerDelay: 0.2 },
-  ]);
-  const playAboutProduceFrames = createFrameSequencePlayer([
-    { frames: aboutFrames.sinzin, startAt: 0, staggerDelay: 0.15 },
-    { frames: aboutFrames.fune, startAt: 0.7, staggerDelay: 0.15 },
-    { frames: aboutFrames.pichi, startAt: 1.2, staggerDelay: 0.15 },
-  ]);
-  const playAboutImg4And5Frames = createFrameSequencePlayer([
-    { frames: aboutFrames.img4, startAt: 0, staggerDelay: 0.2 },
-    { frames: aboutFrames.img5, startAt: 0.7, staggerDelay: 0.2 },
-  ]);
 
   if (aboutTitle) {
     gsap.set(aboutTitle, { autoAlpha: 0, y: 30 });
@@ -293,12 +318,7 @@ function setupAboutAnimation(
       });
     }
 
-    const aboutRowPlayers = [
-      playAboutImg1Frames,
-      playAboutImg2And3Frames,
-      playAboutProduceFrames,
-      playAboutImg4And5Frames,
-    ] as const;
+    const aboutRowPlayers = createMobileAboutRowPlayers(aboutFrames);
 
     aboutRows.forEach((row, index) => {
       gsap.to(row, {
@@ -312,7 +332,7 @@ function setupAboutAnimation(
           invalidateOnRefresh: true,
           toggleActions: "play none none none",
           once: true,
-          onEnter: aboutRowPlayers[index],
+          onEnter: aboutRowPlayers[index] ?? undefined,
         },
       });
     });
@@ -347,12 +367,7 @@ function setupAboutAnimation(
     );
   }
 
-  const aboutRowPlayers = [
-    playAboutImg1Frames,
-    playAboutImg2And3Frames,
-    playAboutProduceFrames,
-    playAboutImg4And5Frames,
-  ] as const;
+  const aboutRowPlayers = createDesktopAboutRowPlayers(aboutFrames);
 
   aboutRows.forEach((row, index) => {
     aboutTimeline.to(
@@ -389,13 +404,14 @@ export function setupTitleContentAnimations({
   aboutStage,
   aboutPanel,
   isIntroComplete,
+  isMobileLayout,
 }: TitleContentAnimationOptions) {
   if (!isIntroComplete || !root) {
     return;
   }
 
   const reduceMotion = prefersReducedMotion();
-  const isMobile = isTitleMobileLayout();
+  const isMobile = isMobileLayout ?? isTitleMobileLayout();
   const snsSection = root.querySelector<HTMLElement>("#sns");
   const hpSection = root.querySelector<HTMLElement>(".js-title-hp-stack");
   const snsFrames = snsSection ? gsap.utils.toArray<HTMLElement>(".js-sns-frame", snsSection) : [];

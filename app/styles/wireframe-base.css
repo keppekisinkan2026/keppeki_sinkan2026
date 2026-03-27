@@ -105,7 +105,7 @@
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding-bottom: clamp(15px, 2vw, 25px);
+  padding-bottom: clamp(22px, 2.8vw, 34px);
   box-sizing: border-box;
 }
 

@@ -1,0 +1,22 @@
+.wf-global-footer-line {
+  position: relative;
+  align-self: center;
+  width: 100vw;
+  height: clamp(2px, 0.24vw, 3px);
+  margin-top: 0;
+  margin-left: calc(50% - 50vw);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.72),
+    0 -1px 0 rgba(255, 255, 255, 0.36);
+  pointer-events: none;
+}
+
+.wf-global-footer-line--maintenance {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-left: 0;
+}

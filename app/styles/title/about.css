@@ -35,22 +35,22 @@
   z-index: 1;
 }
 
-.wf-analog-about-panel::before {
-  content: "";
+.wf-analog-about-background {
   position: absolute;
   top: 20vh;
   right: clamp(-96px, -7vw, -36px);
   bottom: 10vh;
   left: clamp(-96px, -7vw, -36px);
   z-index: -1;
-  background-image: url("/images/block_large.PNG");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 100% 100%;
-  mix-blend-mode: multiply;
   pointer-events: none;
   transform: scale(1.9);
   opacity: 0.98;
+}
+
+.wf-analog-about-background-image {
+  object-fit: fill;
+  object-position: center;
+  mix-blend-mode: multiply;
 }
 
 .wf-title-about-section .wf-title-section-title {
@@ -101,6 +101,8 @@
 }
 
 .wf-title-about-row--produce .wf-title-about-copy {
+  position: relative;
+  z-index: 4;
   width: min(48%, 600px);
   align-self: center;
 }
@@ -332,7 +334,7 @@
   left: -4%;
   bottom: 10%;
   transform: rotate(-7deg);
-  z-index: 1;
+  z-index: 0;
 }
 
 .wf-about-images-right .wf-about-anim-container:nth-child(3) {

@@ -59,3 +59,50 @@ body {
   font-weight: 400;
   letter-spacing: 0.04em;
 }
+
+@media (max-width: 700px) {
+  .wf-screen p,
+  .wf-screen li,
+  .wf-screen dt,
+  .wf-screen dd,
+  .wf-screen figcaption,
+  .wf-screen blockquote,
+  .wf-title-main p,
+  .wf-title-main li,
+  .wf-title-main dt,
+  .wf-title-main dd,
+  .wf-title-main figcaption,
+  .maintenance-screen p,
+  .maintenance-screen li,
+  .maintenance-screen dt,
+  .maintenance-screen dd,
+  .maintenance-screen figcaption,
+  .maintenance-screen blockquote {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    text-wrap: pretty !important;
+    line-break: strict;
+    hanging-punctuation: allow-end;
+    widows: 2;
+    orphans: 2;
+  }
+
+  .wf-screen h1,
+  .wf-screen h2,
+  .wf-screen h3,
+  .wf-screen h4,
+  .wf-title-main h1,
+  .wf-title-main h2,
+  .wf-title-main h3,
+  .wf-title-main h4,
+  .maintenance-screen h1,
+  .maintenance-screen h2,
+  .maintenance-screen h3,
+  .maintenance-screen h4 {
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    text-wrap: balance;
+    line-break: strict;
+    hanging-punctuation: allow-end;
+  }
+}

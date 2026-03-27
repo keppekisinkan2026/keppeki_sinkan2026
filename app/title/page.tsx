@@ -9,6 +9,7 @@ import { TitleHpSection } from "@/components/title/TitleHpSection";
 import { TitleJoinSection } from "@/components/title/TitleJoinSection";
 import { TitleOpeningHeader } from "@/components/title/TitleOpeningHeader";
 import { TitleSnsSection } from "@/components/title/TitleSnsSection";
+import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { setupTitleContentAnimations, setupTitleIntroAnimation } from "./animations";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 
@@ -22,6 +23,7 @@ export default function TitleWireframePage() {
   const aboutPanelRef = useRef<HTMLDivElement>(null);
   const [isIntroComplete, setIsIntroComplete] = useState(false);
   const [shouldSkipIntro, setShouldSkipIntro] = useState(false);
+  const isMobileLayout = useVisualViewportMobile();
 
   useEffect(() => {
     const hasAboutHash = window.location.hash === "#about";
@@ -114,10 +116,11 @@ export default function TitleWireframePage() {
         aboutStage: aboutStageRef.current,
         aboutPanel: aboutPanelRef.current,
         isIntroComplete,
+        isMobileLayout,
       }),
     {
       scope: rootRef,
-      dependencies: [isIntroComplete],
+      dependencies: [isIntroComplete, isMobileLayout],
       revertOnUpdate: true,
     },
   );
@@ -132,15 +135,18 @@ export default function TitleWireframePage() {
       <div className="relative w-full">
         <TitleOpeningHeader headerRef={headerRef} lineSvgRef={lineSvgRef} isIntroComplete={isIntroComplete} />
 
-        <main
-          className={`wf-title-main transition-opacity duration-500 ${isIntroComplete ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"}`}
-          aria-hidden={!isIntroComplete}
-        >
-          <TitleSnsSection />
-          <TitleHpSection />
-          <TitleAboutSection aboutStageRef={aboutStageRef} aboutPanelRef={aboutPanelRef} />
-          <TitleJoinSection />
-        </main>
+        {isIntroComplete ? (
+          <main className="wf-title-main">
+            <TitleSnsSection />
+            <TitleHpSection />
+            <TitleAboutSection
+              aboutStageRef={aboutStageRef}
+              aboutPanelRef={aboutPanelRef}
+              isMobileLayout={isMobileLayout}
+            />
+            <TitleJoinSection />
+          </main>
+        ) : null}
       </div>
     </WireframeShell>
   );

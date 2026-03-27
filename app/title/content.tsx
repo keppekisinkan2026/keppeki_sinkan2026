@@ -26,42 +26,12 @@ export const aboutImgSinzinFrameSources = [...aboutCommonAnimFrameSources, "/ima
 export const aboutImgFuneFrameSources = [...aboutCommonAnimFrameSources, "/images/fune.PNG"] as const;
 export const aboutImgPichiFrameSources = [...aboutCommonAnimFrameSources, "/images/pichi.PNG"] as const;
 
-export const aboutSectionRows = [
-  { key: "about-1", imageLeft: false },
-  { key: "about-2", imageLeft: true },
-  { key: "about-3", imageLeft: false },
-  { key: "about-4", imageLeft: true },
-] as const;
-
-const aboutChunkStyle = { display: "inline-block" } as const;
-
 export const aboutCampusText = (
   <div className="js-about-text-container wf-about-text-container">
     <h3 className="wf-about-subheading">さまざまな大学の学生が集まる<wbr />インカレサークル</h3>
     <p className="js-about-text wf-about-text">
-      <span style={aboutChunkStyle}>団員は現在80名ほど(2026年現在)。</span>
-      <wbr />
-      <span style={aboutChunkStyle}>京都大学だけでなく、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>京都芸術大学、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>同志社大学、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>立命館大学、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>京都産業大学、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>京都工芸繊維大学、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>龍谷大学、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>大谷大学など、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>演劇を愛する学生が</span>
-      <wbr />
-      <span style={aboutChunkStyle}>さまざまな大学から</span>
-      <wbr />
-      <span style={aboutChunkStyle}>集まっています。</span>
+      団員は現在80名ほど(2026年現在)。京都大学だけでなく、京都芸術大学、同志社大学、立命館大学、
+      京都産業大学、京都工芸繊維大学、龍谷大学、大谷大学など、演劇を愛する学生がさまざまな大学から集まっています。
     </p>
   </div>
 );
@@ -70,37 +40,7 @@ export const aboutProduceText = (
   <div className="js-about-text-container wf-about-text-container">
     <h3 className="wf-about-subheading">プロデュース制</h3>
     <p className="js-about-text wf-about-text">
-      <span style={aboutChunkStyle}>劇団ケッペキの最大の特徴は、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>定期公演制ではなく、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>全ての団員が公演を企画することができる</span>
-      <wbr />
-      <span style={aboutChunkStyle}>プロデュース制を採用していることです。</span>
-      <wbr />
-      <span style={aboutChunkStyle}>座長をおかないことで、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>団員一人一人の</span>
-      <wbr />
-      <span style={aboutChunkStyle}>「芝居を創りたい」という想いを</span>
-      <wbr />
-      <span style={aboutChunkStyle}>最大限に尊重しています。</span>
-      <wbr />
-      <span style={aboutChunkStyle}>これは様々な劇団が存在する</span>
-      <wbr />
-      <span style={aboutChunkStyle}>京都の学生演劇界においても</span>
-      <wbr />
-      <span style={aboutChunkStyle}>珍しい制度です。</span>
-      <wbr />
-      <span style={aboutChunkStyle}>また団全体としてではなく、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>団員が集まり結成したユニットによる</span>
-      <wbr />
-      <span style={aboutChunkStyle}>「ユニット公演」も年に数回あり、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>かなり自由度の高い演劇活動が</span>
-      <wbr />
-      <span style={aboutChunkStyle}>可能となっています。</span>
+      劇団ケッペキの最大の特徴は、定期公演制ではなく、全ての団員が公演を企画することができるプロデュース制を採用していることです。座長をおかないことで、団員一人一人の「芝居を創りたい」という想いを最大限に尊重しています。これは様々な劇団が存在する京都の学生演劇界においても珍しい制度です。また団全体としてではなく、団員が集まり結成したユニットによる「ユニット公演」も年に数回あり、かなり自由度の高い演劇活動が可能となっています。
     </p>
   </div>
 );
@@ -109,75 +49,18 @@ export const aboutYearRoundText = (
   <div className="js-about-text-container wf-about-text-container">
     <h3 className="wf-about-subheading">年間を通して活動</h3>
     <p className="js-about-text wf-about-text">
-      <span style={aboutChunkStyle}>ケッペキでは</span>
-      <wbr />
-      <span style={aboutChunkStyle}>規模も形態も多様な公演を</span>
-      <wbr />
-      <span style={aboutChunkStyle}>例年5～10本行ってきました。</span>
-      <wbr />
-      <span style={aboutChunkStyle}>新型コロナウイルス感染症の</span>
-      <wbr />
-      <span style={aboutChunkStyle}>流行を受け</span>
-      <wbr />
-      <span style={aboutChunkStyle}>2020年、2021年と</span>
-      <wbr />
-      <span style={aboutChunkStyle}>対面形式の公演を</span>
-      <wbr />
-      <span style={aboutChunkStyle}>打てずにいましたが、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>2022年12月</span>
-      <wbr />
-      <span style={aboutChunkStyle}>「来るもの拒まずおかえり公演　『無差別』」の</span>
-      <wbr />
-      <span style={aboutChunkStyle}>上演を皮切りに</span>
-      <wbr />
-      <span style={aboutChunkStyle}>対面での活動を解禁し、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>2025年も</span>
-      <wbr />
-      <span style={aboutChunkStyle}>新人公演、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>卒業公演、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>新歓公演や夏公演など、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>活発に公演しています。</span>
+      ケッペキでは規模も形態も多様な公演を例年5～10本行ってきました。新型コロナウイルス感染症の流行を受け2020年、2021年と対面形式の公演を打てずにいましたが、2022年12月「来るもの拒まずおかえり公演　『無差別』」の上演を皮切りに対面での活動を解禁し、2025年も新人公演、卒業公演、新歓公演や夏公演など、活発に公演しています。
     </p>
   </div>
 );
 
-export const aboutRowParagraphs: ReadonlyArray<ReadonlyArray<ReactNode>> = [
-  [
-    <>
-      <span style={aboutChunkStyle}>劇団鞠小路、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>VOL.0を経て、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>1993年に</span>
-      <wbr />
-      <span style={aboutChunkStyle}>京都大学学生部公認サークルとして</span>
-      <wbr />
-      <span style={aboutChunkStyle}>総合芸術集団潔癖青年文化団が</span>
-      <wbr />
-      <span style={aboutChunkStyle}>結成されました。</span>
-    </>,
-    <>
-      <span style={aboutChunkStyle}>1995年には</span>
-      <wbr />
-      <span style={aboutChunkStyle}>劇団ケッペキと改称し、</span>
-      <wbr />
-      <span style={aboutChunkStyle}>京都大学公認の</span>
-      <wbr />
-      <span style={aboutChunkStyle}>演劇サークルとして</span>
-      <wbr />
-      <span style={aboutChunkStyle}>現在で</span>
-      <wbr />
-      <span style={aboutChunkStyle}>結成34年目となります。</span>
-    </>,
-  ],
-  ["テキストが入ります", "テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  ["テキストが入ります", "テキストが入ります", "テキストが入ります", "テキストが入ります"],
-  ["テキストが入ります", "テキストが入ります", "テキストが入ります", "テキストが入ります"],
+export const aboutHistoryParagraphs: readonly ReactNode[] = [
+  <>
+    劇団鞠小路、VOL.0を経て、1993年に京都大学学生部公認サークルとして総合芸術集団潔癖青年文化団が結成されました。
+  </>,
+  <>
+    1995年には劇団ケッペキと改称し、京都大学公認の演劇サークルとして現在で結成34年目となります。
+  </>,
 ];
 
 const snsBlockOrder = ["hp", "x", "instagram", "note", "youtube"] as const;

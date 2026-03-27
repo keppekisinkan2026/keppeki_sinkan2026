@@ -12,6 +12,41 @@ type TitleOpeningHeaderProps = {
   isIntroComplete: boolean;
 };
 
+const openingMenuItemInitialStyle = {
+  opacity: 0,
+  transform: "translateY(18px)",
+  filter: "blur(8px)",
+  clipPath: "inset(0 100% 0 0)",
+} as const;
+
+function renderOpeningMenuLink(item: (typeof titleNavigationLinks)[number]) {
+  const linkBody = <span className="wf-title-opening-menu-text">{item.label}</span>;
+
+  if (item.href.startsWith("#")) {
+    return (
+      <a
+        key={item.label}
+        href={item.href}
+        className="js-opening-menu-item wf-title-opening-menu-link"
+        style={openingMenuItemInitialStyle}
+      >
+        {linkBody}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      key={item.label}
+      href={item.href}
+      className="js-opening-menu-item wf-title-opening-menu-link"
+      style={openingMenuItemInitialStyle}
+    >
+      {linkBody}
+    </Link>
+  );
+}
+
 export function TitleOpeningHeader({ headerRef, lineSvgRef, isIntroComplete }: TitleOpeningHeaderProps) {
   return (
     <header ref={headerRef} className="wf-title-sticky-header" aria-label="タイトルオープニング">
@@ -49,21 +84,7 @@ export function TitleOpeningHeader({ headerRef, lineSvgRef, isIntroComplete }: T
                 className={`wf-title-opening-menu ${isIntroComplete ? "pointer-events-auto" : "pointer-events-none"}`}
                 aria-label="ページリンク"
               >
-                {titleNavigationLinks.map((item) =>
-                  item.href.startsWith("#") ? (
-                    <a key={item.label} href={item.href} className="js-opening-menu-item wf-title-opening-menu-link">
-                      <span className="wf-title-opening-menu-text">{item.label}</span>
-                    </a>
-                  ) : (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="js-opening-menu-item wf-title-opening-menu-link"
-                    >
-                      <span className="wf-title-opening-menu-text">{item.label}</span>
-                    </Link>
-                  ),
-                )}
+                {titleNavigationLinks.map(renderOpeningMenuLink)}
               </nav>
             </div>
           </div>

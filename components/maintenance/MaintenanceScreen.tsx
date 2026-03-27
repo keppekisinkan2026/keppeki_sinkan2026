@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { FooterLine } from "@/app/components/FooterLine";
 import { MaintenanceLogo } from "./MaintenanceLogo";
 import { SocialLinks } from "./SocialLinks";
 import { socialLinks } from "./socialLinkData";
@@ -30,6 +31,7 @@ export function MaintenanceScreen() {
 
         <SocialLinks links={socialLinks} />
       </div>
+      <FooterLine className="wf-global-footer-line--maintenance" />
     </main>
   );
 }
