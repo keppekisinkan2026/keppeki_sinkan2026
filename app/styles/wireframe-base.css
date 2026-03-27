@@ -98,7 +98,6 @@
   width: 100vw;
   height: clamp(80px, 12vw, 130px);
   z-index: 100;
-  background-image: url("/images/menu.PNG");
   background-size: 100% 100%;
   background-position: bottom center;
   background-repeat: no-repeat;

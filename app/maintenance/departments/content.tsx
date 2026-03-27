@@ -35,6 +35,10 @@ function segmentDepartmentText(text: string) {
   return Array.from(departmentTextSegmenter.segment(text), ({ segment }) => segment);
 }
 
+function getDepartmentTextLength(text: string) {
+  return Array.from(text).length;
+}
+
 function wrapDepartmentParagraph(text: string, maxChars = 30) {
   const segments = segmentDepartmentText(text.trim());
   const lines: string[] = [];
@@ -68,6 +72,78 @@ function wrapDepartmentParagraph(text: string, maxChars = 30) {
 
 function formatDepartmentDescription(...paragraphs: string[]) {
   return paragraphs.map((paragraph) => wrapDepartmentParagraph(paragraph)).join("\n");
+}
+
+function normalizeDepartmentParagraphForMobile(text: string) {
+  return text
+    .split(/\n+/)
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join("");
+}
+
+function wrapDepartmentParagraphForMobile(text: string, maxChars = 16, minChars = 4) {
+  const normalizedText = normalizeDepartmentParagraphForMobile(text);
+  const segments = segmentDepartmentText(normalizedText);
+  const lines: string[][] = [];
+  let currentLine: string[] = [];
+  let currentLength = 0;
+
+  segments.forEach((segment) => {
+    if (!segment) {
+      return;
+    }
+
+    const segmentLength = getDepartmentTextLength(segment);
+    const canAppend =
+      currentLength === 0 ||
+      currentLength + segmentLength <= maxChars ||
+      prohibitedLineStartPattern.test(segment);
+
+    if (canAppend) {
+      currentLine.push(segment);
+      currentLength += segmentLength;
+      return;
+    }
+
+    lines.push(currentLine);
+    currentLine = [segment];
+    currentLength = segmentLength;
+  });
+
+  if (currentLine.length > 0) {
+    lines.push(currentLine);
+  }
+
+  for (let index = lines.length - 1; index > 0; index -= 1) {
+    while (getDepartmentTextLength(lines[index].join("")) < minChars) {
+      const previousLine = lines[index - 1];
+      if (previousLine.length <= 1) {
+        break;
+      }
+
+      const movedSegment = previousLine.pop();
+      if (!movedSegment) {
+        break;
+      }
+
+      lines[index].unshift(movedSegment);
+    }
+  }
+
+  return lines.map((line) => line.join(""));
+}
+
+export function wrapDepartmentDescriptionForMobile(text: string, maxChars = 16, minChars = 4) {
+  const normalizedText = text.trim();
+  if (!normalizedText) {
+    return [];
+  }
+
+  return normalizedText
+    .split(/\n{2,}/)
+    .map((paragraph) => wrapDepartmentParagraphForMobile(paragraph, maxChars, minChars))
+    .filter((paragraph) => paragraph.length > 0);
 }
 
 const departmentSidePhotoMap = {

@@ -1,11 +1,3 @@
-@font-face {
-  font-family: "MakiCircle";
-  src: url("/fonts/makiirclehand.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 :root {
   --crayon-green: #96c44b;
   --crayon-green-dark: #7ead39;
@@ -49,7 +41,7 @@ body {
 
 .wf-maki-title {
   font-family:
-    "MakiCircle",
+    var(--font-maki-circle),
     "Hiragino Maru Gothic ProN",
     "Hiragino Sans",
     "Yu Gothic UI",

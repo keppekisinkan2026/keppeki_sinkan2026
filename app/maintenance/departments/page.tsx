@@ -62,20 +62,24 @@ export default function DepartmentsWireframePage() {
         hideFlipbookFrames(leafFrames);
         gsap.set(leafLabel, { autoAlpha: 0, y: isMobileLayout ? 4 : 8 });
         gsap.set(clickSign, { autoAlpha: 0, y: isMobileLayout ? 4 : 6, scale: isMobileLayout ? 0.98 : 0.94 });
-        gsap.set(photoCards, {
-          autoAlpha: 0,
-          rotationX: isMobileLayout ? 0 : -72,
-          y: isMobileLayout ? 10 : -14,
-          scale: isMobileLayout ? 0.98 : 0.94,
-          transformOrigin: "top center",
-        });
+        if (photoCards.length > 0) {
+          gsap.set(photoCards, {
+            autoAlpha: 0,
+            rotationX: isMobileLayout ? 0 : -72,
+            y: isMobileLayout ? 10 : -14,
+            scale: isMobileLayout ? 0.98 : 0.94,
+            transformOrigin: "top center",
+          });
+        }
 
         if (reduceMotion) {
           gsap.set(leafFrames, { autoAlpha: 0 });
           gsap.set(leafFrames[leafFrames.length - 1], { autoAlpha: 1 });
           gsap.set(leafLabel, { autoAlpha: 1, y: 0 });
           gsap.set(clickSign, { autoAlpha: 1, y: 0, scale: 1 });
-          gsap.set(photoCards, { autoAlpha: 1, rotationX: 0, y: 0, scale: 1 });
+          if (photoCards.length > 0) {
+            gsap.set(photoCards, { autoAlpha: 1, rotationX: 0, y: 0, scale: 1 });
+          }
           return;
         }
 

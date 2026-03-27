@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { withBasePath } from "@/lib/withBasePath";
 import { normalizePathname } from "@/lib/normalizePathname";
 import { headerHiddenPaths, headerLinks } from "@/lib/siteNavigation";
 
@@ -15,7 +16,10 @@ export function Header() {
 
   return (
     <>
-      <header className="wf-global-header">
+      <header
+        className="wf-global-header"
+        style={{ backgroundImage: `url(${withBasePath("/images/menu.PNG")})` }}
+      >
         <nav aria-label="グローバルナビゲーション">
           <ul className="wf-global-nav-list">
             {headerLinks.map((item) => {

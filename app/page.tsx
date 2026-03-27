@@ -1,7 +1,5 @@
-"use client";
-
-import { MaintenanceScreen } from "@/components/maintenance/MaintenanceScreen";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return <MaintenanceScreen />;
+  redirect("/title");
 }
