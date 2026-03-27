@@ -38,8 +38,18 @@ const aboutFrameSelectors = {
   pichi: ".js-about-img-pichi-frame",
 } as const;
 
+const TITLE_MOBILE_MEDIA_QUERY = "(max-width: 700px)";
+
 function refreshScrollTriggers() {
   requestAnimationFrame(() => ScrollTrigger.refresh());
+}
+
+function isTitleMobileLayout() {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return window.matchMedia(TITLE_MOBILE_MEDIA_QUERY).matches;
 }
 
 function collectFrames(scope: ParentNode, selector: string) {
@@ -165,10 +175,11 @@ function setupHpPin(
   hpSection: HTMLElement | null,
   aboutStage: HTMLElement | null,
   aboutPanel: HTMLDivElement | null,
+  isMobile: boolean,
 ) {
   const hpButton = hpSection?.querySelector<HTMLElement>(".js-title-hp-button") ?? null;
 
-  if (!hpSection || !hpButton || !aboutPanel) {
+  if (!hpSection || !hpButton || !aboutPanel || isMobile) {
     return;
   }
 
@@ -184,12 +195,15 @@ function setupHpPin(
   });
 }
 
-function setupRevealBlocks(revealBlocks: HTMLElement[]) {
+function setupRevealBlocks(revealBlocks: HTMLElement[], isMobile: boolean) {
+  const revealY = isMobile ? 40 : 100;
+  const revealStart = isMobile ? "top 92%" : "top 86%";
+
   revealBlocks.forEach((block) => {
     gsap.fromTo(
       block,
       {
-        y: 100,
+        y: revealY,
         autoAlpha: 0,
       },
       {
@@ -199,7 +213,7 @@ function setupRevealBlocks(revealBlocks: HTMLElement[]) {
         ease: "power2.out",
         scrollTrigger: {
           trigger: block,
-          start: "top 86%",
+          start: revealStart,
           invalidateOnRefresh: true,
           toggleActions: "play none none none",
           once: true,
@@ -227,7 +241,11 @@ function createFrameSequencePlayer(sequences: FlipbookSequence[]) {
   };
 }
 
-function setupAboutAnimation(aboutStage: HTMLElement | null, aboutPanel: HTMLDivElement | null) {
+function setupAboutAnimation(
+  aboutStage: HTMLElement | null,
+  aboutPanel: HTMLDivElement | null,
+  isMobile: boolean,
+) {
   if (!aboutStage || !aboutPanel) {
     return;
   }
@@ -257,6 +275,50 @@ function setupAboutAnimation(aboutStage: HTMLElement | null, aboutPanel: HTMLDiv
 
   gsap.set(aboutRows, { autoAlpha: 0, y: 28 });
   hideFrameGroups(Object.values(aboutFrames));
+
+  if (isMobile) {
+    if (aboutTitle) {
+      gsap.to(aboutTitle, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.42,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: aboutPanel,
+          start: "top 82%",
+          invalidateOnRefresh: true,
+          toggleActions: "play none none none",
+          once: true,
+        },
+      });
+    }
+
+    const aboutRowPlayers = [
+      playAboutImg1Frames,
+      playAboutImg2And3Frames,
+      playAboutProduceFrames,
+      playAboutImg4And5Frames,
+    ] as const;
+
+    aboutRows.forEach((row, index) => {
+      gsap.to(row, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.48,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: row,
+          start: "top 88%",
+          invalidateOnRefresh: true,
+          toggleActions: "play none none none",
+          once: true,
+          onEnter: aboutRowPlayers[index],
+        },
+      });
+    });
+
+    return;
+  }
 
   const aboutTimeline = gsap.timeline({
     scrollTrigger: {
@@ -333,6 +395,7 @@ export function setupTitleContentAnimations({
   }
 
   const reduceMotion = prefersReducedMotion();
+  const isMobile = isTitleMobileLayout();
   const snsSection = root.querySelector<HTMLElement>("#sns");
   const hpSection = root.querySelector<HTMLElement>(".js-title-hp-stack");
   const snsFrames = snsSection ? gsap.utils.toArray<HTMLElement>(".js-sns-frame", snsSection) : [];
@@ -347,8 +410,8 @@ export function setupTitleContentAnimations({
   }
 
   setupSnsAnimation(snsSection, snsFrames, snsTitle, snsIcons);
-  setupHpPin(hpSection, aboutStage, aboutPanel);
-  setupRevealBlocks(revealBlocks);
-  setupAboutAnimation(aboutStage, aboutPanel);
+  setupHpPin(hpSection, aboutStage, aboutPanel, isMobile);
+  setupRevealBlocks(revealBlocks, isMobile);
+  setupAboutAnimation(aboutStage, aboutPanel, isMobile);
   refreshScrollTriggers();
 }
