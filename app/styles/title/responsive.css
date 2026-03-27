@@ -44,13 +44,22 @@
     padding: 0 0 14px;
   }
 
+  .wf-frame--title {
+    width: 100%;
+  }
+
   .wf-title-sticky-stage {
     min-height: 100svh;
     padding: 18px 0;
   }
 
+  .wf-title-opening-paper-layer {
+    transform: scale(1.5);
+    transform-origin: center center;
+  }
+
   .wf-title-opening-header {
-    width: min(100%, 1040px);
+    width: 100%;
   }
 
   .wf-title-opening-stack {
@@ -86,6 +95,11 @@
 
   .wf-title-scroll-block + .wf-title-scroll-block {
     margin-top: 22svh;
+  }
+
+  .wf-title-sns-stage + .wf-title-hp-stack,
+  .wf-title-hp-stack + .wf-title-about-stage {
+    margin-top: calc(22svh - 52px);
   }
 
   .wf-title-sns-content {

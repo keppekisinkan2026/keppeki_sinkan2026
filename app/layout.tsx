@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Header } from "./components/Header";
 import { ScrollToTopButton } from "./components/ScrollToTopButton";
 import "./globals.css";
@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   description: "劇団ケッペキ 2026年度新歓特設サイト メンテナンスページ",
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -15,9 +20,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <head>
-        <meta name="viewport" content="width=1200" />
-      </head>
       <body>
         <Header />
         {children}

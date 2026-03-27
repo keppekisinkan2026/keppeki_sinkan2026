@@ -510,6 +510,134 @@
   text-align: center;
 }
 
+.wf-departments-stage--mobile {
+  padding: clamp(102px, 14vh, 128px) 0 84px;
+}
+
+.wf-departments-stage--mobile .wf-department-vine-svg {
+  width: 74px;
+  top: 0;
+  height: 100%;
+}
+
+.wf-departments-stage--mobile .wf-department-list {
+  gap: 44px;
+  max-width: 560px;
+  padding: 12px 8px 0;
+}
+
+.wf-departments-stage--mobile .wf-dept-row {
+  grid-template-columns: 1fr;
+  row-gap: 14px;
+  min-height: 0;
+}
+
+.wf-departments-stage--mobile .wf-dept-cell-left,
+.wf-departments-stage--mobile .wf-dept-cell-right,
+.wf-departments-stage--mobile .wf-dept-cell-solo {
+  justify-content: center;
+  align-items: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.wf-departments-stage--mobile .wf-dept-row--right .wf-dept-cell-left {
+  order: 2;
+}
+
+.wf-departments-stage--mobile .wf-dept-row--right .wf-dept-cell-right {
+  order: 1;
+}
+
+.wf-departments-stage--mobile .wf-dept-leaf-stage {
+  width: min(100%, 250px);
+}
+
+.wf-departments-stage--mobile .wf-dept-leaf-button {
+  padding: 12px 8px 10px;
+}
+
+.wf-departments-stage--mobile .wf-dept-leaf-wrapper {
+  width: clamp(156px, 34vw, 230px);
+  --dept-root-overlap: clamp(12px, 2vw, 20px);
+}
+
+.wf-departments-stage--mobile .wf-dept-leaf-text {
+  width: 58%;
+  font-size: clamp(16px, 3.8vw, 22px);
+  line-height: 1.2;
+}
+
+.wf-departments-stage--mobile .wf-dept-click-sign {
+  top: 8px;
+  font-size: clamp(16px, 4vw, 22px);
+  animation-duration: 2.6s;
+}
+
+.wf-departments-stage--mobile .wf-dept-click-sign--left {
+  left: 10px;
+}
+
+.wf-departments-stage--mobile .wf-dept-click-sign--right {
+  right: 10px;
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage {
+  width: min(100%, 320px);
+  height: clamp(220px, 42vw, 290px);
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-card {
+  width: clamp(120px, 26vw, 170px);
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage--left .wf-dept-photo-card--1 {
+  right: 8%;
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage--left .wf-dept-photo-card--2 {
+  right: 34%;
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage--right .wf-dept-photo-card--1 {
+  left: 8%;
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage--right .wf-dept-photo-card--2 {
+  left: 34%;
+}
+
+.wf-dept-modal-root--mobile {
+  padding: 14px;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-close {
+  width: 42px;
+  height: 42px;
+  font-size: 28px;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-content {
+  gap: 10px;
+  padding: 34px 18px;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-title {
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.35;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-text {
+  font-size: clamp(16px, 2.35vw, 22px);
+  line-height: 1.8;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
 @media (max-width: 900px) {
   .wf-department-list {
     max-width: 1120px;

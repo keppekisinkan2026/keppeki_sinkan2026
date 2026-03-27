@@ -12,6 +12,7 @@ import { DepartmentRow } from "@/components/departments/DepartmentRow";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { appendFlipbookFrames, hideFlipbookFrames } from "@/lib/gsap/flipbook";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
+import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { withBasePath } from "@/lib/withBasePath";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
@@ -21,6 +22,7 @@ export default function DepartmentsWireframePage() {
   const vineSvgRef = useRef<SVGSVGElement>(null);
   const vinePathGroupRef = useRef<SVGGElement>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<DepartmentConfig | null>(null);
+  const isMobileLayout = useVisualViewportMobile();
 
   useEffect(() => {
     const vineSvg = vineSvgRef.current;
@@ -45,6 +47,7 @@ export default function DepartmentsWireframePage() {
     () => {
       const reduceMotion = prefersReducedMotion();
       const rows = gsap.utils.toArray<HTMLElement>(".js-dept-row", rootRef.current);
+      const animationStart = isMobileLayout ? "top 82%" : "top 65%";
 
       rows.forEach((row) => {
         const leafFrames = gsap.utils.toArray<HTMLElement>(".js-leaf-frame", row);
@@ -57,13 +60,13 @@ export default function DepartmentsWireframePage() {
         }
 
         hideFlipbookFrames(leafFrames);
-        gsap.set(leafLabel, { autoAlpha: 0, y: 8 });
-        gsap.set(clickSign, { autoAlpha: 0, y: 6, scale: 0.94 });
+        gsap.set(leafLabel, { autoAlpha: 0, y: isMobileLayout ? 4 : 8 });
+        gsap.set(clickSign, { autoAlpha: 0, y: isMobileLayout ? 4 : 6, scale: isMobileLayout ? 0.98 : 0.94 });
         gsap.set(photoCards, {
           autoAlpha: 0,
-          rotationX: -72,
-          y: -14,
-          scale: 0.94,
+          rotationX: isMobileLayout ? 0 : -72,
+          y: isMobileLayout ? 10 : -14,
+          scale: isMobileLayout ? 0.98 : 0.94,
           transformOrigin: "top center",
         });
 
@@ -79,7 +82,7 @@ export default function DepartmentsWireframePage() {
         const timeline = gsap.timeline({
           scrollTrigger: {
             trigger: row,
-            start: "top 65%",
+            start: animationStart,
             toggleActions: "play none none none",
           },
         });
@@ -91,7 +94,7 @@ export default function DepartmentsWireframePage() {
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.35,
+            duration: isMobileLayout ? 0.28 : 0.35,
             ease: "power2.out",
           },
           "+=0.08",
@@ -103,7 +106,7 @@ export default function DepartmentsWireframePage() {
             autoAlpha: 1,
             y: 0,
             scale: 1,
-            duration: 0.36,
+            duration: isMobileLayout ? 0.28 : 0.36,
             ease: "power2.out",
           },
           "<+=0.12",
@@ -117,8 +120,8 @@ export default function DepartmentsWireframePage() {
               rotationX: 0,
               y: 0,
               scale: 1,
-              duration: 0.58,
-              stagger: 0.16,
+              duration: isMobileLayout ? 0.38 : 0.58,
+              stagger: isMobileLayout ? 0.08 : 0.16,
               ease: "power2.out",
               clearProps: "transform",
             },
@@ -127,12 +130,15 @@ export default function DepartmentsWireframePage() {
         }
       });
     },
-    { scope: rootRef },
+    { scope: rootRef, dependencies: [isMobileLayout], revertOnUpdate: true },
   );
 
   return (
     <WireframeShell frameClassName="wf-frame--departments" innerClassName="wf-frame-inner--departments">
-      <section ref={rootRef} className="wf-departments-stage">
+      <section
+        ref={rootRef}
+        className={`wf-departments-stage${isMobileLayout ? " wf-departments-stage--mobile" : ""}`}
+      >
         <div className="wf-department-tree">
           <svg ref={vineSvgRef} className="wf-department-vine-svg" aria-hidden preserveAspectRatio="none">
             <defs>
@@ -161,23 +167,41 @@ export default function DepartmentsWireframePage() {
                       transformOrigin: nextDepartment.isLeftLeaf ? "right center" : "left center",
                     })
                     .to(trigger, {
-                      rotation: nextDepartment.isLeftLeaf ? 14 : -14,
-                      duration: 0.11,
+                      rotation: nextDepartment.isLeftLeaf
+                        ? isMobileLayout
+                          ? 9
+                          : 14
+                        : isMobileLayout
+                          ? -9
+                          : -14,
+                      duration: isMobileLayout ? 0.09 : 0.11,
                       ease: "power1.out",
                     })
                     .to(trigger, {
-                      rotation: nextDepartment.isLeftLeaf ? -10 : 10,
-                      duration: 0.1,
+                      rotation: nextDepartment.isLeftLeaf
+                        ? isMobileLayout
+                          ? -6
+                          : -10
+                        : isMobileLayout
+                          ? 6
+                          : 10,
+                      duration: isMobileLayout ? 0.08 : 0.1,
                       ease: "power1.inOut",
                     })
                     .to(trigger, {
-                      rotation: nextDepartment.isLeftLeaf ? 5 : -5,
-                      duration: 0.09,
+                      rotation: nextDepartment.isLeftLeaf
+                        ? isMobileLayout
+                          ? 3
+                          : 5
+                        : isMobileLayout
+                          ? -3
+                          : -5,
+                      duration: isMobileLayout ? 0.07 : 0.09,
                       ease: "power1.inOut",
                     })
                     .to(trigger, {
                       rotation: 0,
-                      duration: 0.14,
+                      duration: isMobileLayout ? 0.12 : 0.14,
                       ease: "power2.out",
                     });
 
