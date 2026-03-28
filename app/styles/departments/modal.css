@@ -1,0 +1,108 @@
+.wf-notebook-modal-root {
+  --wf-dept-modal-stage-width: min(calc((100svh - 120px) * 375 / 666 * 2.4), calc(100vw - 40px));
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: 20px;
+}
+
+.wf-notebook-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--wf-layer-surface);
+  border: 0;
+  background: rgba(20, 22, 19, 0.72);
+  cursor: pointer;
+}
+
+.wf-notebook-modal-panel {
+  position: relative;
+  z-index: var(--wf-layer-ui);
+  width: var(--wf-dept-modal-stage-width);
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  flex: none;
+}
+
+.wf-notebook-modal-close {
+  position: fixed;
+  top: max(12px, calc(env(safe-area-inset-top) + 12px));
+  right: max(12px, calc(env(safe-area-inset-right) + 12px));
+  z-index: 220;
+  border: 0;
+  background: rgba(255, 255, 255, 0.88);
+  color: rgba(53, 70, 43, 0.96);
+  width: clamp(42px, 4vw, 54px);
+  height: clamp(42px, 4vw, 54px);
+  border-radius: 999px;
+  cursor: pointer;
+  line-height: 1;
+  font-size: clamp(24px, 2vw, 32px);
+}
+
+.wf-notebook-modal-stage {
+  position: relative;
+  width: var(--wf-dept-modal-stage-width);
+  max-width: 100%;
+  aspect-ratio: 375 / 666;
+  height: auto;
+  margin: auto;
+}
+
+.wf-notebook-modal-frames {
+  position: absolute;
+  inset: 0;
+  z-index: var(--wf-layer-surface);
+  transform: translateY(110px);
+}
+
+.wf-notebook-modal-image {
+  object-fit: contain;
+  object-position: center;
+}
+
+.wf-notebook-modal-content {
+  position: absolute;
+  inset: 0;
+  z-index: var(--wf-layer-content);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(12px, 1vw, 18px);
+  padding: 40px 20px;
+  overflow: hidden;
+  text-align: center;
+  color: rgba(249, 252, 246, 0.98);
+}
+
+.wf-notebook-modal-title {
+  margin: 0;
+  font-size: clamp(28px, 3vw, 52px);
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+  white-space: normal;
+}
+
+.wf-notebook-modal-text {
+  margin: 0;
+  font-size: clamp(20px, 1.65vw, 28px);
+  line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+  white-space: pre-wrap;
+  text-shadow: 0 1px 3px rgba(41, 61, 34, 0.18);
+  text-align: center;
+}

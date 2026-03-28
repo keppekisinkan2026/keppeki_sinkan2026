@@ -1,4 +1,4 @@
-import type { ReactNode, RefObject } from "react";
+import type { CSSProperties, ReactNode, RefObject } from "react";
 import {
   aboutCommonAnimFrameSources,
   aboutCampusText,
@@ -29,6 +29,8 @@ type AboutFrameConfig = {
   frameSources: readonly string[];
   sizes?: string;
   rotated?: boolean;
+  containerClassName?: string;
+  containerStyle?: CSSProperties;
 };
 
 type AboutRowProps = {
@@ -49,9 +51,42 @@ const mobileProduceTopFrames: readonly AboutFrameConfig[] = [
 ];
 
 const mobileProduceFanFrames: readonly AboutFrameConfig[] = [
-  { className: "js-about-img-sinzin-frame", frameSources: aboutImgSinzinFrameSources, rotated: true },
-  { className: "js-about-img-fune-frame", frameSources: aboutImgFuneFrameSources, rotated: true },
-  { className: "js-about-img-pichi-frame", frameSources: aboutImgPichiFrameSources, rotated: true },
+  {
+    className: "js-about-img-sinzin-frame",
+    frameSources: aboutImgSinzinFrameSources,
+    rotated: true,
+    containerClassName: "wf-about-mobile-fan-card wf-about-mobile-fan-card--sinzin",
+    containerStyle: {
+      top: "5px",
+      left: "-10%",
+      transform: "rotate(-18deg)",
+      zIndex: 3,
+    },
+  },
+  {
+    className: "js-about-img-fune-frame",
+    frameSources: aboutImgFuneFrameSources,
+    rotated: true,
+    containerClassName: "wf-about-mobile-fan-card wf-about-mobile-fan-card--fune",
+    containerStyle: {
+      top: "-50px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      zIndex: 0,
+    },
+  },
+  {
+    className: "js-about-img-pichi-frame",
+    frameSources: aboutImgPichiFrameSources,
+    rotated: true,
+    containerClassName: "wf-about-mobile-fan-card wf-about-mobile-fan-card--pichi",
+    containerStyle: {
+      top: "0px",
+      right: "-10%",
+      transform: "rotate(18deg)",
+      zIndex: 2,
+    },
+  },
 ];
 
 const mobileYearRoundFrames: readonly AboutFrameConfig[] = [
@@ -68,9 +103,11 @@ function AboutFrame({
   frameSources,
   sizes,
   rotated = false,
+  containerClassName,
+  containerStyle,
 }: AboutFrameConfig & { sizes: string }) {
   return (
-    <div className="wf-about-anim-container">
+    <div className={joinClassNames("wf-about-anim-container", containerClassName)} style={containerStyle}>
       <TitleFrameSequence
         frameSources={frameSources}
         sizes={sizes}
@@ -103,7 +140,10 @@ function renderHistoryCopy() {
   return (
     <div className="js-about-copy wf-title-about-copy">
       <>
-        <p className="wf-about-kicker wf-maki-title">京都大学公認演劇サークル</p>
+        <p className="wf-about-kicker wf-maki-title">
+          <span className="wf-about-mobile-line">京都大学公認</span>
+          <span className="wf-about-mobile-line">演劇サークル</span>
+        </p>
         {aboutHistoryParagraphs.map((paragraph, index) => (
           <p key={`about-1-${index}`} className="js-about-text wf-about-text">
             {paragraph}

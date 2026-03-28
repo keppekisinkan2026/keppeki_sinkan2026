@@ -192,6 +192,10 @@
   gap: 12px;
 }
 
+.wf-about-mobile-line {
+  display: inline;
+}
+
 .wf-about-subheading {
   margin: 0;
   color: rgba(247, 252, 246, 0.98);

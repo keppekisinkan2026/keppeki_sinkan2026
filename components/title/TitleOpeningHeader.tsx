@@ -27,7 +27,7 @@ function renderOpeningMenuLink(item: (typeof titleNavigationLinks)[number]) {
       <a
         key={item.label}
         href={item.href}
-        className="js-opening-menu-item wf-title-opening-menu-link"
+        className={`js-opening-menu-item wf-title-opening-menu-link wf-title-opening-menu-link--${item.id}`}
         style={openingMenuItemInitialStyle}
       >
         {linkBody}
@@ -39,7 +39,7 @@ function renderOpeningMenuLink(item: (typeof titleNavigationLinks)[number]) {
     <Link
       key={item.label}
       href={item.href}
-      className="js-opening-menu-item wf-title-opening-menu-link"
+      className={`js-opening-menu-item wf-title-opening-menu-link wf-title-opening-menu-link--${item.id}`}
       style={openingMenuItemInitialStyle}
     >
       {linkBody}

@@ -1,0 +1,25 @@
+.wf-frame--departments {
+  width: min(1760px, calc(100% - 20px));
+}
+
+.wf-frame-inner--departments {
+  width: 100%;
+  gap: 0;
+}
+
+.wf-frame-inner--departments > * {
+  width: 100%;
+}
+
+.wf-departments-stage {
+  position: relative;
+  width: 100%;
+  padding: clamp(112px, 14vw, 176px) 0 clamp(96px, 12vw, 144px);
+}
+
+.wf-department-tree {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  margin: 0 auto;
+}

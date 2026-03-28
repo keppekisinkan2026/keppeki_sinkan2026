@@ -1,0 +1,315 @@
+/* Smartphone and tablet tuning for the departments page lives here. */
+/* When adjusting the phone layout, start with the two mobile blocks below. */
+/* Department-specific hooks now exist as:
+   .wf-dept-row--kyakuhon / .wf-dept-leaf-stage--kyakuhon / .wf-dept-click-sign--kyakuhon
+   .wf-dept-row--keikoba / .wf-dept-photo-stage--keikoba / .wf-dept-photo-card--keikoba-1
+   ...and the same pattern for butai / onkyo / syomei / eizou / iko / seisaku / senden.
+*/
+
+.wf-departments-stage--mobile {
+  padding: clamp(102px, 14vh, 128px) 0 84px;
+}
+
+.wf-departments-stage--mobile .wf-department-vine-svg {
+  width: 74px;
+  top: 0;
+  height: 100%;
+}
+
+.wf-departments-stage--mobile .wf-department-list {
+  gap: 44px;
+  max-width: 560px;
+  padding: 12px 8px 0;
+}
+
+.wf-departments-stage--mobile .wf-dept-row {
+  grid-template-columns: 1fr;
+  row-gap: 14px;
+  min-height: 0;
+}
+
+.wf-departments-stage--mobile .wf-dept-cell-left,
+.wf-departments-stage--mobile .wf-dept-cell-right,
+.wf-departments-stage--mobile .wf-dept-cell-solo {
+  justify-content: center;
+  align-items: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.wf-departments-stage--mobile .wf-dept-row--right .wf-dept-cell-left {
+  order: 2;
+}
+
+.wf-departments-stage--mobile .wf-dept-row--right .wf-dept-cell-right {
+  order: 1;
+}
+
+.wf-departments-stage--mobile .wf-dept-leaf-stage {
+  width: min(100%, 250px);
+}
+
+.wf-departments-stage--mobile .wf-dept-leaf-button {
+  padding: 12px 8px 10px;
+}
+
+.wf-departments-stage--mobile .wf-dept-leaf-wrapper {
+  width: clamp(156px, 34vw, 230px);
+  --dept-root-overlap: clamp(12px, 2vw, 20px);
+}
+
+.wf-departments-stage--mobile .wf-dept-leaf-text {
+  width: 58%;
+  font-size: clamp(16px, 3.8vw, 22px);
+  line-height: 1.2;
+}
+
+.wf-departments-stage--mobile .wf-dept-click-sign {
+  top: 8px;
+  font-size: clamp(16px, 4vw, 22px);
+  animation-duration: 2.6s;
+}
+
+.wf-departments-stage--mobile .wf-dept-click-sign--left {
+  left: 10px;
+}
+
+.wf-departments-stage--mobile .wf-dept-click-sign--right {
+  right: 10px;
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage {
+  width: min(100%, 320px);
+  height: clamp(220px, 42vw, 290px);
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-card {
+  width: clamp(120px, 26vw, 170px);
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage--left .wf-dept-photo-card--1 {
+  right: 8%;
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage--left .wf-dept-photo-card--2 {
+  right: 34%;
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage--right .wf-dept-photo-card--1 {
+  left: 8%;
+}
+
+.wf-departments-stage--mobile .wf-dept-photo-stage--right .wf-dept-photo-card--2 {
+  left: 34%;
+}
+
+/* Mobile modal tuning block */
+.wf-dept-modal-root--mobile {
+  --wf-dept-modal-mobile-paper-top: 28.4%;
+  --wf-dept-modal-mobile-paper-right: 8.2%;
+  --wf-dept-modal-mobile-paper-bottom: 29.8%;
+  --wf-dept-modal-mobile-paper-left: 8.2%;
+  padding: 14px;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-close {
+  width: 42px;
+  height: 42px;
+  font-size: 28px;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-content {
+  inset: var(--wf-dept-modal-mobile-paper-top) var(--wf-dept-modal-mobile-paper-right)
+    var(--wf-dept-modal-mobile-paper-bottom) var(--wf-dept-modal-mobile-paper-left);
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 10px;
+  min-height: 0;
+  padding: 16px 16px 14px;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-title {
+  flex: none;
+  width: 100%;
+  align-self: stretch;
+  font-size: clamp(20px, 5.8vw, 30px);
+  line-height: 1.25;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+  text-align: center;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-text {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 2px 6px 2px 2px;
+  font-size: clamp(12px, 3.9vw, 16px);
+  line-height: 1.82;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+  white-space: normal;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(247, 252, 244, 0.72) transparent;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-text::-webkit-scrollbar {
+  width: 6px;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-text::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-text::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(247, 252, 244, 0.72);
+}
+
+.wf-dept-modal-mobile-body {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.wf-dept-modal-mobile-paragraph {
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .wf-department-list {
+    max-width: 1120px;
+    gap: clamp(68px, 10vw, 108px);
+  }
+
+  .wf-dept-row {
+    min-height: clamp(300px, 42vw, 430px);
+  }
+
+  .wf-dept-leaf-stage {
+    width: min(100%, clamp(210px, 26vw, 300px));
+  }
+
+  .wf-dept-leaf-wrapper {
+    width: clamp(170px, 24vw, 280px);
+    --dept-root-overlap: clamp(22px, 2.8vw, 38px);
+  }
+
+  .wf-dept-photo-stage {
+    width: min(100%, clamp(330px, 42vw, 510px));
+    height: clamp(300px, 42vw, 450px);
+  }
+
+  .wf-dept-photo-card {
+    width: clamp(183px, 22.5vw, 282px);
+  }
+
+  .wf-dept-leaf-text {
+    font-size: clamp(14px, 1.9vw, 24px);
+  }
+}
+
+@media (max-width: 640px) {
+  .wf-department-vine-svg {
+    width: 80px;
+  }
+
+  .wf-department-list {
+    gap: 56px;
+    max-width: 520px;
+    padding-top: 20px;
+  }
+
+  .wf-dept-row {
+    grid-template-columns: 1fr;
+    row-gap: 16px;
+    min-height: 0;
+  }
+
+  .wf-dept-cell-left,
+  .wf-dept-cell-right,
+  .wf-dept-cell-solo {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .wf-dept-row--right .wf-dept-cell-left {
+    order: 2;
+  }
+
+  .wf-dept-row--right .wf-dept-cell-right {
+    order: 1;
+  }
+
+  .wf-dept-leaf-stage {
+    width: min(100%, 100%);
+  }
+
+  .wf-dept-leaf-wrapper {
+    width: clamp(124px, 25vw, 178px);
+    --dept-root-overlap: clamp(12px, 2.4vw, 22px);
+  }
+
+  .wf-dept-photo-stage {
+    width: min(100%, clamp(330px, 92vw, 450px));
+    height: clamp(255px, 72vw, 375px);
+  }
+
+  .wf-dept-photo-card {
+    width: clamp(144px, 42vw, 210px);
+  }
+
+  .wf-dept-photo-stage--left .wf-dept-photo-card--1 {
+    right: 6%;
+  }
+
+  .wf-dept-photo-stage--left .wf-dept-photo-card--2 {
+    right: 30%;
+  }
+
+  .wf-dept-photo-stage--right .wf-dept-photo-card--1 {
+    left: 6%;
+  }
+
+  .wf-dept-photo-stage--right .wf-dept-photo-card--2 {
+    left: 30%;
+  }
+
+  .wf-dept-click-sign {
+    font-size: clamp(16px, 4.6vw, 22px);
+  }
+
+  .wf-dept-click-sign--left {
+    left: 14px;
+  }
+
+  .wf-dept-click-sign--right {
+    right: 14px;
+  }
+
+  .wf-dept-leaf-text {
+    font-size: clamp(12px, 2.9vw, 18px);
+  }
+
+  .wf-notebook-modal-root {
+    --wf-dept-modal-stage-width: min(calc((100svh - 120px) * 375 / 666), calc(100vw - 40px));
+    padding: 20px;
+  }
+
+  .wf-notebook-modal-panel {
+    width: 100%;
+    padding: 0;
+  }
+
+  .wf-notebook-modal-content {
+    padding: 20px;
+  }
+}

@@ -28,10 +28,10 @@ export function Header() {
                 (item.href === "/title#about" && normalizedPathname === "/title");
 
               return (
-                <li key={item.href} className="wf-global-nav-item">
+                <li key={item.href} className={`wf-global-nav-item wf-global-nav-item--${item.id}`}>
                   <Link
                     href={item.href}
-                    className="wf-global-nav-link wf-maki-title"
+                    className={`wf-global-nav-link wf-global-nav-link--${item.id} wf-maki-title`}
                     aria-current={isCurrent ? "page" : undefined}
                   >
                     {item.label}

@@ -47,6 +47,17 @@ function refreshScrollTriggers() {
   requestAnimationFrame(() => ScrollTrigger.refresh());
 }
 
+function getCssPixelValue(element: HTMLElement, propertyName: string) {
+  const value = window.getComputedStyle(element).getPropertyValue(propertyName).trim();
+
+  if (!value) {
+    return 0;
+  }
+
+  const parsedValue = Number.parseFloat(value);
+  return Number.isFinite(parsedValue) ? parsedValue : 0;
+}
+
 function isTitleMobileLayout() {
   if (typeof window === "undefined") {
     return false;
@@ -93,7 +104,8 @@ function applyReducedMotionState(
   }
 
   if (snsTitle) {
-    gsap.set(snsTitle, { autoAlpha: 1, y: 0 });
+    const finalSnsTitleY = getCssPixelValue(snsTitle, "--wf-sns-title-offset-y");
+    gsap.set(snsTitle, { autoAlpha: 1, y: finalSnsTitleY });
   }
 
   if (snsIcons.length > 0) {
@@ -127,8 +139,10 @@ function setupSnsAnimation(
     return;
   }
 
+  const finalSnsTitleY = snsTitle ? getCssPixelValue(snsTitle, "--wf-sns-title-offset-y") : 0;
+
   hideFlipbookFrames(snsFrames);
-  gsap.set(snsTitle, { autoAlpha: 0, y: 10 });
+  gsap.set(snsTitle, { autoAlpha: 0, y: finalSnsTitleY + 10 });
   gsap.set(snsIcons, {
     autoAlpha: 0,
     rotationX: -70,
@@ -152,7 +166,7 @@ function setupSnsAnimation(
       snsTitle,
       {
         autoAlpha: 1,
-        y: 0,
+        y: finalSnsTitleY,
         duration: 0.4,
         ease: "power2.out",
       },

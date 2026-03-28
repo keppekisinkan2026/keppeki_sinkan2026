@@ -89,7 +89,7 @@
 
 .wf-title-opening-line {
   width: min(100%, 1360px);
-  height: clamp(28px, 2.4vw, 42px);
+  height: clamp(40px, 2.4vw, 42px);
   overflow: visible;
 }
 

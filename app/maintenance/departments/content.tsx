@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 export type DepartmentConfig = {
+  id: string;
   name: string;
   isLeftLeaf: boolean;
   description: ReactNode;
@@ -311,6 +312,7 @@ const departmentSidePhotoMap = {
 
 export const departmentsData: DepartmentConfig[] = [
   {
+    id: "kyakuhon",
     name: "脚本",
     isLeftLeaf: true,
     description:
@@ -325,6 +327,7 @@ export const departmentsData: DepartmentConfig[] = [
       "それが、私にとって脚本を書くということです。",
   },
   {
+    id: "keikoba",
     name: "稽古場",
     isLeftLeaf: false,
     sidePhotos: [departmentSidePhotoMap.keikoba1, departmentSidePhotoMap.keikoba2],
@@ -334,6 +337,7 @@ export const departmentsData: DepartmentConfig[] = [
     ),
   },
   {
+    id: "butai",
     name: "舞台",
     isLeftLeaf: true,
     sidePhotos: [departmentSidePhotoMap.butai1, departmentSidePhotoMap.butai2],
@@ -346,6 +350,7 @@ export const departmentsData: DepartmentConfig[] = [
       "なによりも、舞台班ってかっこいいんです！",
   },
   {
+    id: "onkyo",
     name: "音響",
     isLeftLeaf: false,
     sidePhotos: [departmentSidePhotoMap.onkyo1, departmentSidePhotoMap.onkyo2],
@@ -354,6 +359,7 @@ export const departmentsData: DepartmentConfig[] = [
     ),
   },
   {
+    id: "syomei",
     name: "照明",
     isLeftLeaf: true,
     sidePhotos: [departmentSidePhotoMap.syomei1, departmentSidePhotoMap.syomei2],
@@ -362,6 +368,7 @@ export const departmentsData: DepartmentConfig[] = [
     ),
   },
   {
+    id: "eizou",
     name: "映像",
     isLeftLeaf: false,
     sidePhotos: [departmentSidePhotoMap.eizou1, departmentSidePhotoMap.eizou2],
@@ -377,6 +384,7 @@ export const departmentsData: DepartmentConfig[] = [
       "想像力でみんな一緒に演劇を作りましょう！",
   },
   {
+    id: "iko",
     name: "衣装・小道具",
     isLeftLeaf: true,
     sidePhotos: [departmentSidePhotoMap.iko1, departmentSidePhotoMap.iko2],
@@ -390,6 +398,7 @@ export const departmentsData: DepartmentConfig[] = [
       "こだわりが強い人、大活躍間違いなし！",
   },
   {
+    id: "seisaku",
     name: "制作",
     isLeftLeaf: false,
     sidePhotos: [departmentSidePhotoMap.seisaku2, departmentSidePhotoMap.seisaku1],
@@ -403,6 +412,7 @@ export const departmentsData: DepartmentConfig[] = [
       "お客様の笑顔やわくわくを感じることが出来ます。",
   },
   {
+    id: "senden",
     name: "宣伝美術",
     isLeftLeaf: true,
     sidePhotos: [departmentSidePhotoMap.senden1, departmentSidePhotoMap.senden2],

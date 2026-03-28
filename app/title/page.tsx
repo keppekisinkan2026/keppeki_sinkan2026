@@ -98,7 +98,7 @@ export default function TitleWireframePage() {
         header: headerRef.current,
         lineSvg: lineSvgRef.current,
         setIsIntroComplete,
-        skipIntro: shouldSkipIntro,
+        skipIntro: shouldSkipIntro || isIntroComplete,
       }),
     {
       scope: rootRef,

@@ -94,9 +94,10 @@ function applyReducedMotionState(
   menuItems: HTMLElement[],
   setIsIntroComplete: Dispatch<SetStateAction<boolean>>,
 ) {
+  gsap.set(paperFrames, { autoAlpha: 0 });
   gsap.set(paperFrames[paperFrames.length - 1], { autoAlpha: 1 });
   gsap.set(logo, { autoAlpha: 1, y: 0, scale: 1 });
-  gsap.set(linePaths, { strokeDashoffset: 0 });
+  gsap.set(linePaths, { opacity: 1, strokeDashoffset: 0 });
   gsap.set(menuItems, {
     autoAlpha: 1,
     y: 0,
