@@ -105,9 +105,9 @@
 
 /* Mobile modal tuning block */
 .wf-dept-modal-root--mobile {
-  --wf-dept-modal-mobile-paper-top: 28.4%;
+  --wf-dept-modal-mobile-paper-top: 40%;
   --wf-dept-modal-mobile-paper-right: 8.2%;
-  --wf-dept-modal-mobile-paper-bottom: 29.8%;
+  --wf-dept-modal-mobile-paper-bottom: 23.5%;
   --wf-dept-modal-mobile-paper-left: 8.2%;
   padding: 14px;
 }
@@ -218,9 +218,9 @@
 
 @media (max-width: 640px) {
   .wf-departments-stage--mobile {
-    --wf-dept-click-sign-left-x: -26px;
-    --wf-dept-click-sign-left-y: -18px;
-    --wf-dept-click-sign-left-rotate: 12deg;
+    --wf-dept-click-sign-left-x: -50px;
+    --wf-dept-click-sign-left-y: -120px;
+    --wf-dept-click-sign-left-rotate: 10deg;
     --wf-dept-click-sign-right-x: -26px;
     --wf-dept-click-sign-right-y: -18px;
     --wf-dept-click-sign-right-rotate: -12deg;
@@ -296,19 +296,73 @@
   }
 
   .wf-dept-click-sign {
-    font-size: clamp(20px, 6.2vw, 28px);
+    font-size: clamp(40px, 12.4vw, 56px);
   }
 
   .wf-departments-stage--mobile .wf-department-list > .wf-dept-row--left .wf-dept-click-sign--left {
-    left: var(--wf-dept-click-sign-left-x);
-    top: var(--wf-dept-click-sign-left-y);
-    transform: rotate(var(--wf-dept-click-sign-left-rotate));
+    left: var(--wf-dept-click-sign-x, var(--wf-dept-click-sign-left-x));
+    top: var(--wf-dept-click-sign-y, var(--wf-dept-click-sign-left-y));
+    transform: rotate(var(--wf-dept-click-sign-rotate, var(--wf-dept-click-sign-left-rotate)));
   }
 
   .wf-departments-stage--mobile .wf-department-list > .wf-dept-row--right .wf-dept-click-sign--right {
-    right: var(--wf-dept-click-sign-right-x);
-    top: var(--wf-dept-click-sign-right-y);
-    transform: rotate(var(--wf-dept-click-sign-right-rotate));
+    right: var(--wf-dept-click-sign-x, var(--wf-dept-click-sign-right-x));
+    top: var(--wf-dept-click-sign-y, var(--wf-dept-click-sign-right-y));
+    transform: rotate(var(--wf-dept-click-sign-rotate, var(--wf-dept-click-sign-right-rotate)));
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--kyakuhon {
+    --wf-dept-click-sign-x: -50px;
+    --wf-dept-click-sign-y: -20px;
+    --wf-dept-click-sign-rotate: 12deg;
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--keikoba {
+    --wf-dept-click-sign-x: -26px;
+    --wf-dept-click-sign-y: -18px;
+    --wf-dept-click-sign-rotate: -12deg;
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--butai {
+    --wf-dept-click-sign-x: -40px;
+    --wf-dept-click-sign-y: -120px;
+    --wf-dept-click-sign-rotate: 12deg;
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--onkyo {
+    --wf-dept-click-sign-x: -50px;
+    --wf-dept-click-sign-y: -224px;
+    --wf-dept-click-sign-rotate: -12deg;
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--syomei {
+    --wf-dept-click-sign-x: -26px;
+    --wf-dept-click-sign-y: -170px;
+    --wf-dept-click-sign-rotate: 12deg;
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--eizou {
+    --wf-dept-click-sign-x: -26px;
+    --wf-dept-click-sign-y: -190px;
+    --wf-dept-click-sign-rotate: -12deg;
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--iko {
+    --wf-dept-click-sign-x: -26px;
+    --wf-dept-click-sign-y: -160px;
+    --wf-dept-click-sign-rotate: 12deg;
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--seisaku {
+    --wf-dept-click-sign-x: -26px;
+    --wf-dept-click-sign-y: -120px;
+    --wf-dept-click-sign-rotate: -12deg;
+  }
+
+  .wf-departments-stage--mobile .wf-dept-click-sign--senden {
+    --wf-dept-click-sign-x: -26px;
+    --wf-dept-click-sign-y: -120px;
+    --wf-dept-click-sign-rotate: 12deg;
   }
 
   .wf-dept-leaf-text {
