@@ -16,6 +16,7 @@ type DepartmentLeafProps = {
 
 type DepartmentLeafStageProps = {
   department: DepartmentConfig;
+  isMobileLayout: boolean;
   onOpen: (department: DepartmentConfig, trigger: HTMLButtonElement) => void;
 };
 
@@ -45,7 +46,9 @@ function DepartmentLeaf({ departmentId, name }: DepartmentLeafProps) {
   );
 }
 
-function DepartmentLeafStage({ department, onOpen }: DepartmentLeafStageProps) {
+function DepartmentLeafStage({ department, isMobileLayout, onOpen }: DepartmentLeafStageProps) {
+  const clickSignLabel = isMobileLayout ? "tap!" : "\\click!/";
+
   return (
     <div className={`wf-dept-leaf-stage wf-dept-leaf-stage--${department.id}`}>
       <button
@@ -61,7 +64,7 @@ function DepartmentLeafStage({ department, onOpen }: DepartmentLeafStageProps) {
           className={`js-dept-click-sign wf-dept-click-sign wf-dept-click-sign--${department.id} wf-maki-title ${department.isLeftLeaf ? "wf-dept-click-sign--left" : "wf-dept-click-sign--right"}`}
           aria-hidden
         >
-          \click!/
+          {clickSignLabel}
         </span>
         <DepartmentLeaf departmentId={department.id} name={department.name} />
       </button>
@@ -123,11 +126,12 @@ function DepartmentPhotoField({ department }: DepartmentPhotoFieldProps) {
 
 type DepartmentRowProps = {
   department: DepartmentConfig;
+  isMobileLayout: boolean;
   onOpen: (department: DepartmentConfig, trigger: HTMLButtonElement) => void;
 };
 
-export function DepartmentRow({ department, onOpen }: DepartmentRowProps) {
-  const leafStage = <DepartmentLeafStage department={department} onOpen={onOpen} />;
+export function DepartmentRow({ department, isMobileLayout, onOpen }: DepartmentRowProps) {
+  const leafStage = <DepartmentLeafStage department={department} isMobileLayout={isMobileLayout} onOpen={onOpen} />;
   const photoField = <DepartmentPhotoField department={department} />;
   const hasPhotos = Boolean(department.sidePhotos && department.sidePhotos.length > 0);
 

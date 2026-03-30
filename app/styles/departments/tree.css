@@ -116,11 +116,21 @@
 }
 
 .wf-dept-row--left .wf-dept-leaf-wrapper {
-  transform: translateX(calc(var(--dept-root-overlap) + var(--dept-leaf-shift)));
+  transform: translate(
+      calc(var(--dept-root-overlap) + var(--dept-leaf-shift) + var(--wf-dept-leaf-manual-x, 0px)),
+      var(--wf-dept-leaf-manual-y, 0px)
+    )
+    rotate(var(--wf-dept-leaf-manual-rotate, 0deg))
+    scale(var(--wf-dept-leaf-manual-scale, 1));
 }
 
 .wf-dept-row--right .wf-dept-leaf-wrapper {
-  transform: translateX(calc((var(--dept-root-overlap) + var(--dept-leaf-shift)) * -1));
+  transform: translate(
+      calc((var(--dept-root-overlap) + var(--dept-leaf-shift)) * -1 + var(--wf-dept-leaf-manual-x, 0px)),
+      var(--wf-dept-leaf-manual-y, 0px)
+    )
+    rotate(var(--wf-dept-leaf-manual-rotate, 0deg))
+    scale(var(--wf-dept-leaf-manual-scale, 1));
 }
 
 .wf-dept-leaf-text {
@@ -180,10 +190,18 @@
 }
 
 .wf-dept-photo-stage {
+  --wf-dept-photo-stage-manual-x: 0px;
+  --wf-dept-photo-stage-manual-y: 0px;
+  --wf-dept-photo-stage-manual-rotate: 0deg;
+  --wf-dept-photo-stage-manual-scale: 1;
   position: relative;
   width: min(100%, clamp(420px, 43.5vw, 660px));
   height: clamp(360px, 39vw, 585px);
   overflow: visible;
+  transform: translate(var(--wf-dept-photo-stage-manual-x), var(--wf-dept-photo-stage-manual-y))
+    rotate(var(--wf-dept-photo-stage-manual-rotate))
+    scale(var(--wf-dept-photo-stage-manual-scale));
+  transform-origin: center;
 }
 
 .wf-dept-photo-cluster {
@@ -198,10 +216,20 @@
   --wf-dept-photo-offset-x: 0px;
   --wf-dept-photo-offset-y: 0px;
   --wf-dept-photo-rotate-adjust: 0deg;
+  --wf-dept-photo-manual-x: 0px;
+  --wf-dept-photo-manual-y: 0px;
+  --wf-dept-photo-manual-rotate: 0deg;
+  --wf-dept-photo-manual-scale: 1;
   position: absolute;
   width: clamp(225px, 21vw, 372px);
-  transform: translate(var(--wf-dept-photo-offset-x), var(--wf-dept-photo-offset-y))
-    rotate(calc(var(--wf-dept-photo-rotate) + var(--wf-dept-photo-rotate-adjust)));
+  transform: translate(
+      calc(var(--wf-dept-photo-offset-x) + var(--wf-dept-photo-manual-x)),
+      calc(var(--wf-dept-photo-offset-y) + var(--wf-dept-photo-manual-y))
+    )
+    rotate(
+      calc(var(--wf-dept-photo-rotate) + var(--wf-dept-photo-rotate-adjust) + var(--wf-dept-photo-manual-rotate))
+    )
+    scale(var(--wf-dept-photo-manual-scale));
 }
 
 .wf-dept-photo-stage--left .wf-dept-photo-card--1 {

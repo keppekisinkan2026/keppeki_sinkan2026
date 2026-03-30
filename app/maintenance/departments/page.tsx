@@ -164,6 +164,7 @@ export default function DepartmentsWireframePage() {
               <DepartmentRow
                 key={department.name}
                 department={department}
+                isMobileLayout={isMobileLayout}
                 onOpen={(nextDepartment, trigger) => {
                   gsap.killTweensOf(trigger);
                   gsap.timeline()
