@@ -41,10 +41,17 @@ export default function EventsWireframePage() {
           </div>
 
           <div className="wf-event-speech-bubble wf-event-speech-bubble--left" aria-hidden="true">
+            <Image
+              src={withBasePath("/images/event_speech_bubble.svg")}
+              alt=""
+              fill
+              unoptimized
+              sizes="(max-width: 640px) 210px, (max-width: 900px) 290px, 360px"
+              className="wf-event-speech-bubble-image"
+            />
             <span className="wf-event-speech-text wf-maki-title">
-              気になるイベントを
-              <br />
-              クリック！タップ！
+              <span className="wf-event-speech-line">気になるイベントを</span>
+              <span className="wf-event-speech-line">クリック！タップ！</span>
             </span>
           </div>
 

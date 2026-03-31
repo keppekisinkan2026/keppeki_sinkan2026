@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -16,6 +16,7 @@ type NotebookModalProps = {
   onClose: () => void;
   frameSources: readonly string[];
   rootClassName?: string;
+  rootStyle?: CSSProperties;
 };
 
 export function NotebookModal({
@@ -26,6 +27,7 @@ export function NotebookModal({
   onClose,
   frameSources,
   rootClassName,
+  rootStyle,
 }: NotebookModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -126,6 +128,7 @@ export function NotebookModal({
     <div
       ref={rootRef}
       className={rootClassName ? `wf-notebook-modal-root ${rootClassName}` : "wf-notebook-modal-root"}
+      style={rootStyle}
     >
       <button
         type="button"

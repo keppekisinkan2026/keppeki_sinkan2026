@@ -293,6 +293,14 @@
     font-size: clamp(24px, 6vw, 38px);
     padding: 18px 20px;
   }
+
+  .wf-title-hp-line {
+    display: block;
+  }
+
+  .wf-title-hp-line + .wf-title-hp-line {
+    margin-top: 0.08em;
+  }
 }
 
 @media (max-width: 700px) {

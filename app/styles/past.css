@@ -241,7 +241,7 @@
   line-height: 1.45;
   text-shadow: 0 2px 6px rgba(42, 62, 36, 0.18);
   word-break: keep-all;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   text-wrap: pretty;
   transform: translateY(-40px);
 }
@@ -255,7 +255,7 @@
   line-height: 1.7;
   text-shadow: 0 1px 3px rgba(41, 61, 34, 0.18);
   word-break: keep-all;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   text-wrap: pretty;
 }
 
@@ -263,7 +263,7 @@
   display: block;
   width: 100%;
   word-break: keep-all;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
   text-wrap: pretty;
   line-height: 1.7;
@@ -388,7 +388,7 @@
   color: rgba(242, 248, 237, 0.88);
   line-height: 1.6;
   word-break: keep-all;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   text-wrap: pretty;
   white-space: normal;
 }
@@ -398,7 +398,7 @@
   font-size: clamp(28px, 3vw, 52px);
   line-height: 1.4;
   word-break: keep-all;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   text-wrap: pretty;
   white-space: normal;
 }
@@ -408,11 +408,42 @@
   font-size: clamp(20px, 1.65vw, 28px);
   line-height: 1.75;
   word-break: keep-all;
-  overflow-wrap: anywhere;
-  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  white-space: normal;
   text-wrap: pretty;
   text-shadow: 0 1px 3px rgba(41, 61, 34, 0.18);
   text-align: center;
+}
+
+.wf-past-modal-mobile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72em;
+}
+
+.wf-past-modal-mobile-paragraph {
+  margin: 0;
+}
+
+.wf-past-modal-mobile-line {
+  display: block;
+  width: 100%;
+  margin-top: 0.38em;
+}
+
+.wf-past-modal-mobile-line:first-child {
+  margin-top: 0;
+}
+
+@supports (word-break: auto-phrase) {
+  .wf-past-item-title,
+  .wf-past-item-copy,
+  .wf-past-item-line,
+  .wf-past-modal-subtitle,
+  .wf-past-modal-title,
+  .wf-past-modal-text {
+    word-break: auto-phrase;
+  }
 }
 
 .wf-past-modal-poster-image {

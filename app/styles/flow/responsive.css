@@ -1,0 +1,146 @@
+/* Smartphone and tablet tuning for the flow page lives here. */
+/* Phone-only per-step and per-photo fine-tuning now lives in components/maintenance/flow/flowData.tsx. */
+
+@media (max-width: 960px) {
+  .wf-frame--flow {
+    width: calc(100% - 22px);
+  }
+
+  .wf-flow-step-list {
+    width: min(100%, 980px);
+    gap: clamp(18px, 3vw, 30px);
+  }
+
+  .wf-flow-step {
+    min-height: clamp(280px, 46vw, 380px);
+    padding: clamp(48px, 8vw, 80px) 0;
+  }
+
+  .wf-flow-step-card-shell {
+    width: var(--wf-flow-step-card-width, clamp(290px, 41vw, 410px));
+  }
+
+  .wf-flow-step-card-shell--long {
+    width: var(--wf-flow-step-card-width-long, clamp(360px, 48vw, 500px));
+    max-width: min(100%, var(--wf-flow-step-card-max-width-long, 500px));
+  }
+
+  .wf-flow-step-content--long {
+    padding: 17.5% 11.5% 10.5%;
+  }
+
+  .wf-flow-step-arrow {
+    top: var(--wf-flow-step-arrow-top, clamp(152px, 20vw, 214px));
+    width: var(--wf-flow-step-arrow-width, clamp(210px, 30vw, 320px));
+    height: var(--wf-flow-step-arrow-height, clamp(118px, 15vw, 170px));
+  }
+
+  .wf-flow-step-arrow-path {
+    stroke-width: 18;
+  }
+}
+
+@media (max-width: 700px) {
+  .wf-flow-page--mobile {
+    --wf-flow-mobile-page-bottom-padding: 120px;
+    --wf-flow-mobile-header-min-height: clamp(280px, 48svh, 420px);
+    --wf-flow-mobile-header-padding-top: clamp(108px, 20vw, 150px);
+    --wf-flow-mobile-step-list-width: min(100%, 560px);
+    --wf-flow-mobile-step-list-padding-inline: 8px;
+    --wf-flow-mobile-list-gap: 12px;
+    --wf-flow-mobile-step-min-height: clamp(340px, 62svh, 500px);
+    --wf-flow-mobile-step-padding-top: clamp(56px, 12vw, 96px);
+    --wf-flow-mobile-step-padding-bottom: 168px;
+    --wf-flow-mobile-card-width: min(100%, 420px);
+    --wf-flow-mobile-long-card-width: min(100%, 520px);
+    --wf-flow-mobile-long-card-max-width: 520px;
+    --wf-flow-mobile-arrow-top: calc(100% - 20px);
+    --wf-flow-mobile-arrow-width: min(24vw, 84px);
+    --wf-flow-mobile-arrow-height: clamp(150px, 30vw, 210px);
+    --wf-flow-mobile-title-size: clamp(26px, 8vw, 40px);
+    --wf-flow-mobile-copy-size: clamp(13px, 3.7vw, 15px);
+    --wf-flow-mobile-copy-line-height: 1.55;
+    padding-bottom: var(--wf-flow-mobile-page-bottom-padding);
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-list {
+    --wf-flow-total-overlap: 0px;
+    width: var(--wf-flow-mobile-step-list-width);
+    gap: var(--wf-flow-mobile-list-gap);
+    padding-right: var(--wf-flow-mobile-step-list-padding-inline);
+    padding-left: var(--wf-flow-mobile-step-list-padding-inline);
+    box-sizing: border-box;
+  }
+
+  .wf-flow-page--mobile .wf-flow-page-header {
+    min-height: var(--wf-flow-mobile-header-min-height);
+    padding-top: var(--wf-flow-mobile-header-padding-top);
+  }
+
+  .wf-flow-page--mobile .wf-flow-step,
+  .wf-flow-page--mobile .wf-flow-step--with-arrow {
+    grid-template-columns: 1fr;
+    min-height: var(--wf-flow-step-phone-min-height, var(--wf-flow-mobile-step-min-height));
+    margin-top: 0;
+    padding-top: var(--wf-flow-step-phone-padding-top, var(--wf-flow-mobile-step-padding-top));
+    padding-bottom: var(--wf-flow-step-phone-padding-bottom, var(--wf-flow-mobile-step-padding-bottom));
+  }
+
+  .wf-flow-page--mobile .wf-flow-step--left .wf-flow-step-card-shell,
+  .wf-flow-page--mobile .wf-flow-step--right .wf-flow-step-card-shell {
+    grid-column: 1;
+    justify-self: center;
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-card-shell {
+    width: var(--wf-flow-step-phone-card-width, var(--wf-flow-mobile-card-width));
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-card-shell--long {
+    width: var(--wf-flow-step-phone-long-card-width, var(--wf-flow-mobile-long-card-width));
+    max-width: min(100%, var(--wf-flow-step-phone-long-card-max-width, var(--wf-flow-mobile-long-card-max-width)));
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-content {
+    inset:
+      var(--wf-flow-step-phone-content-inset-top, 0px)
+      var(--wf-flow-step-phone-content-inset-right, 0px)
+      var(--wf-flow-step-phone-content-inset-bottom, 0px)
+      var(--wf-flow-step-phone-content-inset-left, 0px);
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-arrow {
+    top: var(--wf-flow-step-phone-arrow-top, var(--wf-flow-mobile-arrow-top));
+    left: var(--wf-flow-step-phone-arrow-left, 50%);
+    width: var(--wf-flow-step-phone-arrow-width, var(--wf-flow-mobile-arrow-width));
+    height: var(--wf-flow-step-phone-arrow-height, var(--wf-flow-mobile-arrow-height));
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-arrow--to-right,
+  .wf-flow-page--mobile .wf-flow-step-arrow--to-left {
+    left: 50%;
+    transform: translateX(calc(-50% + var(--wf-flow-step-phone-arrow-offset-x, 0px)))
+      translateY(calc(var(--wf-flow-step-phone-arrow-offset-y, 0px) + var(--wf-flow-arrow-anim-y, 0px)));
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-arrow--mobile {
+    scale: 1;
+    transform: translateX(calc(-50% + var(--wf-flow-step-phone-arrow-offset-x, 0px)))
+      translateY(calc(var(--wf-flow-step-phone-arrow-offset-y, 0px) + var(--wf-flow-arrow-anim-y, 0px)));
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-arrow-path {
+    stroke-width: 16;
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-title {
+    font-size: var(--wf-flow-mobile-title-size);
+  }
+
+  .wf-flow-page--mobile .wf-flow-step-copy {
+    font-size: var(--wf-flow-mobile-copy-size);
+    line-height: var(--wf-flow-mobile-copy-line-height);
+  }
+}

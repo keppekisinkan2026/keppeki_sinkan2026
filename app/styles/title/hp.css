@@ -42,6 +42,19 @@
     color 0.3s ease,
     text-shadow 0.3s ease,
     filter 0.3s ease;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+}
+
+.wf-title-hp-line {
+  display: inline;
+}
+
+@supports (word-break: auto-phrase) {
+  .wf-title-hp-text {
+    word-break: auto-phrase;
+  }
 }
 
 .wf-title-hp-image {

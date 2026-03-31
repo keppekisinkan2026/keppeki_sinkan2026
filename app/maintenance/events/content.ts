@@ -1,5 +1,20 @@
 import type { ReactNode } from "react";
 
+export type WelcomeEventPhoneModalLayout = {
+  paperTop?: string;
+  paperRight?: string;
+  paperBottom?: string;
+  paperLeft?: string;
+  contentPadding?: string;
+  contentGap?: string;
+  titleFontSize?: string;
+  titleLineHeight?: string;
+  titleMarginBottom?: string;
+  textPadding?: string;
+  textFontSize?: string;
+  textLineHeight?: string;
+};
+
 export type WelcomeEvent = {
   id: string;
   date: string;
@@ -13,6 +28,30 @@ export type WelcomeEvent = {
     height: string;
   };
 };
+
+const defaultWelcomeEventPhoneModalLayout: WelcomeEventPhoneModalLayout = {
+  paperTop: "39.5%",
+  paperRight: "8.2%",
+  paperBottom: "23.5%",
+  paperLeft: "8.2%",
+  contentPadding: "16px 16px 14px",
+  contentGap: "10px",
+  titleFontSize: "clamp(20px, 5.8vw, 30px)",
+  titleLineHeight: "1.25",
+  titleMarginBottom: "0px",
+  textPadding: "2px 6px 2px 2px",
+  textFontSize: "clamp(12px, 3.9vw, 16px)",
+  textLineHeight: "1.82",
+};
+
+export const welcomeEventPhoneModalLayoutOverrides: Partial<Record<string, WelcomeEventPhoneModalLayout>> = {};
+
+export function getWelcomeEventPhoneModalLayout(event: WelcomeEvent): WelcomeEventPhoneModalLayout {
+  return {
+    ...defaultWelcomeEventPhoneModalLayout,
+    ...(welcomeEventPhoneModalLayoutOverrides[event.id] ?? {}),
+  };
+}
 
 export const EVENT_CALENDAR_IMAGE = {
   src: "/images/calendar.JPG",

@@ -23,6 +23,7 @@ export default function DepartmentsWireframePage() {
   const vinePathGroupRef = useRef<SVGGElement>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<DepartmentConfig | null>(null);
   const isMobileLayout = useVisualViewportMobile();
+  const isPhoneLayout = useVisualViewportMobile(640);
 
   useEffect(() => {
     const vineSvg = vineSvgRef.current;
@@ -165,6 +166,7 @@ export default function DepartmentsWireframePage() {
                 key={department.name}
                 department={department}
                 isMobileLayout={isMobileLayout}
+                isPhoneLayout={isPhoneLayout}
                 onOpen={(nextDepartment, trigger) => {
                   gsap.killTweensOf(trigger);
                   gsap.timeline()

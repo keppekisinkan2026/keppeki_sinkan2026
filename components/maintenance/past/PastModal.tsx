@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, type ReactNode, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -8,14 +8,39 @@ import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from 
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
 import { type PastPerformance, pastModalFrameSources, pastModalPosterImageSources } from "./pastShared";
 import { PastFrameStack } from "./PastFrameStack";
+import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
+import { wrapTextForMobile } from "@/lib/mobileTextWrap";
 
 type PastModalProps = {
   performance: PastPerformance | null;
   onClose: () => void;
 };
 
+function renderPastSynopsis(synopsis: ReactNode, isMobileLayout: boolean) {
+  if (!isMobileLayout || typeof synopsis !== "string") {
+    return synopsis;
+  }
+
+  const paragraphs = wrapTextForMobile(synopsis, 16, 4);
+
+  return (
+    <div className="wf-past-modal-mobile-body">
+      {paragraphs.map((paragraph, paragraphIndex) => (
+        <p key={`${paragraphIndex}-${paragraph[0] ?? "paragraph"}`} className="wf-past-modal-mobile-paragraph">
+          {paragraph.map((line, lineIndex) => (
+            <Fragment key={`${paragraphIndex}-${lineIndex}`}>
+              <span className="wf-past-modal-mobile-line">{line}</span>
+            </Fragment>
+          ))}
+        </p>
+      ))}
+    </div>
+  );
+}
+
 export function PastModal({ performance, onClose }: PastModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const isMobileLayout = useVisualViewportMobile();
 
   useEffect(() => {
     if (!performance) {
@@ -182,7 +207,7 @@ export function PastModal({ performance, onClose }: PastModalProps) {
 
           <div className="js-past-modal-content wf-past-modal-content">
             <h2 className="wf-past-modal-title wf-maki-title">{performance.title}</h2>
-            <p className="wf-past-modal-text">{performance.synopsis}</p>
+            <div className="wf-past-modal-text">{renderPastSynopsis(performance.synopsis, isMobileLayout)}</div>
           </div>
         </div>
       </div>

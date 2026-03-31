@@ -1,0 +1,234 @@
+.wf-flow-step-list {
+  --wf-flow-total-overlap: 1900px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 3.5vw, 40px);
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  padding: 0 0 var(--wf-flow-total-overlap);
+}
+
+.wf-flow-step {
+  --wf-flow-step-overlap: 0px;
+  --wf-flow-step-content-margin-top: 0px;
+  --wf-flow-step-content-margin-left: 0px;
+  --wf-flow-arrow-shift-x: 0px;
+  --wf-flow-arrow-shift-y: 0px;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  min-height: clamp(300px, 42vw, 460px);
+  margin-top: var(--wf-flow-step-overlap);
+  padding: clamp(54px, 7vw, 92px) 0;
+  box-sizing: border-box;
+}
+
+.wf-flow-step--with-arrow {
+  padding-bottom: clamp(92px, 12vw, 138px);
+}
+
+.wf-flow-step-card-shell {
+  position: relative;
+  width: var(--wf-flow-step-card-width, clamp(420px, 46vw, 590px));
+  min-width: 0;
+  flex: 0 0 auto;
+}
+
+.wf-flow-step-card-shell--long {
+  width: var(--wf-flow-step-card-width-long, clamp(500px, 53vw, 700px));
+  max-width: min(100%, var(--wf-flow-step-card-max-width-long, 700px));
+}
+
+.wf-flow-step--left .wf-flow-step-card-shell {
+  grid-column: 1;
+  justify-self: end;
+}
+
+.wf-flow-step--right .wf-flow-step-card-shell {
+  grid-column: 2;
+  justify-self: start;
+}
+
+.wf-flow-step-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  width: 100%;
+  aspect-ratio: 375 / 666;
+  overflow: visible;
+}
+
+.wf-flow-step-frame-layer {
+  position: relative;
+  grid-area: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.wf-flow-step-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.wf-flow-step-content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(8px, 1vw, 14px);
+  min-width: 0;
+  min-height: 0;
+  padding: 20% 14% 12%;
+  margin-top: var(--wf-flow-step-content-margin-top);
+  margin-left: var(--wf-flow-step-content-margin-left);
+  color: rgba(250, 252, 246, 0.98);
+  overflow: hidden;
+  pointer-events: auto;
+}
+
+.wf-flow-step-content--long {
+  padding: 16.5% 11.5% 11%;
+}
+
+.wf-flow-step-content--long .wf-flow-step-copy {
+  max-width: 94%;
+}
+
+.wf-flow-step-title {
+  margin: 0;
+  flex: none;
+  color: rgba(249, 252, 247, 0.98);
+  font-size: clamp(30px, 3.8vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+  text-shadow: 0 2px 5px rgba(42, 62, 36, 0.16);
+}
+
+.wf-flow-step-title-line {
+  display: block;
+}
+
+.wf-flow-step-copy {
+  display: block;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  max-width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+  color: rgba(246, 250, 244, 0.95);
+  font-family:
+    "Hiragino Maru Gothic ProN",
+    "Zen Maru Gothic",
+    "Yu Rounded",
+    "Arial Rounded MT Bold",
+    sans-serif;
+  font-size: clamp(19px, 1.05vw, 21px);
+  font-weight: bold;
+  line-height: 1.6;
+  text-shadow: 0 1px 3px rgba(41, 61, 34, 0.14);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  text-wrap: pretty;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(247, 252, 244, 0.72) transparent;
+}
+
+.wf-flow-step-mobile-line {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0.45em;
+}
+
+.wf-flow-step-mobile-line:first-child {
+  margin-top: 0;
+}
+
+.wf-flow-step-line {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin-top: 0.45em;
+  white-space: pre-wrap;
+}
+
+.wf-flow-step-line:first-child {
+  margin-top: 0;
+}
+
+.wf-flow-step-copy br {
+  display: block;
+  margin-top: 0.55em;
+}
+
+.wf-flow-step-copy::-webkit-scrollbar {
+  width: 6px;
+}
+
+.wf-flow-step-copy::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.wf-flow-step-copy::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(247, 252, 244, 0.72);
+}
+
+@supports (word-break: auto-phrase) {
+  .wf-flow-step-copy {
+    word-break: auto-phrase;
+  }
+}
+
+.wf-flow-step-arrow {
+  --wf-flow-arrow-anim-y: 0px;
+  position: absolute;
+  top: var(--wf-flow-step-arrow-top, clamp(170px, 18vw, 238px));
+  z-index: 1;
+  width: var(--wf-flow-step-arrow-width, clamp(250px, 34vw, 400px));
+  height: var(--wf-flow-step-arrow-height, clamp(132px, 16vw, 198px));
+  overflow: visible;
+  pointer-events: none;
+  scale: 1.3;
+  transform-origin: center center;
+}
+
+.wf-flow-step-arrow--to-right {
+  left: 50%;
+  transform: translateX(calc(-12% + var(--wf-flow-arrow-shift-x)))
+    translateY(calc(var(--wf-flow-arrow-shift-y) + var(--wf-flow-arrow-anim-y)));
+}
+
+.wf-flow-step-arrow--to-left {
+  left: 50%;
+  transform: translateX(calc(-88% + var(--wf-flow-arrow-shift-x)))
+    translateY(calc(var(--wf-flow-arrow-shift-y) + var(--wf-flow-arrow-anim-y)));
+}
+
+.wf-flow-step-arrow-path {
+  fill: none;
+  stroke: rgba(118, 145, 177, 0.86);
+  stroke-width: 18;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.wf-flow-step-arrow-path:first-child {
+  stroke-width: 21;
+}

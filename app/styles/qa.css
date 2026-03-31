@@ -90,7 +90,7 @@
 .wf-qa-item-question,
 .wf-qa-answer-line {
   word-break: keep-all;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   text-wrap: pretty;
 }
 
@@ -179,6 +179,23 @@
 
 .wf-qa-answer-line--last {
   margin-bottom: 0;
+}
+
+.wf-qa-answer-mobile-line {
+  display: block;
+  width: 100%;
+  margin-top: 0.32em;
+}
+
+.wf-qa-answer-mobile-line:first-child {
+  margin-top: 0;
+}
+
+@supports (word-break: auto-phrase) {
+  .wf-qa-item-question,
+  .wf-qa-answer-line {
+    word-break: auto-phrase;
+  }
 }
 
 .wf-qa-answer-qr-shell {

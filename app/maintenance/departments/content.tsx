@@ -19,6 +19,20 @@ export type DepartmentSidePhoto = {
   rotation?: number;
 };
 
+export type DepartmentPhoneTransform = {
+  x?: number;
+  y?: number;
+  rotate?: number;
+  scale?: number;
+};
+
+export type DepartmentPhoneLayout = {
+  tap?: Omit<DepartmentPhoneTransform, "scale">;
+  leaf?: DepartmentPhoneTransform;
+  photoStage?: DepartmentPhoneTransform;
+  photoCards?: readonly DepartmentPhoneTransform[];
+};
+
 export const leafFrameSources = ["/images/leaf.PNG", "/images/leaf2.PNG", "/images/leaf3.PNG", "/images/leaf4.PNG"] as const;
 
 const departmentTextSegmenter =
@@ -309,6 +323,89 @@ const departmentSidePhotoMap = {
     rotation: 5,
   },
 } as const satisfies Record<string, DepartmentSidePhoto>;
+
+const departmentPhoneLayoutMap: Readonly<Record<string, DepartmentPhoneLayout>> = {
+  kyakuhon: {
+    tap: { x: -50, y: -20, rotate: 12 },
+    leaf: { x: -60, y: 0, rotate: 0, scale: 1.5 },
+  },
+  keikoba: {
+    tap: { x: -26, y: -18, rotate: -12 },
+    leaf: { x: 100, y: 0, rotate: 0, scale: 1.5 },
+    photoStage: { scale: 1.3 },
+    photoCards: [
+      { x: -80, y: -100, rotate: 0 },
+      { x: -50, y: -170, rotate: -10 },
+    ],
+  },
+  butai: {
+    tap: { x: -40, y: -120, rotate: 12 },
+    leaf: { x: -100, y: -100, rotate: 0, scale: 1.5 },
+    photoStage: { scale: 1.3 },
+    photoCards: [
+      { x: 100, y: -250, rotate: 30 },
+      { x: 35, y: -250, rotate: -30 },
+    ],
+  },
+  onkyo: {
+    tap: { x: -50, y: -224, rotate: -12 },
+    leaf: { x: 100, y: -200, rotate: 0, scale: 1.5 },
+    photoStage: { x: -50, y: -200, rotate: 0, scale: 1.5 },
+    photoCards: [
+      { x: -30, y: -150, rotate: 0 },
+      { x: 0, y: -100, rotate: -10 },
+    ],
+  },
+  syomei: {
+    tap: { x: -26, y: -170, rotate: 12 },
+    leaf: { x: -110, y: -150, rotate: 0, scale: 1.5 },
+    photoStage: { x: 100, y: -200, rotate: 0, scale: 1.3 },
+    photoCards: [
+      { x: 30, y: -100, rotate: 0 },
+      { x: -60, y: -80, rotate: 0 },
+    ],
+  },
+  eizou: {
+    tap: { x: -26, y: -190, rotate: -12 },
+    leaf: { x: 105, y: -170, rotate: 0, scale: 1.5 },
+    photoStage: { x: -50, y: -200, rotate: 0, scale: 1.4 },
+    photoCards: [
+      { x: -30, y: -90, rotate: 0 },
+      { x: 20, y: -110, rotate: -10 },
+    ],
+  },
+  iko: {
+    tap: { x: -26, y: -160, rotate: 12 },
+    leaf: { x: -110, y: -150, rotate: 0, scale: 1.5 },
+    photoStage: { x: 40, y: -250, rotate: 0, scale: 1.2 },
+    photoCards: [
+      { x: 60, y: -80, rotate: 0 },
+      { x: -20, y: 0, rotate: 0 },
+    ],
+  },
+  seisaku: {
+    tap: { x: -26, y: -120, rotate: -12 },
+    leaf: { x: 95, y: -100, rotate: 0, scale: 1.5 },
+    photoStage: { x: -100, y: -200, rotate: 0, scale: 1.5 },
+    photoCards: [
+      { x: 0, y: -90, rotate: 0 },
+      { x: 30, y: -60, rotate: -20 },
+    ],
+  },
+  senden: {
+    tap: { x: -26, y: -120, rotate: 12 },
+    leaf: { x: -90, y: -100, rotate: 0, scale: 1.5 },
+    photoStage: { x: 50, y: -160, rotate: 0, scale: 1.3 },
+    photoCards: [
+      { x: 67, y: -100, rotate: 30 },
+      { x: 0, y: -100, rotate: -20 },
+    ],
+  },
+};
+
+export function getDepartmentPhoneLayout(departmentId: DepartmentConfig["id"]) {
+  return departmentPhoneLayoutMap[departmentId];
+}
 
 export const departmentsData: DepartmentConfig[] = [
   {

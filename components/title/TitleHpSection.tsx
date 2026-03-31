@@ -29,7 +29,10 @@ export function TitleHpSection() {
             className="wf-title-hp-image wf-title-hp-image--hover"
           />
         </span>
-        <span className="wf-maki-title wf-title-hp-text">新歓公演特設サイトはこちら</span>
+        <span className="wf-maki-title wf-title-hp-text">
+          <span className="wf-title-hp-line">新歓公演</span>
+          <span className="wf-title-hp-line">特設サイトはこちら</span>
+        </span>
       </a>
     </section>
   );

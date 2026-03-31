@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Image from "next/image";
 import type { QaItem } from "@/app/maintenance/qa/content";
 import { withBasePath } from "@/lib/withBasePath";
+import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
+import { wrapParagraphForMobile } from "@/lib/mobileTextWrap";
 
 type QaAccordionProps = {
   items: readonly QaItem[];
@@ -11,6 +13,7 @@ type QaAccordionProps = {
 
 export function QaAccordion({ items }: QaAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const isMobileLayout = useVisualViewportMobile();
 
   return (
     <div className="wf-qa-list">
@@ -53,7 +56,13 @@ export function QaAccordion({ items }: QaAccordionProps) {
                       key={`${item.question}-${lineIndex}`}
                       className={`wf-qa-answer-line${lineIndex === item.answerLines.length - 1 ? " wf-qa-answer-line--last" : ""}`}
                     >
-                      {line}
+                      {isMobileLayout
+                        ? wrapParagraphForMobile(line, 18, 4).map((segment, segmentIndex) => (
+                            <Fragment key={`${item.question}-${lineIndex}-${segmentIndex}`}>
+                              <span className="wf-qa-answer-mobile-line">{segment}</span>
+                            </Fragment>
+                          ))
+                        : line}
                     </p>
                   ))}
 

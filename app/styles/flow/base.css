@@ -1,0 +1,57 @@
+.wf-frame--flow {
+  width: min(1460px, calc(100% - 28px));
+}
+
+.wf-frame-inner--flow {
+  width: 100%;
+  gap: 0;
+}
+
+.wf-frame-inner--flow > * {
+  width: 100%;
+}
+
+.wf-flow-page {
+  position: relative;
+  width: 100%;
+  padding: 0 0 clamp(96px, 12vw, 144px);
+}
+
+.wf-flow-page-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 1240px);
+  min-height: clamp(320px, 52svh, 520px);
+  margin: 0 auto;
+  padding: clamp(118px, 14vw, 172px) 0 clamp(36px, 6vw, 64px);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.wf-flow-page-title {
+  margin: 0;
+  color: rgba(249, 252, 247, 0.98);
+  font-size: clamp(48px, 7vw, 92px);
+  line-height: 1;
+  text-shadow: 0 3px 8px rgba(49, 70, 40, 0.2);
+}
+
+.wf-flow-photo-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.wf-flow-floating-photo {
+  margin: 0;
+  transform-origin: center;
+}
+
+.wf-flow-floating-photo .wf-dept-photo-paper {
+  display: block;
+  width: 100%;
+}
