@@ -13,6 +13,8 @@ export type WelcomeEventPhoneModalLayout = {
   textPadding?: string;
   textFontSize?: string;
   textLineHeight?: string;
+  textMaxChars?: number;
+  textMinChars?: number;
 };
 
 export type WelcomeEvent = {
@@ -42,6 +44,8 @@ const defaultWelcomeEventPhoneModalLayout: WelcomeEventPhoneModalLayout = {
   textPadding: "2px 6px 2px 2px",
   textFontSize: "clamp(12px, 3.9vw, 16px)",
   textLineHeight: "1.82",
+  textMaxChars: 17,
+  textMinChars: 5,
 };
 
 export const welcomeEventPhoneModalLayoutOverrides: Partial<Record<string, WelcomeEventPhoneModalLayout>> = {};

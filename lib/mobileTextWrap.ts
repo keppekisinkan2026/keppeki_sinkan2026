@@ -25,7 +25,12 @@ function normalizeParagraph(text: string) {
     .join("");
 }
 
-export function wrapParagraphForMobile(text: string, maxChars = 16, minChars = 4) {
+export function wrapParagraphForMobile(
+  text: string,
+  maxChars = 16,
+  minChars = 4,
+  allowShortLastLine = false,
+) {
   const normalizedText = normalizeParagraph(text);
   const segments = segmentText(normalizedText);
   const lines: string[][] = [];
@@ -59,6 +64,10 @@ export function wrapParagraphForMobile(text: string, maxChars = 16, minChars = 4
   }
 
   for (let index = lines.length - 1; index > 0; index -= 1) {
+    if (allowShortLastLine && index === lines.length - 1) {
+      continue;
+    }
+
     while (getTextLength(lines[index].join("")) < minChars) {
       const previousLine = lines[index - 1];
       if (previousLine.length <= 1) {
@@ -77,7 +86,12 @@ export function wrapParagraphForMobile(text: string, maxChars = 16, minChars = 4
   return lines.map((line) => line.join(""));
 }
 
-export function wrapTextForMobile(text: string, maxChars = 16, minChars = 4) {
+export function wrapTextForMobile(
+  text: string,
+  maxChars = 16,
+  minChars = 4,
+  allowShortLastLine = false,
+) {
   const normalizedText = text.trim();
   if (!normalizedText) {
     return [];
@@ -85,6 +99,6 @@ export function wrapTextForMobile(text: string, maxChars = 16, minChars = 4) {
 
   return normalizedText
     .split(/\n{2,}/)
-    .map((paragraph) => wrapParagraphForMobile(paragraph, maxChars, minChars))
+    .map((paragraph) => wrapParagraphForMobile(paragraph, maxChars, minChars, allowShortLastLine))
     .filter((paragraph) => paragraph.length > 0);
 }

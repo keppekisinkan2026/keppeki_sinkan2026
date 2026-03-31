@@ -246,6 +246,32 @@
   background: rgba(247, 252, 244, 0.72);
 }
 
+.wf-events-modal-mobile-body {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+}
+
+.wf-events-modal-mobile-paragraph {
+  margin: 0;
+}
+
+.wf-events-modal-mobile-line {
+  display: table;
+  max-width: none;
+  margin: 0.38em auto 0;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  text-wrap: nowrap;
+}
+
+.wf-events-modal-mobile-line:first-child {
+  margin-top: 0;
+}
+
 @supports (word-break: auto-phrase) {
   .wf-events-modal-root--mobile .wf-notebook-modal-text {
     word-break: auto-phrase;

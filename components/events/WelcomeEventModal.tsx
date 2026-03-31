@@ -1,6 +1,6 @@
 "use client";
 
-import { type CSSProperties } from "react";
+import { Fragment, type CSSProperties, type ReactNode } from "react";
 import {
   getWelcomeEventPhoneModalLayout,
   type WelcomeEvent,
@@ -8,6 +8,7 @@ import {
 } from "@/app/maintenance/events/content";
 import { NotebookModal } from "@/components/shared/NotebookModal";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
+import { wrapTextForMobile } from "@/lib/mobileTextWrap";
 
 type WelcomeEventModalProps = {
   event: WelcomeEvent | null;
@@ -15,6 +16,36 @@ type WelcomeEventModalProps = {
 };
 
 type EventModalRootStyle = CSSProperties & Record<`--${string}`, string>;
+
+function renderEventDescription(
+  description: ReactNode,
+  isMobileLayout: boolean,
+  maxChars = 20,
+  minChars = 5,
+) {
+  if (!isMobileLayout || typeof description !== "string") {
+    return description;
+  }
+
+  const paragraphs = wrapTextForMobile(description, maxChars, minChars, true);
+
+  return (
+    <div className="wf-events-modal-mobile-body">
+      {paragraphs.map((paragraph, paragraphIndex) => (
+        <p
+          key={`${paragraphIndex}-${paragraph[0] ?? "paragraph"}`}
+          className="wf-events-modal-mobile-paragraph"
+        >
+          {paragraph.map((line, lineIndex) => (
+            <Fragment key={`${paragraphIndex}-${lineIndex}`}>
+              <span className="wf-events-modal-mobile-line">{line}</span>
+            </Fragment>
+          ))}
+        </p>
+      ))}
+    </div>
+  );
+}
 
 export function WelcomeEventModal({ event, onClose }: WelcomeEventModalProps) {
   const isMobileLayout = useVisualViewportMobile();
@@ -46,7 +77,12 @@ export function WelcomeEventModal({ event, onClose }: WelcomeEventModalProps) {
     <NotebookModal
       modalKey={event.id}
       title={event.title}
-      body={event.description}
+      body={renderEventDescription(
+        event.description,
+        isMobileLayout,
+        modalLayout?.textMaxChars,
+        modalLayout?.textMinChars,
+      )}
       titleId={`wf-events-modal-title-${event.id}`}
       onClose={onClose}
       frameSources={welcomeEventFrameSources}
