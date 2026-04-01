@@ -11,23 +11,23 @@ export const pastCardFrameSources = [
 export const pastModalFrameSources = pastCardFrameSources.slice(0, -1);
 
 export const pastPosterImageSources = {
-  sinkan: "/images/history/sinkan_b.jpg",
-  midhi: "/images/history/midhi_b.jpg",
-  natu: "/images/history/natu_b.jpg",
-  nf: "/images/history/nf_b.jpg",
-  huyu: "/images/history/huyu_b.jpg",
-  sinzin: "/images/history/sinzin_b.jpg",
-  sotu: "/images/history/sotu_b.jpg",
+  sinkan: "/images/history/sinkan_b.webp",
+  midhi: "/images/history/midhi_b.webp",
+  natu: "/images/history/natu_b.webp",
+  nf: "/images/history/nf_b.webp",
+  huyu: "/images/history/huyu_b.webp",
+  sinzin: "/images/history/sinzin_b.webp",
+  sotu: "/images/history/sotu_b.webp",
 } as const;
 
 export const pastModalPosterImageSources = {
-  sinkan: "/images/history/modal/sinkan_b.PNG",
-  midhi: "/images/history/modal/midhi_b.PNG",
-  natu: "/images/history/modal/natu_b.PNG",
-  nf: "/images/history/modal/nf_b.PNG",
-  huyu: "/images/history/modal/huyu_b.PNG",
-  sinzin: "/images/history/modal/sinzin_b.PNG",
-  sotu: "/images/history/modal/sotu_b.PNG",
+  sinkan: "/images/history/modal/sinkan_b.webp",
+  midhi: "/images/history/modal/midhi_b.webp",
+  natu: "/images/history/modal/natu_b.webp",
+  nf: "/images/history/modal/nf_b.webp",
+  huyu: "/images/history/modal/huyu_b.webp",
+  sinzin: "/images/history/modal/sinzin_b.webp",
+  sotu: "/images/history/modal/sotu_b.webp",
 } as const satisfies Record<keyof typeof pastPosterImageSources, string>;
 
 export type PastPerformanceKey = keyof typeof pastPosterImageSources;
@@ -45,7 +45,7 @@ const pastGalleryImageCounts = {
 function createGalleryImageSources(key: PastPerformanceKey) {
   return Array.from(
     { length: pastGalleryImageCounts[key] },
-    (_, index) => `/images/history/${key}/${key}_${index + 1}.jpg`,
+    (_, index) => `/images/history/${key}/${key}_${index + 1}.webp`,
   );
 }
 
