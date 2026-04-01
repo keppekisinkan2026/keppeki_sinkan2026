@@ -14,6 +14,9 @@
   --wf-page-width: min(100%, 1280px);
   --wf-page-gutter: clamp(14px, 3vw, 28px);
   --wf-panel-radius: clamp(18px, 2.6vw, 28px);
+  --wf-reference-phone-width: 430px;
+  --wf-reference-phone-vw: calc(var(--wf-reference-phone-width) / 100);
+  --wf-reference-mobile-scale: 1;
 }
 
 @theme inline {

@@ -10,6 +10,8 @@ import { PastItem } from "@/components/maintenance/past/PastItem";
 import { PastModal } from "@/components/maintenance/past/PastModal";
 import { getPastPerformanceScatterKey } from "@/components/maintenance/past/pastShared";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
+import { REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
+import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { withBasePath } from "@/lib/withBasePath";
 
 gsap.registerPlugin(useGSAP);
@@ -17,6 +19,7 @@ gsap.registerPlugin(useGSAP);
 export default function PastWireframePage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
+  const isMobileLayout = useVisualViewportMobile();
 
   const selectedPerformance = useMemo(
     () => pastPerformances.find((item) => item.id === selectedId) ?? null,
@@ -40,6 +43,20 @@ export default function PastWireframePage() {
         return;
       }
 
+      if (isMobileLayout) {
+        gsap.set(bgLayer, { autoAlpha: 0, y: 36 });
+
+        const timeline = gsap.timeline();
+        timeline.to(bgLayer, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.58,
+          ease: "power2.out",
+        });
+        timeline.set(bgLayer, { clearProps: "y" });
+        return;
+      }
+
       const fromY = Math.max(window.innerHeight * 0.72, 460);
 
       gsap.set(bgLayer, { autoAlpha: 1, y: fromY });
@@ -52,11 +69,15 @@ export default function PastWireframePage() {
       });
       timeline.set(bgLayer, { clearProps: "y" });
     },
-    { scope: sectionRef },
+    { scope: sectionRef, dependencies: [isMobileLayout], revertOnUpdate: true },
   );
 
   return (
-    <WireframeShell frameClassName="wf-frame--past" innerClassName="wf-frame-inner--past">
+    <WireframeShell
+      frameClassName="wf-frame--past"
+      innerClassName="wf-frame-inner--past"
+      mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
+    >
       <section ref={sectionRef} className="wf-past-page">
         <div className="wf-past-board-wrapper">
           <div className="js-past-board-bg-layer wf-past-board-bg-layer" aria-hidden>

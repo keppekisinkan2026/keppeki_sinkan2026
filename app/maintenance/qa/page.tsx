@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { QaAccordion } from "@/components/qa/QaAccordion";
+import { REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
 import { withBasePath } from "@/lib/withBasePath";
 import { qaItems } from "./content";
 
@@ -10,6 +11,7 @@ export default function QaWireframePage() {
       screenClassName="wf-screen--qa"
       frameClassName="wf-frame--qa"
       innerClassName="wf-frame-inner--qa"
+      mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
     >
       <section className="wf-qa-page">
         <section className="wf-qa-card" aria-labelledby="wf-qa-title">

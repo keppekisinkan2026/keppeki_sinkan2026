@@ -12,6 +12,7 @@ import { DepartmentRow } from "@/components/departments/DepartmentRow";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { appendFlipbookFrames, hideFlipbookFrames } from "@/lib/gsap/flipbook";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
+import { REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { withBasePath } from "@/lib/withBasePath";
 
@@ -28,21 +29,44 @@ export default function DepartmentsWireframePage() {
   useEffect(() => {
     const vineSvg = vineSvgRef.current;
     const vinePathGroup = vinePathGroupRef.current;
+    const treeRoot = vineSvg?.parentElement;
 
-    if (!vineSvg || !vinePathGroup) {
+    if (!vineSvg || !vinePathGroup || !treeRoot) {
       return;
     }
 
-    const renderVine = () => renderDepartmentVine(vineSvg, vinePathGroup);
+    let frameId = 0;
 
-    renderVine();
-    window.addEventListener("resize", renderVine);
+    const renderVine = () => {
+      renderDepartmentVine(vineSvg, vinePathGroup);
+    };
+
+    const scheduleRenderVine = () => {
+      window.cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(renderVine);
+    };
+
+    scheduleRenderVine();
+    window.addEventListener("resize", scheduleRenderVine);
+    window.addEventListener("load", scheduleRenderVine);
+
+    const resizeObserver =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(() => {
+            scheduleRenderVine();
+          });
+
+    resizeObserver?.observe(treeRoot);
 
     return () => {
-      window.removeEventListener("resize", renderVine);
+      window.cancelAnimationFrame(frameId);
+      window.removeEventListener("resize", scheduleRenderVine);
+      window.removeEventListener("load", scheduleRenderVine);
+      resizeObserver?.disconnect();
       vinePathGroup.innerHTML = "";
     };
-  }, []);
+  }, [isMobileLayout]);
 
   useGSAP(
     () => {
@@ -139,7 +163,11 @@ export default function DepartmentsWireframePage() {
   );
 
   return (
-    <WireframeShell frameClassName="wf-frame--departments" innerClassName="wf-frame-inner--departments">
+    <WireframeShell
+      frameClassName="wf-frame--departments"
+      innerClassName="wf-frame-inner--departments"
+      mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
+    >
       <section
         ref={rootRef}
         className={`wf-departments-stage${isMobileLayout ? " wf-departments-stage--mobile" : ""}`}

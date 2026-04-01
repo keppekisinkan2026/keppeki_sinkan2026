@@ -49,19 +49,19 @@
 }
 
 .wf-departments-stage--mobile .wf-dept-leaf-wrapper {
-  width: clamp(156px, 34vw, 230px);
-  --dept-root-overlap: clamp(12px, 2vw, 20px);
+  width: clamp(156px, calc(34 * var(--wf-reference-phone-vw)), 230px);
+  --dept-root-overlap: clamp(12px, calc(2 * var(--wf-reference-phone-vw)), 20px);
 }
 
 .wf-departments-stage--mobile .wf-dept-leaf-text {
   width: 58%;
-  font-size: clamp(16px, 3.8vw, 22px);
+  font-size: clamp(16px, calc(3.8 * var(--wf-reference-phone-vw)), 22px);
   line-height: 1.2;
 }
 
 .wf-departments-stage--mobile .wf-dept-click-sign {
   top: 8px;
-  font-size: clamp(16px, 4vw, 22px);
+  font-size: clamp(16px, calc(4 * var(--wf-reference-phone-vw)), 22px);
   animation-duration: 2.6s;
 }
 
@@ -75,11 +75,11 @@
 
 .wf-departments-stage--mobile .wf-dept-photo-stage {
   width: min(100%, 320px);
-  height: clamp(220px, 42vw, 290px);
+  height: clamp(220px, calc(42 * var(--wf-reference-phone-vw)), 290px);
 }
 
 .wf-departments-stage--mobile .wf-dept-photo-card {
-  width: clamp(120px, 26vw, 170px);
+  width: clamp(120px, calc(26 * var(--wf-reference-phone-vw)), 170px);
 }
 
 .wf-departments-stage--mobile .wf-dept-photo-stage--left .wf-dept-photo-card--1 {
@@ -127,7 +127,7 @@
   flex: none;
   width: 100%;
   align-self: stretch;
-  font-size: clamp(20px, 5.8vw, 30px);
+  font-size: clamp(20px, calc(5.8 * var(--wf-reference-phone-vw)), 30px);
   line-height: 1.25;
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -142,7 +142,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 2px 6px 2px 2px;
-  font-size: clamp(12px, 3.9vw, 16px);
+  font-size: clamp(12px, calc(3.9 * var(--wf-reference-phone-vw)), 16px);
   line-height: 1.82;
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -220,9 +220,9 @@
 
 @media (max-width: 640px) {
   .wf-departments-stage--mobile {
-    --wf-dept-mobile-photo-stage-width: min(100%, clamp(100px, 92vw, 200px));
-    --wf-dept-mobile-photo-stage-height: clamp(150px, 72vw, 300px);
-    --wf-dept-mobile-photo-card-width: clamp(150px, 42vw, 150px);
+    --wf-dept-mobile-photo-stage-width: min(100%, clamp(100px, calc(92 * var(--wf-reference-phone-vw)), 200px));
+    --wf-dept-mobile-photo-stage-height: clamp(150px, calc(72 * var(--wf-reference-phone-vw)), 300px);
+    --wf-dept-mobile-photo-card-width: clamp(150px, calc(42 * var(--wf-reference-phone-vw)), 150px);
   }
 
   .wf-department-vine-svg {
@@ -244,8 +244,8 @@
   }
 
   .wf-dept-leaf-wrapper {
-    width: clamp(124px, 25vw, 178px);
-    --dept-root-overlap: clamp(12px, 2.4vw, 22px);
+    width: clamp(124px, calc(25 * var(--wf-reference-phone-vw)), 178px);
+    --dept-root-overlap: clamp(12px, calc(2.4 * var(--wf-reference-phone-vw)), 22px);
   }
 
   .wf-departments-stage--mobile .wf-dept-photo-stage {
@@ -274,11 +274,11 @@
   }
 
   .wf-dept-click-sign {
-    font-size: clamp(40px, 12.4vw, 56px);
+    font-size: clamp(40px, calc(12.4 * var(--wf-reference-phone-vw)), 56px);
   }
 
   .wf-dept-leaf-text {
-    font-size: clamp(12px, 2.9vw, 18px);
+    font-size: clamp(12px, calc(2.9 * var(--wf-reference-phone-vw)), 18px);
   }
 
   .wf-notebook-modal-root {

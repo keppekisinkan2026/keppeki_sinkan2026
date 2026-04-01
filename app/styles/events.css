@@ -181,11 +181,11 @@
   --wf-event-modal-mobile-paper-left: 8.2%;
   --wf-event-modal-mobile-content-padding: 16px 16px 14px;
   --wf-event-modal-mobile-content-gap: 10px;
-  --wf-event-modal-mobile-title-font-size: clamp(20px, 5.8vw, 30px);
+  --wf-event-modal-mobile-title-font-size: clamp(20px, calc(5.8 * var(--wf-reference-phone-vw)), 30px);
   --wf-event-modal-mobile-title-line-height: 1.25;
   --wf-event-modal-mobile-title-margin-bottom: 0px;
   --wf-event-modal-mobile-text-padding: 2px 6px 2px 2px;
-  --wf-event-modal-mobile-text-font-size: clamp(12px, 3.9vw, 16px);
+  --wf-event-modal-mobile-text-font-size: clamp(12px, calc(3.9 * var(--wf-reference-phone-vw)), 16px);
   --wf-event-modal-mobile-text-line-height: 1.82;
   padding: 14px;
 }
@@ -284,45 +284,46 @@
 
 @media (max-width: 900px) {
   .wf-event-page-container {
-    padding-top: clamp(88px, 20vw, 132px);
+    padding-top: clamp(88px, calc(20 * var(--wf-reference-phone-vw)), 132px);
   }
 
   .wf-event-character--left {
     top: 14.8%;
     left: 11.8%;
-    width: clamp(110px, 19vw, 180px);
+    width: clamp(110px, calc(19 * var(--wf-reference-phone-vw)), 180px);
   }
 
   .wf-event-character--right {
     top: 57.4%;
     right: -1.6%;
-    width: clamp(98px, 14vw, 152px);
+    width: clamp(98px, calc(14 * var(--wf-reference-phone-vw)), 152px);
   }
 
   .wf-event-speech-bubble--left {
     top: 10.2%;
     left: 21.8%;
-    width: clamp(200px, 28vw, 290px);
+    width: clamp(200px, calc(28 * var(--wf-reference-phone-vw)), 290px);
   }
 
   .wf-event-speech-text {
-    font-size: clamp(18px, 2.6vw, 24px);
+    font-size: clamp(18px, calc(2.6 * var(--wf-reference-phone-vw)), 24px);
   }
 }
 
 @media (max-width: 640px) {
   .wf-event-page-container {
     /* Mobile character tuning lives here. */
+    padding-top: 88px;
     --wf-event-phone-character-left-top: 80%;
     --wf-event-phone-character-left-left: 39%;
-    --wf-event-phone-character-left-width: clamp(130px, 18vw, 300px);
+    --wf-event-phone-character-left-width: clamp(130px, calc(18 * var(--wf-reference-phone-vw)), 300px);
     --wf-event-phone-character-right-top: 15%;
     --wf-event-phone-character-right-right: 65%;
-    --wf-event-phone-character-right-width: clamp(110px, 15vw, 100px);
+    --wf-event-phone-character-right-width: clamp(110px, calc(15 * var(--wf-reference-phone-vw)), 100px);
   }
 
   .wf-event-map-shell {
-    width: min(100vw - 12px, 640px);
+    width: calc(var(--wf-reference-phone-width) - 12px);
   }
 
   .wf-event-character--left {
@@ -340,7 +341,7 @@
   .wf-event-speech-bubble--left {
     top: 12%;
     left: 22%;
-    width: clamp(148px, 32vw, 210px);
+    width: clamp(148px, calc(32 * var(--wf-reference-phone-vw)), 210px);
   }
 
   .wf-event-hotspot::before {
@@ -348,7 +349,7 @@
   }
 
   .wf-event-speech-text {
-    font-size: clamp(14px, 3.2vw, 18px);
+    font-size: clamp(14px, calc(3.2 * var(--wf-reference-phone-vw)), 18px);
     inset: 12% 14% 24% 14%;
   }
 

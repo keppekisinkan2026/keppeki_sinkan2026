@@ -251,7 +251,8 @@
   }
 
   .wf-qa-page {
-    gap: clamp(28px, 7vw, 40px);
+    padding-top: clamp(112px, calc(14 * var(--wf-reference-phone-vw)), 176px);
+    gap: clamp(28px, calc(7 * var(--wf-reference-phone-vw)), 40px);
   }
 
   .wf-qa-card {
@@ -267,7 +268,7 @@
   }
 
   .wf-qa-illustration-strip {
-    min-height: clamp(260px, 52vw, 360px);
+    min-height: clamp(260px, calc(52 * var(--wf-reference-phone-vw)), 360px);
     padding-inline: 4px;
   }
 
@@ -276,7 +277,7 @@
   }
 
   .wf-qa-futaba {
-    width: min(100%, clamp(420px, 76vw, 760px));
+    width: min(100%, clamp(420px, calc(76 * var(--wf-reference-phone-vw)), 760px));
   }
 }
 
@@ -298,7 +299,7 @@
   }
 
   .wf-qa-illustration-strip {
-    min-height: clamp(220px, 58vw, 300px);
+    min-height: clamp(220px, calc(58 * var(--wf-reference-phone-vw)), 300px);
     padding-inline: 0;
   }
 
@@ -307,6 +308,6 @@
   }
 
   .wf-qa-futaba {
-    width: min(100%, clamp(320px, 82vw, 520px));
+    width: min(100%, clamp(320px, calc(82 * var(--wf-reference-phone-vw)), 520px));
   }
 }

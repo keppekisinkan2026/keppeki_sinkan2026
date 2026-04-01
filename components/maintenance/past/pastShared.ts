@@ -59,6 +59,13 @@ export const pastGalleryImageSources = {
   sotu: createGalleryImageSources("sotu"),
 } as const satisfies Record<PastPerformanceKey, string[]>;
 
+export type PastScatterLayout = {
+  x?: number;
+  y?: number;
+  rotation?: number;
+  widthScale?: number;
+};
+
 export type PastPerformance = {
   id: number;
   key: PastPerformanceKey;
@@ -66,7 +73,8 @@ export type PastPerformance = {
   synopsis: ReactNode;
   galleryImageSources: string[];
   posterImageSource: string;
-  scatterOffsets?: { x?: number; y?: number; rotation?: number }[]
+  scatterOffsets?: PastScatterLayout[];
+  mobileScatterLayouts?: PastScatterLayout[];
 };
 
 export function getPastPerformanceScatterKey({

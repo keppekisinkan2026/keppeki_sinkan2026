@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { WelcomeEventModal } from "@/components/events/WelcomeEventModal";
+import { REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
 import { EVENT_CALENDAR_IMAGE, type WelcomeEvent, welcomeEvents } from "./content";
 import { withBasePath } from "@/lib/withBasePath";
 
@@ -15,7 +16,11 @@ export default function EventsWireframePage() {
   };
 
   return (
-    <WireframeShell frameClassName="wf-frame--events" innerClassName="wf-frame-inner--events">
+    <WireframeShell
+      frameClassName="wf-frame--events"
+      innerClassName="wf-frame-inner--events"
+      mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
+    >
       <div className="wf-event-page-container">
         <div className="wf-event-map-shell">
           <Image

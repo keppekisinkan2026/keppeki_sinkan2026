@@ -2,6 +2,7 @@ import { createElement } from "react";
 import {
   pastGalleryImageSources,
   pastPosterImageSources,
+  type PastScatterLayout,
   type PastPerformance,
 } from "@/components/maintenance/past/pastShared";
 
@@ -63,10 +64,23 @@ const sotuTitle = [
   "『天使ちゃんたち』",
 ];
 
-type ScatterOffset = NonNullable<PastPerformance["scatterOffsets"]>[number];
+type ScatterOffset = PastScatterLayout;
 
 function createScatterOffsets(count: number, offsets: readonly ScatterOffset[]) {
   return Array.from({ length: count }, (_, index) => offsets[index] ?? { x: 0, y: 0, rotation: 0 });
+}
+
+function createMobileScatterLayouts(count: number, layouts: readonly ScatterOffset[]) {
+  return Array.from({ length: count }, (_, index) => {
+    const layout = layouts[index] ?? {};
+
+    return {
+      x: layout.x ?? 0,
+      y: layout.y ?? 0,
+      rotation: layout.rotation ?? 0,
+      widthScale: layout.widthScale ?? 0.7,
+    };
+  });
 }
 
 const sinkanScatterOffsets = createScatterOffsets(pastGalleryImageSources.sinkan.length, [
@@ -124,6 +138,61 @@ const sotuScatterOffsets = createScatterOffsets(pastGalleryImageSources.sotu.len
   { x: 300, y: -100, rotation: 15 },
 ]);
 
+const sinkanMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.sinkan.length, [
+  { x: 110, y: 10, rotation: 0, widthScale: 0.7 },
+  { x: -70, y: 0, rotation: -30, widthScale: 0.7 },
+  { x: -100, y: -40, rotation: -40, widthScale: 0.7 },
+  { x: 100, y: -70, rotation: 20, widthScale: 0.7 },
+  { x: 10, y: -550, rotation: 30, widthScale: 0.7 },
+  { x: 0, y: -230, rotation: 0, widthScale: 0.7 },
+]);
+
+const midhiMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.midhi.length, [
+  { x: 70, y: -30, rotation: -10, widthScale: 0.7 },
+  { x: -260, y: -20, rotation: 0, widthScale: 0.7 },
+  { x: -100, y: -250, rotation: -30, widthScale: 0.7 },
+  { x: 60, y: -180, rotation: -45, widthScale: 0.6 },
+  { x: -130, y: -260, rotation: 0, widthScale: 0.7 },
+  { x: 10, y: -250, rotation: 20, widthScale: 0.7 },
+  { x: 190, y: -400, rotation: 20, widthScale: 0.7 },
+  { x: 150, y: -280, rotation: -30, widthScale: 0.7 },
+]);
+
+const natuMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.natu.length, [
+  { x: 100, y: 0, rotation: 0, widthScale: 0.7 },
+  { x: -200, y: -20, rotation: 20, widthScale: 0.7 },
+  { x: -150, y: -20, rotation: 0, widthScale: 0.7 },
+  { x: 150, y: -40, rotation: 0, widthScale: 0.7 },
+]);
+
+const nfMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.nf.length, [
+  { x: 100, y: 0, rotation: 0, widthScale: 0.7 },
+  { x: -50, y: 100, rotation: 30, widthScale: 0.7 },
+  { x: -100, y: -20, rotation: -20, widthScale: 0.7 },
+  { x: 120, y: -45, rotation: 32, widthScale: 0.7 },
+]);
+
+const huyuMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.huyu.length, [
+  { x: 200, y: -10, rotation: 0, widthScale: 0.7 },
+  { x: -90, y: 0, rotation: 40, widthScale: 0.7 },
+  { x: -150, y: 0, rotation: 0, widthScale: 0.7 },
+  { x: 150, y: 0, rotation: 0, widthScale: 0.7 },
+]);
+
+const sinzinMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.sinzin.length, [
+  { x: 100, y: 0, rotation: 0, widthScale: 0.7 },
+  { x: -200, y: -20, rotation: 20, widthScale: 0.7 },
+  { x: -150, y: -20, rotation: 0, widthScale: 0.7 },
+  { x: 150, y: -40, rotation: 0, widthScale: 0.7 },
+]);
+
+const sotuMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.sotu.length, [
+  { x: 100, y: 0, rotation: 0, widthScale: 0.7 },
+  { x: -50, y: 100, rotation: 30, widthScale: 0.7 },
+  { x: -100, y: -20, rotation: -20, widthScale: 0.7 },
+  { x: 120, y: -45, rotation: 32, widthScale: 0.7 },
+]);
+
 export const pastPerformances: PastPerformance[] = [
   {
     id: 1,
@@ -134,6 +203,7 @@ export const pastPerformances: PastPerformance[] = [
     galleryImageSources: pastGalleryImageSources.sinkan,
     posterImageSource: pastPosterImageSources.sinkan,
     scatterOffsets: sinkanScatterOffsets,
+    mobileScatterLayouts: sinkanMobileScatterLayouts,
   },
   {
     id: 2,
@@ -144,6 +214,7 @@ export const pastPerformances: PastPerformance[] = [
     galleryImageSources: pastGalleryImageSources.midhi,
     posterImageSource: pastPosterImageSources.midhi,
     scatterOffsets: midhiScatterOffsets,
+    mobileScatterLayouts: midhiMobileScatterLayouts,
   },
   {
     id: 3,
@@ -154,6 +225,7 @@ export const pastPerformances: PastPerformance[] = [
     galleryImageSources: pastGalleryImageSources.natu,
     posterImageSource: pastPosterImageSources.natu,
     scatterOffsets: natuScatterOffsets,
+    mobileScatterLayouts: natuMobileScatterLayouts,
   },
   {
     id: 4,
@@ -164,6 +236,7 @@ export const pastPerformances: PastPerformance[] = [
     galleryImageSources: pastGalleryImageSources.nf,
     posterImageSource: pastPosterImageSources.nf,
     scatterOffsets: nfScatterOffsets,
+    mobileScatterLayouts: nfMobileScatterLayouts,
   },
   {
     id: 5,
@@ -174,6 +247,7 @@ export const pastPerformances: PastPerformance[] = [
     galleryImageSources: pastGalleryImageSources.huyu,
     posterImageSource: pastPosterImageSources.huyu,
     scatterOffsets: huyuScatterOffsets,
+    mobileScatterLayouts: huyuMobileScatterLayouts,
   },
   {
     id: 6,
@@ -184,6 +258,7 @@ export const pastPerformances: PastPerformance[] = [
     galleryImageSources: pastGalleryImageSources.sinzin,
     posterImageSource: pastPosterImageSources.sinzin,
     scatterOffsets: sinzinScatterOffsets,
+    mobileScatterLayouts: sinzinMobileScatterLayouts,
   },
   {
     id: 7,
@@ -194,5 +269,6 @@ export const pastPerformances: PastPerformance[] = [
     galleryImageSources: pastGalleryImageSources.sotu,
     posterImageSource: pastPosterImageSources.sotu,
     scatterOffsets: sotuScatterOffsets,
+    mobileScatterLayouts: sotuMobileScatterLayouts,
   },
 ];

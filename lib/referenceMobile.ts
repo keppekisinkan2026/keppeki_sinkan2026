@@ -1,0 +1,1 @@
+export const REFERENCE_PHONE_WIDTH = 430;

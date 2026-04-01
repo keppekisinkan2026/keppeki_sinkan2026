@@ -63,6 +63,14 @@ export type FlowPhoto = {
 
 const DEFAULT_FLOW_TRIGGER_START_DESKTOP = "top 72%";
 const DEFAULT_FLOW_TRIGGER_START_MOBILE = "top 84%";
+const REFERENCE_PHONE_VW = "var(--wf-reference-phone-vw)";
+
+const phoneClamp = (minPx: number, phoneVw: number, maxPx: number) =>
+  `clamp(${minPx}px, calc(${phoneVw} * ${REFERENCE_PHONE_VW}), ${maxPx}px)`;
+
+const phoneMin = (phoneVw: number, maxPx: number) =>
+  `min(calc(${phoneVw} * ${REFERENCE_PHONE_VW}), ${maxPx}px)`;
+
 const defaultFlowPhonePhotoLayout = {
   offsetX: "0px",
   offsetY: "0px",
@@ -71,7 +79,7 @@ const defaultFlowPhonePhotoLayout = {
 
 const defaultFlowPhoneStepLayout: FlowStepLayout = {
   minHeight: "clamp(340px, 62svh, 500px)",
-  paddingTop: "clamp(56px, 12vw, 96px)",
+  paddingTop: phoneClamp(56, 12, 96),
   paddingBottom: "168px",
   contentInsetRight: "0px",
   contentInsetBottom: "0px",
@@ -81,8 +89,8 @@ const defaultFlowPhoneStepLayout: FlowStepLayout = {
   longCardMaxWidth: "520px",
   arrowTop: "calc(100% - 20px)",
   arrowLeft: "50%",
-  arrowWidth: "min(24vw, 84px)",
-  arrowHeight: "clamp(150px, 30vw, 210px)",
+  arrowWidth: phoneMin(24, 84),
+  arrowHeight: phoneClamp(150, 30, 210),
   arrowOffsetX: "0px",
   arrowOffsetY: "0px",
   triggerStart: DEFAULT_FLOW_TRIGGER_START_MOBILE,
@@ -383,7 +391,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "40%",
         left: "-2%",
-        width: "min(40vw, 140px)",
+        width: phoneMin(40, 140),
       },
     },
   },
@@ -405,7 +413,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "47%",
         left: "20%",
-        width: "min(52vw, 220px)",
+        width: phoneMin(52, 220),
       },
     },
   },
@@ -427,7 +435,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "52.5%",
         left: "0%",
-        width: "min(48vw, 206px)",
+        width: phoneMin(48, 206),
       },
     },
   },
@@ -449,7 +457,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "58%",
         left: "35%",
-        width: "min(42vw, 180px)",
+        width: phoneMin(42, 180),
       },
     },
   },
@@ -471,7 +479,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "64%",
         left: "-3%",
-        width: "min(48vw, 206px)",
+        width: phoneMin(48, 206),
       },
     },
   },
@@ -493,7 +501,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "70%",
         left: "30%",
-        width: "min(44vw, 190px)",
+        width: phoneMin(44, 190),
       },
     },
   },
@@ -515,7 +523,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "76%",
         left: "40%",
-        width: "min(44vw, 186px)",
+        width: phoneMin(44, 186),
       },
     },
   },
@@ -537,7 +545,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "76.5%",
         left: "-15%",
-        width: "min(44vw, 190px)",
+        width: phoneMin(44, 190),
       },
     },
   },
@@ -559,7 +567,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "82%",
         left: "0%",
-        width: "min(40vw, 168px)",
+        width: phoneMin(40, 168),
       },
     },
   },
@@ -581,7 +589,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "87.5%",
         left: "30%",
-        width: "min(44vw, 190px)",
+        width: phoneMin(44, 190),
       },
     },
   },
@@ -603,7 +611,7 @@ export const flowPhotos: readonly FlowPhoto[] = [
         ...defaultFlowPhonePhotoLayout,
         top: "94%",
         left: "0%",
-        width: "min(46vw, 196px)",
+        width: phoneMin(46, 196),
       },
     },
   },

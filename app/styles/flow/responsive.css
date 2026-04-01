@@ -44,21 +44,21 @@
   .wf-flow-page--mobile {
     --wf-flow-mobile-page-bottom-padding: 120px;
     --wf-flow-mobile-header-min-height: clamp(280px, 48svh, 420px);
-    --wf-flow-mobile-header-padding-top: clamp(108px, 20vw, 150px);
+    --wf-flow-mobile-header-padding-top: clamp(108px, calc(20 * var(--wf-reference-phone-vw)), 150px);
     --wf-flow-mobile-step-list-width: min(100%, 560px);
     --wf-flow-mobile-step-list-padding-inline: 8px;
     --wf-flow-mobile-list-gap: 12px;
     --wf-flow-mobile-step-min-height: clamp(340px, 62svh, 500px);
-    --wf-flow-mobile-step-padding-top: clamp(56px, 12vw, 96px);
+    --wf-flow-mobile-step-padding-top: clamp(56px, calc(12 * var(--wf-reference-phone-vw)), 96px);
     --wf-flow-mobile-step-padding-bottom: 168px;
     --wf-flow-mobile-card-width: min(100%, 420px);
     --wf-flow-mobile-long-card-width: min(100%, 520px);
     --wf-flow-mobile-long-card-max-width: 520px;
     --wf-flow-mobile-arrow-top: calc(100% - 20px);
-    --wf-flow-mobile-arrow-width: min(24vw, 84px);
-    --wf-flow-mobile-arrow-height: clamp(150px, 30vw, 210px);
-    --wf-flow-mobile-title-size: clamp(26px, 8vw, 40px);
-    --wf-flow-mobile-copy-size: clamp(13px, 3.7vw, 15px);
+    --wf-flow-mobile-arrow-width: min(calc(24 * var(--wf-reference-phone-vw)), 84px);
+    --wf-flow-mobile-arrow-height: clamp(150px, calc(30 * var(--wf-reference-phone-vw)), 210px);
+    --wf-flow-mobile-title-size: clamp(26px, calc(8 * var(--wf-reference-phone-vw)), 40px);
+    --wf-flow-mobile-copy-size: clamp(13px, calc(3.7 * var(--wf-reference-phone-vw)), 15px);
     --wf-flow-mobile-copy-line-height: 1.55;
     padding-bottom: var(--wf-flow-mobile-page-bottom-padding);
   }
@@ -75,6 +75,10 @@
   .wf-flow-page--mobile .wf-flow-page-header {
     min-height: var(--wf-flow-mobile-header-min-height);
     padding-top: var(--wf-flow-mobile-header-padding-top);
+  }
+
+  .wf-flow-page--mobile .wf-flow-page-title {
+    font-size: clamp(48px, calc(7 * var(--wf-reference-phone-vw)), 92px);
   }
 
   .wf-flow-page--mobile .wf-flow-step,

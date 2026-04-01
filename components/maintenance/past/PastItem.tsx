@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
+import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { withBasePath } from "@/lib/withBasePath";
 import { type PastPerformance } from "./pastShared";
 import { PastGalleryScatter } from "./PastGalleryScatter";
@@ -16,6 +17,8 @@ type PastItemProps = {
   performance: PastPerformance;
   onOpen: () => void;
 };
+
+const SHOW_PAST_SCATTER_DEBUG_IDS = true;
 
 type ScatterTarget = {
   x: number;
@@ -28,13 +31,13 @@ function getScatterTarget({
   cardWidth,
   shellWidth,
   shellHeight,
-  scatterOffsets,
+  scatterLayouts,
 }: {
   slot: number;
   cardWidth: number;
   shellWidth: number;
   shellHeight: number;
-  scatterOffsets?: PastPerformance["scatterOffsets"];
+  scatterLayouts?: PastPerformance["scatterOffsets"];
 }): ScatterTarget {
   const gap = Math.max(38, shellWidth * 0.08);
 
@@ -78,7 +81,7 @@ function getScatterTarget({
       break;
   }
 
-  const offset = scatterOffsets?.[slot];
+  const offset = scatterLayouts?.[slot];
   if (!offset) {
     return target;
   }
@@ -94,6 +97,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function PastItem({ performance, onOpen }: PastItemProps) {
   const rootRef = useRef<HTMLElement>(null);
+  const isMobileLayout = useVisualViewportMobile();
 
   useGSAP(
     () => {
@@ -144,7 +148,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
             cardWidth,
             shellWidth: shellRect.width,
             shellHeight: shellRect.height,
-            scatterOffsets: performance.scatterOffsets,
+            scatterLayouts: isMobileLayout ? performance.mobileScatterLayouts : performance.scatterOffsets,
           });
 
           if (!animated || reduceMotion) {
@@ -230,22 +234,35 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         hideScatter();
       };
 
-      button.addEventListener("mouseenter", handlePointerEnter);
-      button.addEventListener("mouseleave", handlePointerLeave);
-      button.addEventListener("focus", handleFocus);
-      button.addEventListener("blur", handleBlur);
+      if (!isMobileLayout) {
+        button.addEventListener("mouseenter", handlePointerEnter);
+        button.addEventListener("mouseleave", handlePointerLeave);
+        button.addEventListener("focus", handleFocus);
+        button.addEventListener("blur", handleBlur);
+      }
 
       if (reduceMotion) {
         showLastFlipbookFrame(frames);
         gsap.set(content, { autoAlpha: 1, y: 0 });
         button.classList.add("is-poster-ready");
+        if (isMobileLayout) {
+          showScatter();
+        }
         return () => {
-          button.removeEventListener("mouseenter", handlePointerEnter);
-          button.removeEventListener("mouseleave", handlePointerLeave);
-          button.removeEventListener("focus", handleFocus);
-          button.removeEventListener("blur", handleBlur);
+          if (!isMobileLayout) {
+            button.removeEventListener("mouseenter", handlePointerEnter);
+            button.removeEventListener("mouseleave", handlePointerLeave);
+            button.removeEventListener("focus", handleFocus);
+            button.removeEventListener("blur", handleBlur);
+          }
         };
       }
+
+      const flipbookStart = 0.04;
+      const flipbookStagger = 0.14;
+      const flipbookDuration = 0.02;
+      const flipbookEnd =
+        flipbookStart + flipbookStagger * Math.max(0, frames.length - 1) + flipbookDuration;
 
       const timeline = gsap.timeline({
         scrollTrigger: {
@@ -258,44 +275,74 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
       });
 
       appendFlipbookFrames(timeline, frames, {
-        startAt: 0.04,
-        staggerDelay: 0.14,
-        frameDuration: 0.02,
+        startAt: flipbookStart,
+        staggerDelay: flipbookStagger,
+        frameDuration: flipbookDuration,
       });
 
-      timeline.to(
-        content,
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.48,
-          ease: "power2.out",
-        },
-        ">",
-      );
+      if (isMobileLayout) {
+        timeline.call(
+          () => {
+            button.classList.add("is-poster-ready");
+            showScatter();
+          },
+          undefined,
+          flipbookEnd + 0.02,
+        );
 
-      timeline.call(() => {
-        button.classList.add("is-poster-ready");
-        if (button.matches(":hover") || document.activeElement === button) {
-          showScatter();
-        }
-      });
+        timeline.to(
+          content,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.42,
+            ease: "power2.out",
+          },
+          flipbookEnd + 0.08,
+        );
+      } else {
+        timeline.to(
+          content,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.48,
+            ease: "power2.out",
+          },
+          ">",
+        );
+
+        timeline.call(() => {
+          button.classList.add("is-poster-ready");
+          if (button.matches(":hover") || document.activeElement === button) {
+            showScatter();
+          }
+        });
+      }
 
       return () => {
-        button.removeEventListener("mouseenter", handlePointerEnter);
-        button.removeEventListener("mouseleave", handlePointerLeave);
-        button.removeEventListener("focus", handleFocus);
-        button.removeEventListener("blur", handleBlur);
+        if (!isMobileLayout) {
+          button.removeEventListener("mouseenter", handlePointerEnter);
+          button.removeEventListener("mouseleave", handlePointerLeave);
+          button.removeEventListener("focus", handleFocus);
+          button.removeEventListener("blur", handleBlur);
+        }
       };
     },
-    { scope: rootRef },
+    { scope: rootRef, dependencies: [isMobileLayout], revertOnUpdate: true },
   );
 
   return (
-    <article ref={rootRef} className="wf-past-item">
+    <article ref={rootRef} className={`wf-past-item${isMobileLayout ? " wf-past-item--mobile" : ""}`}>
       <div className="wf-past-item-stage">
         <div className="wf-past-item-scatter-layer" aria-hidden>
-          <PastGalleryScatter imageSources={performance.galleryImageSources} />
+          <PastGalleryScatter
+            imageSources={performance.galleryImageSources}
+            isMobileLayout={isMobileLayout}
+            mobileLayouts={performance.mobileScatterLayouts}
+            showDebugIds={SHOW_PAST_SCATTER_DEBUG_IDS}
+            debugPrefix={performance.key}
+          />
         </div>
 
         <button type="button" className="js-past-item-button wf-past-item-button" onClick={onOpen}>
