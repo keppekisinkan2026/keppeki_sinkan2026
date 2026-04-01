@@ -16,7 +16,8 @@ export function TitleJoinSection() {
         <div className="wf-join-tape-text wf-maki-title">入団希望の方へ</div>
         <div className="wf-join-content">
           <p className="wf-join-message wf-maki-title">
-            以下の公式LINEから入団を受け付けています！5/10(日)まで！
+            <span className="wf-join-message-line">以下の公式LINEから入団を受け付けています！</span>
+            <span className="wf-join-message-line">5/10(日)まで！</span>
           </p>
 
           <div className="wf-join-qr-placeholder" aria-label="公式LINE QRコード">

@@ -567,7 +567,7 @@
   }
 
   .wf-past-item-title {
-    font-size: clamp(14px, 2.1cqi, 24px);
+    font-size: var(--wf-past-compact-card-title-size, clamp(14px, 2.1cqi, 24px));
   }
 
   .wf-past-item-copy {
@@ -613,8 +613,8 @@
   }
 
   .wf-past-modal-root--mobile .wf-past-modal-text {
-    font-size: clamp(12px, calc(3.45 * var(--wf-reference-phone-vw)), 14px);
-    line-height: 1.62;
+    font-size: var(--wf-past-compact-modal-text-size, clamp(12px, calc(3.45 * var(--wf-reference-phone-vw)), 14px));
+    line-height: var(--wf-past-compact-modal-text-line-height, 1.62);
     overflow-wrap: normal;
     text-wrap: unset;
     text-shadow: 0 1px 4px rgba(8, 10, 7, 0.28);
@@ -632,5 +632,13 @@
     overflow-wrap: normal;
     word-break: keep-all;
     text-wrap: nowrap;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .wf-past-page {
+    --wf-past-compact-card-title-size: clamp(13px, 1.8cqi, 21px);
+    --wf-past-compact-modal-text-size: 17px;
+    --wf-past-compact-modal-text-line-height: 1.68;
   }
 }

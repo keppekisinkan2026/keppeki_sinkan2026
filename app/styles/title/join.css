@@ -73,6 +73,10 @@
     0 1px 4px rgba(52, 66, 39, 0.12);
 }
 
+.wf-join-message-line {
+  display: inline;
+}
+
 .wf-join-qr-placeholder {
   width: min(100%, clamp(150px, 22vw, 232px));
   aspect-ratio: 1 / 1;
