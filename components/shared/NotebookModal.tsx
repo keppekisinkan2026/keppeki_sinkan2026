@@ -17,6 +17,9 @@ type NotebookModalProps = {
   frameSources: readonly string[];
   rootClassName?: string;
   rootStyle?: CSSProperties;
+  hideFrames?: boolean;
+  overlayRevealDelay?: number;
+  contentRevealDelay?: number;
 };
 
 export function NotebookModal({
@@ -28,6 +31,9 @@ export function NotebookModal({
   frameSources,
   rootClassName,
   rootStyle,
+  hideFrames = false,
+  overlayRevealDelay = 0,
+  contentRevealDelay = 0.08,
 }: NotebookModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -60,7 +66,47 @@ export function NotebookModal({
       const frames = gsap.utils.toArray<HTMLElement>(".js-notebook-modal-frame", rootRef.current);
       const content = rootRef.current.querySelector<HTMLElement>(".js-notebook-modal-content");
 
-      if (!overlay || !panel || !content || frames.length === 0) {
+      if (!overlay || !panel || !content) {
+        return;
+      }
+
+      if (hideFrames) {
+        gsap.set(content, { autoAlpha: 0, y: 16 });
+
+        if (reduceMotion) {
+          gsap.set([overlay, panel], { autoAlpha: 1 });
+          gsap.set(content, { autoAlpha: 1, y: 0 });
+          return;
+        }
+
+        const timeline = gsap.timeline();
+
+        timeline.fromTo(
+          overlay,
+          { autoAlpha: 0 },
+          {
+            autoAlpha: 1,
+            duration: 0.18,
+            ease: "power1.out",
+          },
+          overlayRevealDelay,
+        );
+
+        timeline.to(
+          content,
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.34,
+            ease: "power2.out",
+          },
+          contentRevealDelay,
+        );
+
+        return;
+      }
+
+      if (frames.length === 0) {
         return;
       }
 
@@ -117,7 +163,11 @@ export function NotebookModal({
 
       timeline.set(panel, { clearProps: "transform" });
     },
-    { dependencies: [modalKey], scope: rootRef, revertOnUpdate: true },
+    {
+      dependencies: [modalKey, hideFrames, overlayRevealDelay, contentRevealDelay],
+      scope: rootRef,
+      revertOnUpdate: true,
+    },
   );
 
   if (typeof document === "undefined") {
@@ -148,13 +198,15 @@ export function NotebookModal({
         aria-labelledby={titleId}
       >
         <div className="wf-notebook-modal-stage">
-          <NotebookFlipbookFrames
-            frameSources={frameSources}
-            frameKeyPrefix={modalKey}
-            frameLayerClassName="wf-notebook-modal-frames"
-            frameClassName="js-notebook-modal-frame wf-notebook-modal-image"
-            sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1200px) calc(100vw - 40px), 1040px"
-          />
+          {!hideFrames ? (
+            <NotebookFlipbookFrames
+              frameSources={frameSources}
+              frameKeyPrefix={modalKey}
+              frameLayerClassName="wf-notebook-modal-frames"
+              frameClassName="js-notebook-modal-frame wf-notebook-modal-image"
+              sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1200px) calc(100vw - 40px), 1040px"
+            />
+          ) : null}
 
           <div className="js-notebook-modal-content wf-notebook-modal-content">
             <h2 id={titleId} className="wf-notebook-modal-title wf-maki-title">

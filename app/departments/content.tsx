@@ -5,6 +5,7 @@ export type DepartmentConfig = {
   name: string;
   isLeftLeaf: boolean;
   description: ReactNode;
+  mobileDescriptionLines?: readonly string[];
   sidePhotos?: readonly DepartmentSidePhoto[];
 };
 
@@ -469,6 +470,23 @@ export const departmentsData: DepartmentConfig[] = [
     name: "映像",
     isLeftLeaf: false,
     sidePhotos: [departmentSidePhotoMap.eizou1, departmentSidePhotoMap.eizou2],
+    mobileDescriptionLines: [
+      "一見、演劇とは関係なさそう？",
+      "映像というとこういうイメージが",
+      "ある。確かに、演劇は「人」の瞬間、",
+      "予測不能の「現在」、とはいえ、",
+      "その瞬間と現在に彩りを添え、",
+      "表現をさらに豊かにしてくれるのが",
+      "映像です。撮影、編集、投影、",
+      "デジタルで舞台を盛り上げて演劇の",
+      "魅力を引き出すしてみませんか？",
+      "編集ソフトの使い方分からない？",
+      "カメラを使ったこともない？",
+      "全然大丈夫！映像は自由、",
+      "カメラやソフトを使わなくても",
+      "創作はできます！想像力で",
+      "みんな一緒に演劇を作りましょう！",
+    ],
     description:
       "一見、演劇とは関係なさそう？映像というとこういうイメージが\n" +
       "ある。確かに、演劇は「人」の瞬間、予測不能の「現在」、\n" +

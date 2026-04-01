@@ -7,11 +7,11 @@ export type NavigationLink = {
 export const siteRoutes = {
   home: "/",
   title: "/title",
-  departments: "/maintenance/departments",
-  flow: "/maintenance/flow",
-  events: "/maintenance/events",
-  past: "/maintenance/past",
-  qa: "/maintenance/qa",
+  departments: "/departments",
+  flow: "/flow",
+  events: "/events",
+  past: "/past",
+  qa: "/qa",
 } as const;
 
 export const headerLinks: readonly NavigationLink[] = [

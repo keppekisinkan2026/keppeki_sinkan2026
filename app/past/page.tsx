@@ -5,12 +5,12 @@ import { useMemo, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { pastPerformances } from "./content";
-import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { PastItem } from "@/components/maintenance/past/PastItem";
 import { PastModal } from "@/components/maintenance/past/PastModal";
 import { getPastPerformanceScatterKey } from "@/components/maintenance/past/pastShared";
+import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
-import { REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
+import { MAINTENANCE_MOBILE_MAX_WIDTH, REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { withBasePath } from "@/lib/withBasePath";
 
@@ -19,7 +19,7 @@ gsap.registerPlugin(useGSAP);
 export default function PastWireframePage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
-  const isMobileLayout = useVisualViewportMobile();
+  const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
 
   const selectedPerformance = useMemo(
     () => pastPerformances.find((item) => item.id === selectedId) ?? null,
@@ -77,12 +77,13 @@ export default function PastWireframePage() {
       frameClassName="wf-frame--past"
       innerClassName="wf-frame-inner--past"
       mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
+      mobileMaxWidth={MAINTENANCE_MOBILE_MAX_WIDTH}
     >
       <section ref={sectionRef} className="wf-past-page">
         <div className="wf-past-board-wrapper">
           <div className="js-past-board-bg-layer wf-past-board-bg-layer" aria-hidden>
             <Image
-              src={withBasePath("/images/block_large.PNG")}
+              src={withBasePath("/images/block_large.png")}
               alt=""
               fill
               quality={100}

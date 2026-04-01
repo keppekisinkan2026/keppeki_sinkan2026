@@ -223,7 +223,7 @@ export function TitleAboutSection({ aboutStageRef, aboutPanelRef, isMobileLayout
         className="wf-analog-about-panel wf-title-section wf-title-about-section"
       >
         <TitlePanelBackground
-          src="/images/block_large.PNG"
+          src="/images/block_large.png"
           sizes="(max-width: 640px) 112vw, (max-width: 1024px) 122vw, 1800px"
           containerClassName="wf-analog-about-background"
           imageClassName="wf-analog-about-background-image"

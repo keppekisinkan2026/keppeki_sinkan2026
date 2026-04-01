@@ -2,10 +2,11 @@
 
 import { Fragment, useState } from "react";
 import Image from "next/image";
-import type { QaItem } from "@/app/maintenance/qa/content";
+import type { QaItem } from "@/app/qa/content";
 import { withBasePath } from "@/lib/withBasePath";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { wrapParagraphForMobile } from "@/lib/mobileTextWrap";
+import { MAINTENANCE_MOBILE_MAX_WIDTH } from "@/lib/referenceMobile";
 
 type QaAccordionProps = {
   items: readonly QaItem[];
@@ -13,7 +14,7 @@ type QaAccordionProps = {
 
 export function QaAccordion({ items }: QaAccordionProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const isMobileLayout = useVisualViewportMobile();
+  const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
 
   return (
     <div className="wf-qa-list">

@@ -1,5 +1,5 @@
 /* Smartphone and tablet tuning for the departments page lives here. */
-/* Phone-only per-department transforms now live in app/maintenance/departments/content.tsx. */
+/* Phone-only per-department transforms now live in app/departments/content.tsx. */
 
 .wf-departments-stage--mobile {
   padding: clamp(102px, 14vh, 128px) 0 84px;
@@ -100,11 +100,12 @@
 
 /* Mobile modal tuning block */
 .wf-dept-modal-root--mobile {
-  --wf-dept-modal-mobile-paper-top: 40%;
-  --wf-dept-modal-mobile-paper-right: 8.2%;
-  --wf-dept-modal-mobile-paper-bottom: 23.5%;
-  --wf-dept-modal-mobile-paper-left: 8.2%;
-  padding: 14px;
+  overflow-y: auto;
+  padding: 72px 20px 28px;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-overlay {
+  background: rgba(16, 18, 14, 0.84);
 }
 
 .wf-dept-modal-root--mobile .wf-notebook-modal-close {
@@ -113,76 +114,69 @@
   font-size: 28px;
 }
 
+.wf-dept-modal-root--mobile .wf-notebook-modal-panel {
+  width: 100%;
+  padding: 0;
+}
+
+.wf-dept-modal-root--mobile .wf-notebook-modal-stage {
+  width: min(100%, 420px);
+  height: auto;
+  max-height: none;
+  aspect-ratio: auto;
+}
+
 .wf-dept-modal-root--mobile .wf-notebook-modal-content {
-  inset: var(--wf-dept-modal-mobile-paper-top) var(--wf-dept-modal-mobile-paper-right)
-    var(--wf-dept-modal-mobile-paper-bottom) var(--wf-dept-modal-mobile-paper-left);
-  justify-content: flex-start;
-  align-items: stretch;
-  gap: 10px;
-  min-height: 0;
-  padding: 16px 16px 14px;
+  position: relative;
+  inset: auto;
+  width: 100%;
+  gap: 14px;
+  padding: 0;
+  overflow: visible;
+  color: rgba(249, 252, 246, 0.98);
 }
 
 .wf-dept-modal-root--mobile .wf-notebook-modal-title {
-  flex: none;
-  width: 100%;
-  align-self: stretch;
-  font-size: clamp(20px, calc(5.8 * var(--wf-reference-phone-vw)), 30px);
-  line-height: 1.25;
-  word-break: keep-all;
-  overflow-wrap: break-word;
-  text-wrap: pretty;
-  text-align: center;
+  font-size: clamp(24px, calc(6.2 * var(--wf-reference-phone-vw)), 34px);
+  line-height: 1.32;
 }
 
 .wf-dept-modal-root--mobile .wf-notebook-modal-text {
-  flex: 1 1 auto;
-  width: 100%;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 2px 6px 2px 2px;
-  font-size: clamp(12px, calc(3.9 * var(--wf-reference-phone-vw)), 16px);
-  line-height: 1.82;
-  word-break: keep-all;
-  overflow-wrap: break-word;
-  text-wrap: pretty;
-  white-space: normal;
-  overscroll-behavior: contain;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(247, 252, 244, 0.72) transparent;
-}
-
-.wf-dept-modal-root--mobile .wf-notebook-modal-text::-webkit-scrollbar {
-  width: 6px;
-}
-
-.wf-dept-modal-root--mobile .wf-notebook-modal-text::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.wf-dept-modal-root--mobile .wf-notebook-modal-text::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: rgba(247, 252, 244, 0.72);
+  font-size: clamp(14px, calc(4.2 * var(--wf-reference-phone-vw)), 18px);
+  line-height: 1.68;
+  overflow-wrap: normal;
+  text-wrap: unset;
+  text-shadow: 0 1px 4px rgba(8, 10, 7, 0.28);
 }
 
 @supports (word-break: auto-phrase) {
-  .wf-dept-modal-root--mobile .wf-notebook-modal-title,
-  .wf-dept-modal-root--mobile .wf-notebook-modal-text {
+  .wf-dept-modal-root--mobile .wf-notebook-modal-title {
     word-break: auto-phrase;
   }
 }
 
 .wf-dept-modal-mobile-body {
-  width: 100%;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: 0;
 }
 
 .wf-dept-modal-mobile-paragraph {
   margin: 0;
+}
+
+.wf-dept-modal-mobile-line {
+  display: table;
+  max-width: none;
+  margin: 0.34em auto 0;
+  white-space: nowrap;
+  overflow-wrap: normal;
+  word-break: keep-all;
+  text-wrap: nowrap;
+}
+
+.wf-dept-modal-mobile-line:first-child {
+  margin-top: 0;
 }
 
 @media (max-width: 900px) {
@@ -218,7 +212,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .wf-departments-stage--mobile {
     --wf-dept-mobile-photo-stage-width: min(100%, clamp(100px, calc(92 * var(--wf-reference-phone-vw)), 200px));
     --wf-dept-mobile-photo-stage-height: clamp(150px, calc(72 * var(--wf-reference-phone-vw)), 300px);

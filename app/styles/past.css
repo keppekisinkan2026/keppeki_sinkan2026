@@ -491,7 +491,7 @@
 
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .wf-frame--past {
     width: calc(100% - 18px);
   }

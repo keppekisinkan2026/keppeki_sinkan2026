@@ -5,10 +5,11 @@ import {
   getWelcomeEventPhoneModalLayout,
   type WelcomeEvent,
   welcomeEventFrameSources,
-} from "@/app/maintenance/events/content";
+} from "@/app/events/content";
 import { NotebookModal } from "@/components/shared/NotebookModal";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { wrapTextForMobile } from "@/lib/mobileTextWrap";
+import { MAINTENANCE_MOBILE_MAX_WIDTH } from "@/lib/referenceMobile";
 
 type WelcomeEventModalProps = {
   event: WelcomeEvent | null;
@@ -20,7 +21,7 @@ type EventModalRootStyle = CSSProperties & Record<`--${string}`, string>;
 function renderEventDescription(
   description: ReactNode,
   isMobileLayout: boolean,
-  maxChars = 20,
+  maxChars = 16,
   minChars = 5,
 ) {
   if (!isMobileLayout || typeof description !== "string") {
@@ -48,7 +49,7 @@ function renderEventDescription(
 }
 
 export function WelcomeEventModal({ event, onClose }: WelcomeEventModalProps) {
-  const isMobileLayout = useVisualViewportMobile();
+  const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
 
   if (!event) {
     return null;
@@ -68,6 +69,8 @@ export function WelcomeEventModal({ event, onClose }: WelcomeEventModalProps) {
         "--wf-event-modal-mobile-title-line-height": modalLayout.titleLineHeight ?? "1.25",
         "--wf-event-modal-mobile-title-margin-bottom": modalLayout.titleMarginBottom ?? "0px",
         "--wf-event-modal-mobile-text-padding": modalLayout.textPadding ?? "2px 6px 2px 2px",
+        "--wf-event-modal-mobile-text-margin-top": modalLayout.textMarginTop ?? "0px",
+        "--wf-event-modal-mobile-text-margin-left": modalLayout.textMarginLeft ?? "0px",
         "--wf-event-modal-mobile-text-font-size": modalLayout.textFontSize ?? "clamp(12px, 3.9vw, 16px)",
         "--wf-event-modal-mobile-text-line-height": modalLayout.textLineHeight ?? "1.82",
       }

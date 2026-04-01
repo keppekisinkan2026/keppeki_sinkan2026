@@ -10,6 +10,7 @@ import { type PastPerformance, pastModalFrameSources, pastModalPosterImageSource
 import { PastFrameStack } from "./PastFrameStack";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { wrapTextForMobile } from "@/lib/mobileTextWrap";
+import { MAINTENANCE_MOBILE_MAX_WIDTH } from "@/lib/referenceMobile";
 
 type PastModalProps = {
   performance: PastPerformance | null;
@@ -40,7 +41,7 @@ function renderPastSynopsis(synopsis: ReactNode, isMobileLayout: boolean) {
 
 export function PastModal({ performance, onClose }: PastModalProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const isMobileLayout = useVisualViewportMobile();
+  const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
 
   useEffect(() => {
     if (!performance) {

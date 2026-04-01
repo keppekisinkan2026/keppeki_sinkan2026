@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -12,7 +11,7 @@ import { DepartmentRow } from "@/components/departments/DepartmentRow";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { appendFlipbookFrames, hideFlipbookFrames } from "@/lib/gsap/flipbook";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
-import { REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
+import { MAINTENANCE_MOBILE_MAX_WIDTH, REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { withBasePath } from "@/lib/withBasePath";
 
@@ -23,8 +22,7 @@ export default function DepartmentsWireframePage() {
   const vineSvgRef = useRef<SVGSVGElement>(null);
   const vinePathGroupRef = useRef<SVGGElement>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<DepartmentConfig | null>(null);
-  const isMobileLayout = useVisualViewportMobile();
-  const isPhoneLayout = useVisualViewportMobile(640);
+  const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
 
   useEffect(() => {
     const vineSvg = vineSvgRef.current;
@@ -167,6 +165,7 @@ export default function DepartmentsWireframePage() {
       frameClassName="wf-frame--departments"
       innerClassName="wf-frame-inner--departments"
       mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
+      mobileMaxWidth={MAINTENANCE_MOBILE_MAX_WIDTH}
     >
       <section
         ref={rootRef}
@@ -194,7 +193,7 @@ export default function DepartmentsWireframePage() {
                 key={department.name}
                 department={department}
                 isMobileLayout={isMobileLayout}
-                isPhoneLayout={isPhoneLayout}
+                isPhoneLayout={isMobileLayout}
                 onOpen={(nextDepartment, trigger) => {
                   gsap.killTweensOf(trigger);
                   gsap.timeline()

@@ -245,7 +245,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .wf-global-header {
     --wf-global-header-phone-top: -30px;
     --wf-global-header-phone-height: 146px;

@@ -6,7 +6,7 @@ import {
   type DepartmentConfig,
   type DepartmentPhoneLayout,
   type DepartmentPhoneTransform,
-} from "@/app/maintenance/departments/content";
+} from "@/app/departments/content";
 import { withBasePath } from "@/lib/withBasePath";
 
 type DepartmentLeafStageStyle = CSSProperties & {

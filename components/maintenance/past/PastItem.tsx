@@ -9,6 +9,7 @@ import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from 
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { withBasePath } from "@/lib/withBasePath";
+import { MAINTENANCE_MOBILE_MAX_WIDTH } from "@/lib/referenceMobile";
 import { type PastPerformance } from "./pastShared";
 import { PastGalleryScatter } from "./PastGalleryScatter";
 import { PastFrameStack } from "./PastFrameStack";
@@ -97,7 +98,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function PastItem({ performance, onOpen }: PastItemProps) {
   const rootRef = useRef<HTMLElement>(null);
-  const isMobileLayout = useVisualViewportMobile();
+  const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
 
   useGSAP(
     () => {

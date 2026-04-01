@@ -245,7 +245,7 @@
   height: auto;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .wf-frame--qa {
     width: min(100%, calc(100% - 14px));
   }

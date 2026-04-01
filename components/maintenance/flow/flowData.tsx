@@ -298,7 +298,7 @@ export const flowSteps: FlowStepData[] = [
       },
       mobile: {
         ...defaultFlowPhoneStepLayout,
-        contentInsetTop: "100px",
+        contentInsetTop: "110px",
         arrowTop: "calc(100% - 200px)",
         arrowLeft: "50%",
       },

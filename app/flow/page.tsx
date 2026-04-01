@@ -10,7 +10,7 @@ import { flowFrameSources, flowPhotos, flowSteps, getFlowPhotoLayout, getFlowTri
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
-import { REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
+import { MAINTENANCE_MOBILE_MAX_WIDTH, REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { withBasePath } from "@/lib/withBasePath";
 
@@ -18,7 +18,7 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export default function FlowWireframePage() {
   const rootRef = useRef<HTMLElement>(null);
-  const isMobileLayout = useVisualViewportMobile();
+  const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
 
   useGSAP(
     () => {
@@ -136,6 +136,7 @@ export default function FlowWireframePage() {
       frameClassName="wf-frame--flow"
       innerClassName="wf-frame-inner--flow"
       mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
+      mobileMaxWidth={MAINTENANCE_MOBILE_MAX_WIDTH}
     >
       <section className={`wf-flow-page${isMobileLayout ? " wf-flow-page--mobile" : ""}`}>
         <header className="wf-flow-page-header">

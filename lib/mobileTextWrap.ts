@@ -3,7 +3,7 @@ const mobileTextSegmenter =
     ? new Intl.Segmenter("ja", { granularity: "word" })
     : null;
 
-const prohibitedLineStartPattern = /^[、。。，．・：；！？!?」』）】〕〉》]+$/;
+const prohibitedLineStartPattern = /^[\),、。。，．・：；！？!?」』）】〕〉》]+$/;
 
 function segmentText(text: string) {
   if (!mobileTextSegmenter) {

@@ -1,13 +1,16 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { joinClassNames } from "@/lib/joinClassNames";
+import { PHONE_MAX_WIDTH, REFERENCE_TABLET_WIDTH, TABLET_MAX_WIDTH } from "@/lib/referenceMobile";
+import { useVisualViewportTier } from "@/lib/useVisualViewportTier";
 
 type ReferenceMobileCanvasProps = {
   children: ReactNode;
   referenceWidth: number;
-  mobileMaxWidth?: number;
+  tabletReferenceWidth?: number;
+  phoneMaxWidth?: number;
+  tabletMaxWidth?: number;
   wrapperClassName?: string;
   canvasClassName?: string;
 };
@@ -15,23 +18,32 @@ type ReferenceMobileCanvasProps = {
 export function ReferenceMobileCanvas({
   children,
   referenceWidth,
-  mobileMaxWidth = 700,
+  tabletReferenceWidth = REFERENCE_TABLET_WIDTH,
+  phoneMaxWidth = PHONE_MAX_WIDTH,
+  tabletMaxWidth = TABLET_MAX_WIDTH,
   wrapperClassName,
   canvasClassName,
 }: ReferenceMobileCanvasProps) {
-  const isMobileLayout = useVisualViewportMobile(mobileMaxWidth);
+  const viewportTier = useVisualViewportTier(phoneMaxWidth, tabletMaxWidth);
   const canvasRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [scaledHeight, setScaledHeight] = useState<number | null>(null);
-  const resolvedScale = isMobileLayout ? scale : 1;
+  const isCompactLayout = viewportTier !== "desktop";
+  const resolvedScale = isCompactLayout ? scale : 1;
 
   useEffect(() => {
-    if (!isMobileLayout || typeof window === "undefined") {
+    if (!isCompactLayout || typeof window === "undefined") {
       return;
     }
 
     const updateScale = () => {
       const viewportWidth = window.visualViewport?.width ?? window.innerWidth;
+      if (viewportTier === "tablet") {
+        const targetWidth = Math.min(viewportWidth, tabletReferenceWidth);
+        setScale(targetWidth / referenceWidth);
+        return;
+      }
+
       setScale(Math.min(1, viewportWidth / referenceWidth));
     };
 
@@ -45,7 +57,7 @@ export function ReferenceMobileCanvas({
       visualViewport?.removeEventListener("resize", updateScale);
       window.removeEventListener("resize", updateScale);
     };
-  }, [isMobileLayout, referenceWidth]);
+  }, [isCompactLayout, viewportTier, referenceWidth, tabletReferenceWidth]);
 
   useEffect(() => {
     if (typeof document === "undefined") {
@@ -54,7 +66,7 @@ export function ReferenceMobileCanvas({
 
     const rootStyle = document.documentElement.style;
 
-    if (!isMobileLayout) {
+    if (!isCompactLayout) {
       rootStyle.removeProperty("--wf-reference-mobile-scale");
       rootStyle.removeProperty("--wf-reference-mobile-width");
       return;
@@ -67,10 +79,10 @@ export function ReferenceMobileCanvas({
       rootStyle.removeProperty("--wf-reference-mobile-scale");
       rootStyle.removeProperty("--wf-reference-mobile-width");
     };
-  }, [isMobileLayout, referenceWidth, resolvedScale]);
+  }, [isCompactLayout, referenceWidth, resolvedScale]);
 
   useEffect(() => {
-    if (!isMobileLayout || !canvasRef.current || typeof ResizeObserver === "undefined") {
+    if (!isCompactLayout || !canvasRef.current || typeof ResizeObserver === "undefined") {
       return;
     }
 
@@ -91,28 +103,24 @@ export function ReferenceMobileCanvas({
       window.cancelAnimationFrame(frameId);
       observer.disconnect();
     };
-  }, [isMobileLayout, scale]);
+  }, [isCompactLayout, scale]);
 
   const wrapperStyle = useMemo(
-    () => (isMobileLayout && scaledHeight !== null ? { height: `${scaledHeight}px` } : undefined),
-    [isMobileLayout, scaledHeight],
+    () => (isCompactLayout && scaledHeight !== null ? { height: `${scaledHeight}px` } : undefined),
+    [isCompactLayout, scaledHeight],
   );
 
   const canvasStyle = useMemo(
     () =>
-      isMobileLayout
+      isCompactLayout
         ? {
             width: `${referenceWidth}px`,
             transform: `scale(${resolvedScale})`,
             transformOrigin: "top center",
           }
         : undefined,
-    [isMobileLayout, referenceWidth, resolvedScale],
+    [isCompactLayout, referenceWidth, resolvedScale],
   );
-
-  if (!isMobileLayout) {
-    return <>{children}</>;
-  }
 
   return (
     <div className={joinClassNames("wf-reference-canvas-wrapper", wrapperClassName)} style={wrapperStyle}>

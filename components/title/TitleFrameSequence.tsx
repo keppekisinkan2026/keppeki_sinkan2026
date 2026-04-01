@@ -7,6 +7,8 @@ type TitleFrameSequenceProps = {
   sizes: string;
   className: string;
   priority?: boolean;
+  priorityFrameCount?: number;
+  eagerFrameCount?: number;
   quality?: number;
   unoptimized?: boolean;
   getClassName?: (index: number) => string | undefined;
@@ -18,11 +20,17 @@ export function TitleFrameSequence({
   sizes,
   className,
   priority = false,
+  priorityFrameCount,
+  eagerFrameCount,
   quality = 100,
   unoptimized = true,
   getClassName,
   getStyle,
 }: TitleFrameSequenceProps) {
+  const resolvedPriorityFrameCount = priority ? (priorityFrameCount ?? 1) : 0;
+  const resolvedEagerFrameCount =
+    eagerFrameCount ?? (priority ? Math.max(2, resolvedPriorityFrameCount) : 0);
+
   return (
     <>
       {frameSources.map((frameSrc, index) => {
@@ -35,7 +43,8 @@ export function TitleFrameSequence({
             src={withBasePath(frameSrc)}
             alt=""
             fill
-            priority={priority}
+            priority={index < resolvedPriorityFrameCount}
+            loading={index < resolvedEagerFrameCount ? "eager" : "lazy"}
             quality={quality}
             unoptimized={unoptimized}
             sizes={sizes}

@@ -41,7 +41,7 @@ const aboutFrameSelectors = {
   pichi: ".js-about-img-pichi-frame",
 } as const;
 
-const TITLE_MOBILE_MEDIA_QUERY = "(max-width: 700px)";
+const TITLE_MOBILE_MEDIA_QUERY = "(max-width: 900px)";
 
 function refreshScrollTriggers() {
   requestAnimationFrame(() => ScrollTrigger.refresh());

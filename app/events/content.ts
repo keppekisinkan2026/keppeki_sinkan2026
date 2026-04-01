@@ -11,6 +11,8 @@ export type WelcomeEventPhoneModalLayout = {
   titleLineHeight?: string;
   titleMarginBottom?: string;
   textPadding?: string;
+  textMarginTop?: string;
+  textMarginLeft?: string;
   textFontSize?: string;
   textLineHeight?: string;
   textMaxChars?: number;
@@ -32,7 +34,7 @@ export type WelcomeEvent = {
 };
 
 const defaultWelcomeEventPhoneModalLayout: WelcomeEventPhoneModalLayout = {
-  paperTop: "39.5%",
+  paperTop: "41%",
   paperRight: "8.2%",
   paperBottom: "23.5%",
   paperLeft: "8.2%",
@@ -42,9 +44,11 @@ const defaultWelcomeEventPhoneModalLayout: WelcomeEventPhoneModalLayout = {
   titleLineHeight: "1.25",
   titleMarginBottom: "0px",
   textPadding: "2px 6px 2px 2px",
+  textMarginTop: "0px",
+  textMarginLeft: "0px",
   textFontSize: "clamp(12px, calc(3.9 * var(--wf-reference-phone-vw)), 16px)",
   textLineHeight: "1.82",
-  textMaxChars: 17,
+  textMaxChars: 16,
   textMinChars: 5,
 };
 

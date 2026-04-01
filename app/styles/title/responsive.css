@@ -39,7 +39,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .wf-screen--title {
     padding: 0 0 14px;
     overflow-x: clip;
@@ -71,7 +71,7 @@
 
   .wf-title-opening-logo-stage {
     width: 76%;
-    transform: translateY(10%);
+    transform: translateY(17%);
   }
 
   .wf-title-opening-line {
@@ -84,12 +84,12 @@
     grid-template-columns: repeat(4, max-content);
     justify-content: center;
     width: 100%;
-    gap: 8px 8px;
+    gap: 5px 5px;
     white-space: nowrap;
   }
 
   .wf-title-opening-menu-link {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
     letter-spacing: 0.02em;
   }
@@ -303,7 +303,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 900px) {
   .wf-title-about-stage {
     display: block;
     min-height: 0;

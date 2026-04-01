@@ -185,6 +185,8 @@
   --wf-event-modal-mobile-title-line-height: 1.25;
   --wf-event-modal-mobile-title-margin-bottom: 0px;
   --wf-event-modal-mobile-text-padding: 2px 6px 2px 2px;
+  --wf-event-modal-mobile-text-margin-top: 0px;
+  --wf-event-modal-mobile-text-margin-left: 0px;
   --wf-event-modal-mobile-text-font-size: clamp(12px, calc(3.9 * var(--wf-reference-phone-vw)), 16px);
   --wf-event-modal-mobile-text-line-height: 1.82;
   padding: 14px;
@@ -223,6 +225,8 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: var(--wf-event-modal-mobile-text-padding);
+  margin-top: var(--wf-event-modal-mobile-text-margin-top);
+  margin-left: var(--wf-event-modal-mobile-text-margin-left);
   font-size: var(--wf-event-modal-mobile-text-font-size);
   line-height: var(--wf-event-modal-mobile-text-line-height);
   white-space: normal;
@@ -310,7 +314,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
   .wf-event-page-container {
     /* Mobile character tuning lives here. */
     padding-top: 88px;

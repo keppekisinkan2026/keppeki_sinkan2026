@@ -4,22 +4,19 @@ import { useState } from "react";
 import Image from "next/image";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { WelcomeEventModal } from "@/components/events/WelcomeEventModal";
-import { REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
+import { MAINTENANCE_MOBILE_MAX_WIDTH, REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
 import { EVENT_CALENDAR_IMAGE, type WelcomeEvent, welcomeEvents } from "./content";
 import { withBasePath } from "@/lib/withBasePath";
 
 export default function EventsWireframePage() {
   const [selectedEvent, setSelectedEvent] = useState<WelcomeEvent | null>(null);
 
-  const openModal = (event: WelcomeEvent) => {
-    setSelectedEvent(event);
-  };
-
   return (
     <WireframeShell
       frameClassName="wf-frame--events"
       innerClassName="wf-frame-inner--events"
       mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
+      mobileMaxWidth={MAINTENANCE_MOBILE_MAX_WIDTH}
     >
       <div className="wf-event-page-container">
         <div className="wf-event-map-shell">
@@ -90,7 +87,7 @@ export default function EventsWireframePage() {
                 padding: 0,
                 zIndex: 3,
               }}
-              onClick={() => openModal(event)}
+              onClick={() => setSelectedEvent(event)}
               aria-label={`${event.date} ${event.title} の詳細を開く`}
             >
               <span className="sr-only">{`${event.date} ${event.title}`}</span>
