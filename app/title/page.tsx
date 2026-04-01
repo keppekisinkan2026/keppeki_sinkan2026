@@ -9,7 +9,7 @@ import { TitleHpSection } from "@/components/title/TitleHpSection";
 import { TitleJoinSection } from "@/components/title/TitleJoinSection";
 import { TitleOpeningHeader } from "@/components/title/TitleOpeningHeader";
 import { TitleSnsSection } from "@/components/title/TitleSnsSection";
-import { MAINTENANCE_MOBILE_MAX_WIDTH, REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
+import { MAINTENANCE_MOBILE_MAX_WIDTH } from "@/lib/referenceMobile";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { setupTitleContentAnimations, setupTitleIntroAnimation } from "./animations";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
@@ -130,8 +130,6 @@ export default function TitleWireframePage() {
       screenClassName="wf-screen--title"
       frameClassName="wf-frame--title"
       innerClassName="wf-frame-inner--title"
-      mobileReferenceWidth={REFERENCE_PHONE_WIDTH}
-      mobileMaxWidth={MAINTENANCE_MOBILE_MAX_WIDTH}
     >
       <div className="relative w-full">
         <TitleOpeningHeader headerRef={headerRef} lineSvgRef={lineSvgRef} isIntroComplete={isIntroComplete} />

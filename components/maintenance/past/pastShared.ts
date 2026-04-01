@@ -11,13 +11,13 @@ export const pastCardFrameSources = [
 export const pastModalFrameSources = pastCardFrameSources.slice(0, -1);
 
 export const pastPosterImageSources = {
-  sinkan: "/images/history/sinkan_b.PNG",
-  midhi: "/images/history/midhi_b.PNG",
-  natu: "/images/history/natu_b.PNG",
-  nf: "/images/history/nf_b.PNG",
-  huyu: "/images/history/huyu_b.PNG",
-  sinzin: "/images/history/sinzin_b.PNG",
-  sotu: "/images/history/sotu_b.PNG",
+  sinkan: "/images/history/sinkan_b.jpg",
+  midhi: "/images/history/midhi_b.jpg",
+  natu: "/images/history/natu_b.jpg",
+  nf: "/images/history/nf_b.jpg",
+  huyu: "/images/history/huyu_b.jpg",
+  sinzin: "/images/history/sinzin_b.jpg",
+  sotu: "/images/history/sotu_b.jpg",
 } as const;
 
 export const pastModalPosterImageSources = {
@@ -45,7 +45,7 @@ const pastGalleryImageCounts = {
 function createGalleryImageSources(key: PastPerformanceKey) {
   return Array.from(
     { length: pastGalleryImageCounts[key] },
-    (_, index) => `/images/history/${key}/${key}_${index + 1}.PNG`,
+    (_, index) => `/images/history/${key}/${key}_${index + 1}.jpg`,
   );
 }
 

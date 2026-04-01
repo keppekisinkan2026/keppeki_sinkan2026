@@ -36,6 +36,11 @@ body {
     sans-serif;
 }
 
+html,
+body {
+  background-color: var(--wf-paper);
+}
+
 *,
 *::before,
 *::after {

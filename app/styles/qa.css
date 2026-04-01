@@ -245,6 +245,15 @@
   height: auto;
 }
 
+.wf-screen--qa .wf-global-footer-line {
+  position: relative;
+  left: 50%;
+  align-self: auto;
+  width: 100vw;
+  margin-left: 0;
+  transform: translateX(-50%);
+}
+
 @media (max-width: 900px) {
   .wf-frame--qa {
     width: min(100%, calc(100% - 14px));
@@ -278,6 +287,13 @@
 
   .wf-qa-futaba {
     width: min(100%, clamp(420px, calc(76 * var(--wf-reference-phone-vw)), 760px));
+  }
+
+  .wf-screen--qa .wf-global-footer-line {
+    left: auto;
+    align-self: center;
+    margin-left: calc(50% - 50vw);
+    transform: none;
   }
 }
 

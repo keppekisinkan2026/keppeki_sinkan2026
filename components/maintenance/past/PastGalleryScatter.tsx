@@ -63,6 +63,7 @@ export function PastGalleryScatter({
               className="wf-past-hidden-card-image"
               loading="lazy"
               decoding="async"
+              fetchPriority="low"
             />
             {showDebugIds ? <span className="wf-past-hidden-card-debug-id">{debugLabel}</span> : null}
           </div>

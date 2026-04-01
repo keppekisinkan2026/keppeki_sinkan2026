@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -19,7 +19,28 @@ type PastItemProps = {
   onOpen: () => void;
 };
 
-const SHOW_PAST_SCATTER_DEBUG_IDS = true;
+const SHOW_PAST_SCATTER_DEBUG_IDS = false;
+
+const warmedPastImageSources = new Set<string>();
+
+function warmPastImageSources(imageSources: readonly string[]) {
+  if (typeof window === "undefined") {
+    return;
+  }
+
+  imageSources.forEach((imageSource) => {
+    const resolvedSource = withBasePath(imageSource);
+
+    if (warmedPastImageSources.has(resolvedSource)) {
+      return;
+    }
+
+    const image = new window.Image();
+    image.decoding = "async";
+    image.src = resolvedSource;
+    warmedPastImageSources.add(resolvedSource);
+  });
+}
 
 type ScatterTarget = {
   x: number;
@@ -99,6 +120,18 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 export function PastItem({ performance, onOpen }: PastItemProps) {
   const rootRef = useRef<HTMLElement>(null);
   const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
+  const imageSourcesToWarm = useMemo(
+    () => [performance.posterImageSource, ...performance.galleryImageSources],
+    [performance.galleryImageSources, performance.posterImageSource],
+  );
+
+  useEffect(() => {
+    if (performance.id !== 1) {
+      return;
+    }
+
+    warmPastImageSources(imageSourcesToWarm);
+  }, [imageSourcesToWarm, performance.id]);
 
   useGSAP(
     () => {
@@ -243,6 +276,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
       }
 
       if (reduceMotion) {
+        warmPastImageSources(imageSourcesToWarm);
         showLastFlipbookFrame(frames);
         gsap.set(content, { autoAlpha: 1, y: 0 });
         button.classList.add("is-poster-ready");
@@ -273,6 +307,10 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
           once: true,
           invalidateOnRefresh: true,
         },
+      });
+
+      timeline.call(() => {
+        warmPastImageSources(imageSourcesToWarm);
       });
 
       appendFlipbookFrames(timeline, frames, {
@@ -330,7 +368,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         }
       };
     },
-    { scope: rootRef, dependencies: [isMobileLayout], revertOnUpdate: true },
+    { scope: rootRef, dependencies: [isMobileLayout, performance.id], revertOnUpdate: true },
   );
 
   return (
@@ -359,6 +397,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
                   src={withBasePath(performance.posterImageSource)}
                   alt=""
                   fill
+                  loading="eager"
                   quality={100}
                   unoptimized
                   sizes="(max-width: 700px) 58vw, (max-width: 1100px) 42vw, 560px"

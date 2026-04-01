@@ -106,19 +106,28 @@ export function ReferenceMobileCanvas({
   }, [isCompactLayout, scale]);
 
   const wrapperStyle = useMemo(
-    () => (isCompactLayout && scaledHeight !== null ? { height: `${scaledHeight}px` } : undefined),
+    () => {
+      if (!isCompactLayout) {
+        return { display: "contents" };
+      }
+
+      return scaledHeight !== null ? { height: `${scaledHeight}px` } : undefined;
+    },
     [isCompactLayout, scaledHeight],
   );
 
   const canvasStyle = useMemo(
-    () =>
-      isCompactLayout
-        ? {
-            width: `${referenceWidth}px`,
-            transform: `scale(${resolvedScale})`,
-            transformOrigin: "top center",
-          }
-        : undefined,
+    () => {
+      if (!isCompactLayout) {
+        return { display: "contents" };
+      }
+
+      return {
+        width: `${referenceWidth}px`,
+        transform: `scale(${resolvedScale})`,
+        transformOrigin: "top center",
+      };
+    },
     [isCompactLayout, referenceWidth, resolvedScale],
   );
 
