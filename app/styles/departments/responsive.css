@@ -137,13 +137,19 @@
 }
 
 .wf-dept-modal-root--mobile .wf-notebook-modal-title {
-  font-size: clamp(24px, calc(6.2 * var(--wf-reference-phone-vw)), 34px);
-  line-height: 1.32;
+  font-size: var(
+    --wf-dept-compact-modal-title-size,
+    clamp(24px, calc(6.2 * var(--wf-reference-phone-vw)), 34px)
+  );
+  line-height: var(--wf-dept-compact-modal-title-line-height, 1.32);
 }
 
 .wf-dept-modal-root--mobile .wf-notebook-modal-text {
-  font-size: clamp(14px, calc(4.2 * var(--wf-reference-phone-vw)), 18px);
-  line-height: 1.68;
+  font-size: var(
+    --wf-dept-compact-modal-text-size,
+    clamp(14px, calc(4.2 * var(--wf-reference-phone-vw)), 18px)
+  );
+  line-height: var(--wf-dept-compact-modal-text-line-height, 1.68);
   overflow-wrap: normal;
   text-wrap: unset;
   text-shadow: 0 1px 4px rgba(8, 10, 7, 0.28);
@@ -177,6 +183,15 @@
 
 .wf-dept-modal-mobile-line:first-child {
   margin-top: 0;
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .wf-dept-modal-root--mobile {
+    --wf-dept-compact-modal-title-size: 44px;
+    --wf-dept-compact-modal-title-line-height: 1.28;
+    --wf-dept-compact-modal-text-size: 30px;
+    --wf-dept-compact-modal-text-line-height: 1.72;
+  }
 }
 
 @media (max-width: 900px) {

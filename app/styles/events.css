@@ -227,8 +227,8 @@
   padding: var(--wf-event-modal-mobile-text-padding);
   margin-top: var(--wf-event-modal-mobile-text-margin-top);
   margin-left: var(--wf-event-modal-mobile-text-margin-left);
-  font-size: var(--wf-event-modal-mobile-text-font-size);
-  line-height: var(--wf-event-modal-mobile-text-line-height);
+  font-size: var(--wf-event-compact-modal-text-size, var(--wf-event-modal-mobile-text-font-size));
+  line-height: var(--wf-event-compact-modal-text-line-height, var(--wf-event-modal-mobile-text-line-height));
   white-space: normal;
   overflow-wrap: break-word;
   text-wrap: pretty;
@@ -274,6 +274,13 @@
 
 .wf-events-modal-mobile-line:first-child {
   margin-top: 0;
+}
+
+@media (min-width: 641px) and (max-width: 900px) {
+  .wf-events-modal-root--mobile {
+    --wf-event-compact-modal-text-size: 22px;
+    --wf-event-compact-modal-text-line-height: 1.76;
+  }
 }
 
 @supports (word-break: auto-phrase) {
