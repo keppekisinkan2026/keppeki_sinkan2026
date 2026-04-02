@@ -71,13 +71,7 @@ body {
   .wf-title-main li,
   .wf-title-main dt,
   .wf-title-main dd,
-  .wf-title-main figcaption,
-  .maintenance-screen p,
-  .maintenance-screen li,
-  .maintenance-screen dt,
-  .maintenance-screen dd,
-  .maintenance-screen figcaption,
-  .maintenance-screen blockquote {
+  .wf-title-main figcaption {
     word-break: normal !important;
     overflow-wrap: break-word !important;
     text-wrap: pretty !important;
@@ -94,11 +88,7 @@ body {
   .wf-title-main h1,
   .wf-title-main h2,
   .wf-title-main h3,
-  .wf-title-main h4,
-  .maintenance-screen h1,
-  .maintenance-screen h2,
-  .maintenance-screen h3,
-  .maintenance-screen h4 {
+  .wf-title-main h4 {
     word-break: normal !important;
     overflow-wrap: break-word !important;
     text-wrap: balance;

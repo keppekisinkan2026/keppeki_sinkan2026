@@ -75,6 +75,7 @@ export type PastPerformance = {
   posterImageSource: string;
   scatterOffsets?: PastScatterLayout[];
   mobileScatterLayouts?: PastScatterLayout[];
+  tabletScatterLayouts?: PastScatterLayout[];
 };
 
 export function getPastPerformanceScatterKey({

@@ -608,8 +608,11 @@
   }
 
   .wf-past-modal-root--mobile .wf-past-modal-title {
-    font-size: clamp(24px, calc(6.2 * var(--wf-reference-phone-vw)), 34px);
-    line-height: 1.32;
+    font-size: var(
+      --wf-past-compact-modal-title-size,
+      clamp(24px, calc(6.2 * var(--wf-reference-phone-vw)), 34px)
+    );
+    line-height: var(--wf-past-compact-modal-title-line-height, 1.32);
   }
 
   .wf-past-modal-root--mobile .wf-past-modal-text {
@@ -638,7 +641,12 @@
 @media (min-width: 641px) and (max-width: 900px) {
   .wf-past-page {
     --wf-past-compact-card-title-size: clamp(13px, 1.8cqi, 21px);
-    --wf-past-compact-modal-text-size: 17px;
+  }
+
+  .wf-past-modal-root--mobile {
+    --wf-past-compact-modal-title-size: 50px;
+    --wf-past-compact-modal-title-line-height: 1.28;
+    --wf-past-compact-modal-text-size: 30px;
     --wf-past-compact-modal-text-line-height: 1.68;
   }
 }

@@ -4,7 +4,7 @@ import {
   pastPosterImageSources,
   type PastScatterLayout,
   type PastPerformance,
-} from "@/components/maintenance/past/pastShared";
+} from "@/components/past/pastShared";
 
 const sinkanTitle = [
   "劇団ケッペキ2025年度新入生歓迎企画",
@@ -83,6 +83,19 @@ function createMobileScatterLayouts(count: number, layouts: readonly ScatterOffs
   });
 }
 
+function createTabletScatterLayouts(count: number, layouts: readonly ScatterOffset[]) {
+  return Array.from({ length: count }, (_, index) => {
+    const layout = layouts[index] ?? {};
+
+    return {
+      x: layout.x ?? 0,
+      y: layout.y ?? 0,
+      rotation: layout.rotation ?? 0,
+      widthScale: layout.widthScale ?? 0.7,
+    };
+  });
+}
+
 const sinkanScatterOffsets = createScatterOffsets(pastGalleryImageSources.sinkan.length, [
   { x: 100, y: -18, rotation: -14 },
   { x: -100, y: -12, rotation: 11 },
@@ -147,6 +160,15 @@ const sinkanMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSo
   { x: 0, y: -230, rotation: 0, widthScale: 0.7 },
 ]);
 
+const sinkanTabletScatterLayouts = createTabletScatterLayouts(pastGalleryImageSources.sinkan.length, [
+  { x: 200, y: 100, rotation: 0, widthScale: 0.7 },
+  { x: -210, y: 120, rotation: -30, widthScale: 0.7 },
+  { x: -250, y: -130, rotation: -40, widthScale: 0.7 },
+  { x: 230, y: -160, rotation: 20, widthScale: 0.7 },
+  { x: 10, y: -770, rotation: 30, widthScale: 0.7 },
+  { x: 0, y: -500, rotation: 0, widthScale: 0.7 },
+]);
+
 const midhiMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.midhi.length, [
   { x: 70, y: -30, rotation: -10, widthScale: 0.7 },
   { x: -260, y: -20, rotation: 0, widthScale: 0.7 },
@@ -158,11 +180,29 @@ const midhiMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSou
   { x: 150, y: -280, rotation: -30, widthScale: 0.7 },
 ]);
 
+const midhiTabletScatterLayouts = createTabletScatterLayouts(pastGalleryImageSources.midhi.length, [
+  { x: 240, y: 70, rotation: -10, widthScale: 0.7 },
+  { x: -360, y: 50, rotation: 0, widthScale: 0.7 },
+  { x: -200, y: -330, rotation: -30, widthScale: 0.7 },
+  { x: 170, y: -330, rotation: -20, widthScale: 0.6 },
+  { x: -160, y: -510, rotation: 10, widthScale: 0.7 },
+  { x: -10, y: -500, rotation: 20, widthScale: 0.7 },
+  { x: 190, y: -600, rotation: 20, widthScale: 0.7 },
+  { x: 150, y: -460, rotation: -30, widthScale: 0.7 },
+]);
+
 const natuMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.natu.length, [
   { x: 100, y: 0, rotation: 0, widthScale: 0.7 },
   { x: -200, y: -20, rotation: 20, widthScale: 0.7 },
   { x: -150, y: -20, rotation: 0, widthScale: 0.7 },
   { x: 150, y: -40, rotation: 0, widthScale: 0.7 },
+]);
+
+const natuTabletScatterLayouts = createTabletScatterLayouts(pastGalleryImageSources.natu.length, [
+  { x: 240, y: 100, rotation: -10, widthScale: 0.7 },
+  { x: -340, y: 60, rotation: 20, widthScale: 0.7 },
+  { x: -250, y: -100, rotation: 0, widthScale: 0.7 },
+  { x: 250, y: -150, rotation: 0, widthScale: 0.7 },
 ]);
 
 const nfMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.nf.length, [
@@ -172,11 +212,25 @@ const nfMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSource
   { x: 120, y: -45, rotation: 32, widthScale: 0.7 },
 ]);
 
+const nfTabletScatterLayouts = createTabletScatterLayouts(pastGalleryImageSources.nf.length, [
+  { x: 250, y: 100, rotation: 0, widthScale: 0.7 },
+  { x: -230, y: 100, rotation: 30, widthScale: 0.7 },
+  { x: -250, y: -110, rotation: -20, widthScale: 0.7 },
+  { x: 240, y: -160, rotation: 32, widthScale: 0.7 },
+]);
+
 const huyuMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.huyu.length, [
   { x: 200, y: -10, rotation: 0, widthScale: 0.7 },
   { x: -90, y: 0, rotation: 40, widthScale: 0.7 },
   { x: -150, y: 0, rotation: 0, widthScale: 0.7 },
   { x: 150, y: 0, rotation: 0, widthScale: 0.7 },
+]);
+
+const huyuTabletScatterLayouts = createTabletScatterLayouts(pastGalleryImageSources.huyu.length, [
+  { x: 230, y: 110, rotation: 0, widthScale: 0.7 },
+  { x: -350, y: 70, rotation: 30, widthScale: 0.7 },
+  { x: -200, y: -120, rotation: 0, widthScale: 0.7 },
+  { x: 400, y: -150, rotation: 0, widthScale: 0.7 },
 ]);
 
 const sinzinMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.sinzin.length, [
@@ -186,11 +240,25 @@ const sinzinMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSo
   { x: 150, y: -40, rotation: 0, widthScale: 0.7 },
 ]);
 
+const sinzinTabletScatterLayouts = createTabletScatterLayouts(pastGalleryImageSources.sinzin.length, [
+  { x: 240, y: 100, rotation: -10, widthScale: 0.7 },
+  { x: -340, y: 60, rotation: 20, widthScale: 0.7 },
+  { x: -250, y: -100, rotation: 0, widthScale: 0.7 },
+  { x: 250, y: -150, rotation: 0, widthScale: 0.7 },
+]);
+
 const sotuMobileScatterLayouts = createMobileScatterLayouts(pastGalleryImageSources.sotu.length, [
   { x: 100, y: 0, rotation: 0, widthScale: 0.7 },
   { x: -50, y: 100, rotation: 30, widthScale: 0.7 },
   { x: -100, y: -20, rotation: -20, widthScale: 0.7 },
   { x: 120, y: -45, rotation: 32, widthScale: 0.7 },
+]);
+
+const sotuTabletScatterLayouts = createTabletScatterLayouts(pastGalleryImageSources.sotu.length, [
+  { x: 250, y: 100, rotation: 0, widthScale: 0.7 },
+  { x: -230, y: 100, rotation: 30, widthScale: 0.7 },
+  { x: -250, y: -110, rotation: -20, widthScale: 0.7 },
+  { x: 240, y: -160, rotation: 32, widthScale: 0.7 },
 ]);
 
 export const pastPerformances: PastPerformance[] = [
@@ -204,6 +272,7 @@ export const pastPerformances: PastPerformance[] = [
     posterImageSource: pastPosterImageSources.sinkan,
     scatterOffsets: sinkanScatterOffsets,
     mobileScatterLayouts: sinkanMobileScatterLayouts,
+    tabletScatterLayouts: sinkanTabletScatterLayouts,
   },
   {
     id: 2,
@@ -215,6 +284,7 @@ export const pastPerformances: PastPerformance[] = [
     posterImageSource: pastPosterImageSources.midhi,
     scatterOffsets: midhiScatterOffsets,
     mobileScatterLayouts: midhiMobileScatterLayouts,
+    tabletScatterLayouts: midhiTabletScatterLayouts,
   },
   {
     id: 3,
@@ -226,6 +296,7 @@ export const pastPerformances: PastPerformance[] = [
     posterImageSource: pastPosterImageSources.natu,
     scatterOffsets: natuScatterOffsets,
     mobileScatterLayouts: natuMobileScatterLayouts,
+    tabletScatterLayouts: natuTabletScatterLayouts,
   },
   {
     id: 4,
@@ -237,6 +308,7 @@ export const pastPerformances: PastPerformance[] = [
     posterImageSource: pastPosterImageSources.nf,
     scatterOffsets: nfScatterOffsets,
     mobileScatterLayouts: nfMobileScatterLayouts,
+    tabletScatterLayouts: nfTabletScatterLayouts,
   },
   {
     id: 5,
@@ -248,6 +320,7 @@ export const pastPerformances: PastPerformance[] = [
     posterImageSource: pastPosterImageSources.huyu,
     scatterOffsets: huyuScatterOffsets,
     mobileScatterLayouts: huyuMobileScatterLayouts,
+    tabletScatterLayouts: huyuTabletScatterLayouts,
   },
   {
     id: 6,
@@ -259,6 +332,7 @@ export const pastPerformances: PastPerformance[] = [
     posterImageSource: pastPosterImageSources.sinzin,
     scatterOffsets: sinzinScatterOffsets,
     mobileScatterLayouts: sinzinMobileScatterLayouts,
+    tabletScatterLayouts: sinzinTabletScatterLayouts,
   },
   {
     id: 7,
@@ -270,5 +344,6 @@ export const pastPerformances: PastPerformance[] = [
     posterImageSource: pastPosterImageSources.sotu,
     scatterOffsets: sotuScatterOffsets,
     mobileScatterLayouts: sotuMobileScatterLayouts,
+    tabletScatterLayouts: sotuTabletScatterLayouts,
   },
 ];

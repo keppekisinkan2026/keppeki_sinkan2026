@@ -1,5 +1,5 @@
 /* Smartphone and tablet tuning for the flow page lives here. */
-/* Phone-only per-step and per-photo fine-tuning now lives in components/maintenance/flow/flowData.tsx. */
+/* Phone-only per-step and per-photo fine-tuning now lives in components/flow/flowData.tsx. */
 
 @media (max-width: 960px) {
   .wf-frame--flow {

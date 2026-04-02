@@ -7,9 +7,8 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { appendFlipbookFrames, hideFlipbookFrames, showLastFlipbookFrame } from "@/lib/gsap/flipbook";
 import { prefersReducedMotion } from "@/lib/prefersReducedMotion";
-import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
+import { useVisualViewportTier } from "@/lib/useVisualViewportTier";
 import { withBasePath } from "@/lib/withBasePath";
-import { MAINTENANCE_MOBILE_MAX_WIDTH } from "@/lib/referenceMobile";
 import { type PastPerformance } from "./pastShared";
 import { PastGalleryScatter } from "./PastGalleryScatter";
 import { PastFrameStack } from "./PastFrameStack";
@@ -19,7 +18,7 @@ type PastItemProps = {
   onOpen: () => void;
 };
 
-const SHOW_PAST_SCATTER_DEBUG_IDS = false;
+const SHOW_PAST_SCATTER_DEBUG_IDS = true;
 
 const warmedPastImageSources = new Set<string>();
 
@@ -119,7 +118,10 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 export function PastItem({ performance, onOpen }: PastItemProps) {
   const rootRef = useRef<HTMLElement>(null);
-  const isMobileLayout = useVisualViewportMobile(MAINTENANCE_MOBILE_MAX_WIDTH);
+  const viewportTier = useVisualViewportTier();
+  const isCompactLayout = viewportTier !== "desktop";
+  const compactScatterLayouts =
+    viewportTier === "tablet" ? performance.tabletScatterLayouts : performance.mobileScatterLayouts;
   const imageSourcesToWarm = useMemo(
     () => [performance.posterImageSource, ...performance.galleryImageSources],
     [performance.galleryImageSources, performance.posterImageSource],
@@ -182,7 +184,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
             cardWidth,
             shellWidth: shellRect.width,
             shellHeight: shellRect.height,
-            scatterLayouts: isMobileLayout ? performance.mobileScatterLayouts : performance.scatterOffsets,
+            scatterLayouts: isCompactLayout ? compactScatterLayouts : performance.scatterOffsets,
           });
 
           if (!animated || reduceMotion) {
@@ -268,7 +270,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         hideScatter();
       };
 
-      if (!isMobileLayout) {
+      if (!isCompactLayout) {
         button.addEventListener("mouseenter", handlePointerEnter);
         button.addEventListener("mouseleave", handlePointerLeave);
         button.addEventListener("focus", handleFocus);
@@ -280,11 +282,11 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         showLastFlipbookFrame(frames);
         gsap.set(content, { autoAlpha: 1, y: 0 });
         button.classList.add("is-poster-ready");
-        if (isMobileLayout) {
+        if (isCompactLayout) {
           showScatter();
         }
         return () => {
-          if (!isMobileLayout) {
+          if (!isCompactLayout) {
             button.removeEventListener("mouseenter", handlePointerEnter);
             button.removeEventListener("mouseleave", handlePointerLeave);
             button.removeEventListener("focus", handleFocus);
@@ -319,7 +321,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         frameDuration: flipbookDuration,
       });
 
-      if (isMobileLayout) {
+      if (isCompactLayout) {
         timeline.call(
           () => {
             button.classList.add("is-poster-ready");
@@ -360,7 +362,7 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
       }
 
       return () => {
-        if (!isMobileLayout) {
+        if (!isCompactLayout) {
           button.removeEventListener("mouseenter", handlePointerEnter);
           button.removeEventListener("mouseleave", handlePointerLeave);
           button.removeEventListener("focus", handleFocus);
@@ -368,18 +370,18 @@ export function PastItem({ performance, onOpen }: PastItemProps) {
         }
       };
     },
-    { scope: rootRef, dependencies: [isMobileLayout, performance.id], revertOnUpdate: true },
+    { scope: rootRef, dependencies: [isCompactLayout, compactScatterLayouts, performance.id], revertOnUpdate: true },
   );
 
   return (
-    <article ref={rootRef} className={`wf-past-item${isMobileLayout ? " wf-past-item--mobile" : ""}`}>
+    <article ref={rootRef} className={`wf-past-item${isCompactLayout ? " wf-past-item--mobile" : ""}`}>
       <div className="wf-past-item-stage">
         <div className="wf-past-item-scatter-layer" aria-hidden>
           <PastGalleryScatter
             imageSources={performance.galleryImageSources}
-            isMobileLayout={isMobileLayout}
-            mobileLayouts={performance.mobileScatterLayouts}
-            showDebugIds={SHOW_PAST_SCATTER_DEBUG_IDS}
+            isCompactLayout={isCompactLayout}
+            compactLayouts={compactScatterLayouts}
+            showDebugIds={SHOW_PAST_SCATTER_DEBUG_IDS && viewportTier === "tablet"}
             debugPrefix={performance.key}
           />
         </div>

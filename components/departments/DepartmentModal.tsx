@@ -3,7 +3,7 @@
 import { Fragment, type ReactNode } from "react";
 import { useVisualViewportMobile } from "@/lib/useVisualViewportMobile";
 import { type DepartmentConfig } from "@/app/departments/content";
-import { pastCardFrameSources } from "@/components/maintenance/past/pastShared";
+import { pastCardFrameSources } from "@/components/past/pastShared";
 import { NotebookModal } from "@/components/shared/NotebookModal";
 import { wrapTextForMobile } from "@/lib/mobileTextWrap";
 import { MAINTENANCE_MOBILE_MAX_WIDTH } from "@/lib/referenceMobile";

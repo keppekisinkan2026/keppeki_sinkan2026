@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { socialLinks } from "@/components/maintenance/socialLinkData";
+import { socialLinks } from "@/lib/socialLinkData";
 
 export const openingFrameSources = [
   "/images/title1.png",

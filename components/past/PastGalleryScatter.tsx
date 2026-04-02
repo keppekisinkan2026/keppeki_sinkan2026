@@ -4,8 +4,8 @@ import { type PastScatterLayout } from "./pastShared";
 
 type PastGalleryScatterProps = {
   imageSources: string[];
-  isMobileLayout?: boolean;
-  mobileLayouts?: PastScatterLayout[];
+  isCompactLayout?: boolean;
+  compactLayouts?: PastScatterLayout[];
   showDebugIds?: boolean;
   debugPrefix?: string;
 };
@@ -34,8 +34,8 @@ const scatterCards = [
 
 export function PastGalleryScatter({
   imageSources,
-  isMobileLayout = false,
-  mobileLayouts,
+  isCompactLayout = false,
+  compactLayouts,
   showDebugIds = false,
   debugPrefix = "photo",
 }: PastGalleryScatterProps) {
@@ -43,11 +43,11 @@ export function PastGalleryScatter({
     <>
       {imageSources.map((imageSource, index) => {
         const card = scatterCards[index % scatterCards.length];
-        const mobileLayout = isMobileLayout ? mobileLayouts?.[index] : undefined;
-        const widthScale = mobileLayout?.widthScale ?? (isMobileLayout ? 0.7 : 1);
+        const compactLayout = isCompactLayout ? compactLayouts?.[index] : undefined;
+        const widthScale = compactLayout?.widthScale ?? (isCompactLayout ? 0.7 : 1);
         const debugLabel = `${debugPrefix}-${index + 1}`;
         const style: ScatterCardStyle = {
-          "--wf-scatter-width": isMobileLayout ? `calc(${card.width} * ${widthScale})` : card.width,
+          "--wf-scatter-width": isCompactLayout ? `calc(${card.width} * ${widthScale})` : card.width,
         };
 
         return (
