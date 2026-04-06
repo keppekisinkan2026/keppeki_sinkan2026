@@ -67,10 +67,22 @@ export function WelcomeEventModal({ event, onClose }: WelcomeEventModalProps) {
         "--wf-event-modal-mobile-content-gap": modalLayout.contentGap ?? "10px",
         "--wf-event-modal-mobile-title-font-size": modalLayout.titleFontSize ?? "clamp(20px, 5.8vw, 30px)",
         "--wf-event-modal-mobile-title-line-height": modalLayout.titleLineHeight ?? "1.25",
+        "--wf-event-modal-mobile-title-margin-top": modalLayout.titleMarginTop ?? "0px",
+        "--wf-event-modal-mobile-title-margin-left": modalLayout.titleMarginLeft ?? "0px",
         "--wf-event-modal-mobile-title-margin-bottom": modalLayout.titleMarginBottom ?? "0px",
+        "--wf-event-modal-tablet-title-margin-top":
+          modalLayout.tabletTitleMarginTop ?? modalLayout.titleMarginTop ?? "0px",
+        "--wf-event-modal-tablet-title-margin-left":
+          modalLayout.tabletTitleMarginLeft ?? modalLayout.titleMarginLeft ?? "0px",
+        "--wf-event-modal-tablet-title-margin-bottom":
+          modalLayout.tabletTitleMarginBottom ?? modalLayout.titleMarginBottom ?? "0px",
         "--wf-event-modal-mobile-text-padding": modalLayout.textPadding ?? "2px 6px 2px 2px",
         "--wf-event-modal-mobile-text-margin-top": modalLayout.textMarginTop ?? "0px",
         "--wf-event-modal-mobile-text-margin-left": modalLayout.textMarginLeft ?? "0px",
+        "--wf-event-modal-tablet-text-margin-top":
+          modalLayout.tabletTextMarginTop ?? modalLayout.textMarginTop ?? "0px",
+        "--wf-event-modal-tablet-text-margin-left":
+          modalLayout.tabletTextMarginLeft ?? modalLayout.textMarginLeft ?? "0px",
         "--wf-event-modal-mobile-text-font-size": modalLayout.textFontSize ?? "clamp(12px, 3.9vw, 16px)",
         "--wf-event-modal-mobile-text-line-height": modalLayout.textLineHeight ?? "1.82",
       }

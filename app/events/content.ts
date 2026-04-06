@@ -9,10 +9,17 @@ export type WelcomeEventPhoneModalLayout = {
   contentGap?: string;
   titleFontSize?: string;
   titleLineHeight?: string;
+  titleMarginTop?: string;
+  titleMarginLeft?: string;
   titleMarginBottom?: string;
+  tabletTitleMarginTop?: string;
+  tabletTitleMarginLeft?: string;
+  tabletTitleMarginBottom?: string;
   textPadding?: string;
   textMarginTop?: string;
   textMarginLeft?: string;
+  tabletTextMarginTop?: string;
+  tabletTextMarginLeft?: string;
   textFontSize?: string;
   textLineHeight?: string;
   textMaxChars?: number;
@@ -42,10 +49,17 @@ const defaultWelcomeEventPhoneModalLayout: WelcomeEventPhoneModalLayout = {
   contentGap: "10px",
   titleFontSize: "clamp(20px, calc(5.8 * var(--wf-reference-phone-vw)), 30px)",
   titleLineHeight: "1.25",
+  titleMarginTop: "0px",
+  titleMarginLeft: "0px",
   titleMarginBottom: "0px",
+  tabletTitleMarginTop: "0px",
+  tabletTitleMarginLeft: "0px",
+  tabletTitleMarginBottom: "0px",
   textPadding: "2px 6px 2px 2px",
   textMarginTop: "0px",
   textMarginLeft: "0px",
+  tabletTextMarginTop: "0px",
+  tabletTextMarginLeft: "0px",
   textFontSize: "clamp(12px, calc(3.9 * var(--wf-reference-phone-vw)), 16px)",
   textLineHeight: "1.82",
   textMaxChars: 16,
