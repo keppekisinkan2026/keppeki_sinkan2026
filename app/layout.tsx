@@ -17,6 +17,11 @@ export const metadata: Metadata = {
     default: "2026年度新歓特設サイト | 劇団ケッペキ",
     template: "%s | 劇団ケッペキ",
   },
+  icons: {
+    icon: "/icon.png",
+    shortcut: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   description:
     "京都大学公認学生劇団「劇団ケッペキ」2026年度新歓特設サイト。劇団紹介、部署紹介、新歓イベント、公演ができるまで、過去公演、Q&Aを掲載しています。",
 };
