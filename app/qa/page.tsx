@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import { WireframeShell } from "@/components/wireframe/WireframeShell";
 import { QaAccordion } from "@/components/qa/QaAccordion";
 import { MAINTENANCE_MOBILE_MAX_WIDTH, REFERENCE_PHONE_WIDTH } from "@/lib/referenceMobile";
 import { withBasePath } from "@/lib/withBasePath";
 import { qaItems } from "./content";
+
+export const metadata: Metadata = {
+  title: "Q&A",
+  description:
+    "劇団ケッペキの新歓に関するよくある質問をまとめています。活動頻度、兼サー、経験の有無などを確認できます。",
+};
 
 export default function QaWireframePage() {
   return (

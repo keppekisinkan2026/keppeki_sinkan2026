@@ -12,8 +12,13 @@ const makiCircle = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "2026年度新歓特設サイト | 劇団ケッペキ",
-  description: "劇団ケッペキ 2026年度新歓特設サイト メンテナンスページ",
+  metadataBase: new URL("https://keppekisinkan2026.github.io"),
+  title: {
+    default: "2026年度新歓特設サイト | 劇団ケッペキ",
+    template: "%s | 劇団ケッペキ",
+  },
+  description:
+    "京都大学公認学生劇団「劇団ケッペキ」2026年度新歓特設サイト。劇団紹介、部署紹介、新歓イベント、公演ができるまで、過去公演、Q&Aを掲載しています。",
 };
 
 export const viewport: Viewport = {
