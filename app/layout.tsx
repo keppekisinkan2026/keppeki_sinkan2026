@@ -18,8 +18,11 @@ export const metadata: Metadata = {
     template: "%s | 劇団ケッペキ",
   },
   icons: {
-    icon: "/icon.png",
-    shortcut: "/icon.png",
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "400x400" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
     apple: "/apple-icon.png",
   },
   description:
