@@ -126,44 +126,160 @@
 .wf-event-hotspot {
   position: absolute;
   z-index: 2;
+  appearance: none;
+  -webkit-appearance: none;
   border: 0;
   border-radius: 999px;
   background: transparent;
+  box-shadow: none;
   cursor: pointer;
   padding: 0;
-  transition:
-    transform 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+  overflow: visible;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.wf-event-hotspot::before {
-  content: "";
+.wf-event-hotspot:focus-visible {
+  outline: none;
+}
+
+.wf-event-hotspot--today {
+  z-index: 4;
+}
+
+.wf-event-today-burst {
+  --wf-event-today-label-offset-x: 0px;
+  --wf-event-today-label-offset-y: 75px;
+  --wf-event-today-label-rotate: -5deg;
   position: absolute;
-  inset: 10%;
-  border-radius: inherit;
-  background: transparent;
-  transition:
-    transform 0.18s ease,
-    background-color 0.18s ease,
-    box-shadow 0.18s ease;
+  inset: -76%;
+  z-index: -1;
+  pointer-events: none;
+  transform: rotate(-4deg);
+  transform-origin: center;
 }
 
-.wf-event-hotspot:hover::before,
-.wf-event-hotspot:focus-visible::before {
-  background: rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 0 10px rgba(255, 255, 255, 0.14);
-  transform: scale(1.05);
+.wf-event-today-burst--capsule {
+  inset: -130% -18%;
+  --wf-event-today-label-offset-y: -16px;
 }
 
-.wf-event-hotspot:hover,
-.wf-event-hotspot:focus-visible {
-  transform: translateY(-2px);
+.wf-event-today-burst--capsule-group {
+  --wf-event-today-group-burst-auto-scale-x: 1;
+  --wf-event-today-group-burst-auto-scale-y: 1;
+  --wf-event-today-group-burst-auto-offset-x: 0%;
+  --wf-event-today-group-burst-auto-offset-y: 0%;
+  --wf-event-today-group-burst-adjust-x: 0px;
+  --wf-event-today-group-burst-adjust-y: 30px;
+  --wf-event-today-group-burst-manual-scale-x: 1.7;
+  --wf-event-today-group-burst-manual-scale-y: 1.7;
+  --wf-event-today-group-label-adjust-x: 0px;
+  --wf-event-today-group-label-adjust-y: -8px;
+  --wf-event-today-group-label-rotate: -4deg;
+  --wf-event-today-group-burst-adjust-x-effective: var(
+    --wf-event-today-group-responsive-burst-adjust-x,
+    var(--wf-event-today-group-burst-adjust-x)
+  );
+  --wf-event-today-group-burst-adjust-y-effective: var(
+    --wf-event-today-group-responsive-burst-adjust-y,
+    var(--wf-event-today-group-burst-adjust-y)
+  );
+  --wf-event-today-group-burst-manual-scale-x-effective: var(
+    --wf-event-today-group-responsive-burst-manual-scale-x,
+    var(--wf-event-today-group-burst-manual-scale-x)
+  );
+  --wf-event-today-group-burst-manual-scale-y-effective: var(
+    --wf-event-today-group-responsive-burst-manual-scale-y,
+    var(--wf-event-today-group-burst-manual-scale-y)
+  );
+  --wf-event-today-group-label-adjust-x-effective: var(
+    --wf-event-today-group-responsive-label-adjust-x,
+    var(--wf-event-today-group-label-adjust-x)
+  );
+  --wf-event-today-group-label-adjust-y-effective: var(
+    --wf-event-today-group-responsive-label-adjust-y,
+    var(--wf-event-today-group-label-adjust-y)
+  );
+  --wf-event-today-group-label-rotate-effective: var(
+    --wf-event-today-group-responsive-label-rotate,
+    var(--wf-event-today-group-label-rotate)
+  );
+  top: calc(50% + var(--wf-event-today-group-burst-auto-offset-y));
+  left: calc(50% + var(--wf-event-today-group-burst-auto-offset-x));
+  inset: auto;
+  width: calc(100% * var(--wf-event-today-group-burst-auto-scale-x));
+  height: calc(100% * var(--wf-event-today-group-burst-auto-scale-y));
+  transform: translate(
+      calc(-50% + var(--wf-event-today-group-burst-adjust-x-effective)),
+      calc(-50% + var(--wf-event-today-group-burst-adjust-y-effective))
+    )
+    rotate(-2deg)
+    scale(
+      var(--wf-event-today-group-burst-manual-scale-x-effective),
+      var(--wf-event-today-group-burst-manual-scale-y-effective)
+    );
 }
 
-.wf-event-hotspot:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.85);
-  outline-offset: 2px;
+.wf-event-today-burst-label-shell {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  white-space: nowrap;
+  transform: translate(calc(-50% + var(--wf-event-today-label-offset-x)), var(--wf-event-today-label-offset-y))
+    rotate(var(--wf-event-today-label-rotate));
+  transform-origin: center;
+}
+
+.wf-event-today-burst--capsule-group .wf-event-today-burst-label-shell {
+  top: 0;
+  left: 50%;
+  transform: translate(
+      calc(-50% + var(--wf-event-today-group-label-adjust-x-effective)),
+      var(--wf-event-today-group-label-adjust-y-effective)
+    )
+    rotate(var(--wf-event-today-group-label-rotate-effective));
+}
+
+.wf-event-today-burst-label {
+  display: block;
+  color: #df5a3a;
+  font-size: clamp(20px, 2.4vw, 30px);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 0 rgba(255, 246, 237, 0.25);
+  animation: wf-event-today-burst-breathe 1.9s ease-in-out infinite;
+}
+
+.wf-event-today-burst-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: wf-event-today-burst-breathe 1.9s ease-in-out infinite;
+}
+
+.wf-event-today-burst-ray {
+  fill: none;
+  stroke: #df5a3a;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 6px;
+  opacity: 0.98;
+  filter: drop-shadow(0 1px 0 rgba(113, 47, 25, 0.06));
+}
+
+@keyframes wf-event-today-burst-breathe {
+  0%,
+  100% {
+    opacity: 0.92;
+    transform: scale(0.985);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
 }
 
 .wf-events-modal-root .wf-notebook-modal-title {
@@ -372,8 +488,34 @@
     width: clamp(148px, calc(32 * var(--wf-reference-phone-vw)), 210px);
   }
 
-  .wf-event-hotspot::before {
-    inset: 6%;
+  .wf-event-today-burst {
+    inset: -68%;
+  }
+
+  .wf-event-today-burst--capsule {
+    inset: -108% -15%;
+  }
+
+  .wf-event-today-burst--capsule-group {
+    --wf-event-today-group-responsive-burst-adjust-x: 65px;
+    --wf-event-today-group-responsive-burst-adjust-y: 55px;
+    --wf-event-today-group-responsive-burst-manual-scale-x: 1.8;
+    --wf-event-today-group-responsive-burst-manual-scale-y: 1.7;
+    --wf-event-today-group-responsive-label-adjust-x: 5px;
+    --wf-event-today-group-responsive-label-adjust-y: -8px;
+    --wf-event-today-group-responsive-label-rotate: var(--wf-event-today-group-label-rotate);
+  }
+
+  .wf-event-today-burst-label-shell {
+    --wf-event-today-label-offset-y: -20px;
+  }
+
+  .wf-event-today-burst--capsule .wf-event-today-burst-label-shell {
+    --wf-event-today-label-offset-y: -50px;
+  }
+
+  .wf-event-today-burst-label {
+    font-size: clamp(14px, calc(4.8 * var(--wf-reference-phone-vw)), 24px);
   }
 
   .wf-event-speech-text {
