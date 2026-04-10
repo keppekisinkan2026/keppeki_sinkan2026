@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     default: "2026年度新歓特設サイト | 劇団ケッペキ",
     template: "%s | 劇団ケッペキ",
   },
+  verification: {
+    google: "pNbcPoCmvDi7DzCyCnUANAjbCBhTIEymct2vvu6EYPg",
+  },
   icons: {
     icon: [
       { url: "/icon.png", type: "image/png", sizes: "400x400" },
