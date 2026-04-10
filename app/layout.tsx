@@ -2,6 +2,12 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { Header } from "./components/Header";
 import { ScrollToTopButton } from "./components/ScrollToTopButton";
+import {
+  createDefaultOpenGraph,
+  createDefaultTwitter,
+  DEFAULT_SITE_DESCRIPTION,
+  SITE_URL,
+} from "@/lib/seo";
 import "./globals.css";
 
 const makiCircle = localFont({
@@ -12,7 +18,7 @@ const makiCircle = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://keppekisinkan2026.github.io"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "2026年度新歓特設サイト | 劇団ケッペキ",
     template: "%s | 劇団ケッペキ",
@@ -25,8 +31,9 @@ export const metadata: Metadata = {
     shortcut: "/favicon.ico",
     apple: "/apple-icon.png",
   },
-  description:
-    "京都大学公認学生劇団「劇団ケッペキ」2026年度新歓特設サイト。劇団紹介、部署紹介、新歓イベント、公演ができるまで、過去公演、Q&Aを掲載しています。",
+  description: DEFAULT_SITE_DESCRIPTION,
+  openGraph: createDefaultOpenGraph(),
+  twitter: createDefaultTwitter(),
 };
 
 export const viewport: Viewport = {
