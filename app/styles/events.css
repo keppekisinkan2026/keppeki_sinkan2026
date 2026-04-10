@@ -428,34 +428,6 @@
 
 @media (max-width: 900px) {
   .wf-event-page-container {
-    padding-top: clamp(88px, calc(20 * var(--wf-reference-phone-vw)), 132px);
-  }
-
-  .wf-event-character--left {
-    top: 14.8%;
-    left: 11.8%;
-    width: clamp(110px, calc(19 * var(--wf-reference-phone-vw)), 180px);
-  }
-
-  .wf-event-character--right {
-    top: 57.4%;
-    right: -1.6%;
-    width: clamp(98px, calc(14 * var(--wf-reference-phone-vw)), 152px);
-  }
-
-  .wf-event-speech-bubble--left {
-    top: 10.2%;
-    left: 21.8%;
-    width: clamp(200px, calc(28 * var(--wf-reference-phone-vw)), 290px);
-  }
-
-  .wf-event-speech-text {
-    font-size: clamp(18px, calc(2.6 * var(--wf-reference-phone-vw)), 24px);
-  }
-}
-
-@media (max-width: 900px) {
-  .wf-event-page-container {
     /* Mobile character tuning lives here. */
     padding-top: 88px;
     --wf-event-phone-character-left-top: 80%;
@@ -507,7 +479,7 @@
   }
 
   .wf-event-today-burst-label-shell {
-    --wf-event-today-label-offset-y: -20px;
+    --wf-event-today-label-offset-y: 10px;
   }
 
   .wf-event-today-burst--capsule .wf-event-today-burst-label-shell {
